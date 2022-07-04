@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "dgSpecHash": "3p/TsrH1/f/9dsz7bBIV+WAK0N1EkLDljPwStK9rkLHS3wDEz8MNlxC+jPpBuDcGdqwhbWuv0ayykd61yHjrcQ==",
+  "success": true,
+  "projectFilePath": "/home/sbajanki/repos/hello-world-auth-examples/hello-world-auth-examples.csproj",
+  "expectedPackageFiles": [
+    "/home/sbajanki/.nuget/packages/identitymodel/6.0.0/identitymodel.6.0.0.nupkg.sha512",
+    "/home/sbajanki/.nuget/packages/microsoft.aspnetcore.authentication.jwtbearer/5.0.9/microsoft.aspnetcore.authentication.jwtbearer.5.0.9.nupkg.sha512",
+    "/home/sbajanki/.nuget/packages/microsoft.csharp/4.5.0/microsoft.csharp.4.5.0.nupkg.sha512",
+    "/home/sbajanki/.nuget/packages/microsoft.identitymodel.abstractions/6.20.0/microsoft.identitymodel.abstractions.6.20.0.nupkg.sha512",
+    "/home/sbajanki/.nuget/packages/microsoft.identitymodel.jsonwebtokens/6.20.0/microsoft.identitymodel.jsonwebtokens.6.20.0.nupkg.sha512",
+    "/home/sbajanki/.nuget/packages/microsoft.identitymodel.logging/6.20.0/microsoft.identitymodel.logging.6.20.0.nupkg.sha512",
+    "/home/sbajanki/.nuget/packages/microsoft.identitymodel.protocols/6.7.1/microsoft.identitymodel.protocols.6.7.1.nupkg.sha512",
+    "/home/sbajanki/.nuget/packages/microsoft.identitymodel.protocols.openidconnect/6.7.1/microsoft.identitymodel.protocols.openidconnect.6.7.1.nupkg.sha512",
+    "/home/sbajanki/.nuget/packages/microsoft.identitymodel.tokens/6.20.0/microsoft.identitymodel.tokens.6.20.0.nupkg.sha512",
+    "/home/sbajanki/.nuget/packages/system.identitymodel.tokens.jwt/6.20.0/system.identitymodel.tokens.jwt.6.20.0.nupkg.sha512",
+    "/home/sbajanki/.nuget/packages/system.security.cryptography.cng/4.5.0/system.security.cryptography.cng.4.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}
