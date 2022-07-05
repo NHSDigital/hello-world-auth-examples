@@ -8,8 +8,11 @@
 
   <ItemGroup>
     <PackageReference Include="IdentityModel" Version="6.0.0" />
+    <PackageReference Include="IdentityModel.OidcClient" Version="5.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.9" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.20.0" />
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
   </ItemGroup>
 
 </Project>
