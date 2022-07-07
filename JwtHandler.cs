@@ -19,46 +19,47 @@ public class JwtHandler
      private readonly string _clientId;
      private readonly string _kid;
      
-     
+     // This the code to generate JWT Token
 
-     public JwtHandler(string pfxCertPath, string audience, string clientId, string kid)
+     public JwtHandler(string rsaCertPath, string audience, string clientId, string kid)
      {
          _audience = audience;
          _clientId = clientId;
          _kid = kid;
-         _cert = pfxCertPath;
+         _cert = rsaCertPath;
         
      }
 
      public string generateJWT(int expInMinutes = 1)
      {
         var privateKey = File.ReadAllText(_cert);
-         Console.WriteLine(privateKey);
+        // Console.WriteLine(privateKey);
          
-         privateKey = privateKey.Replace("-----BEGIN RSA PRIVATE KEY-----", "");
-         privateKey = privateKey.Replace("-----END RSA PRIVATE KEY-----", "");
-         Console.WriteLine(privateKey);
-         byte[] keyBytes = Convert.FromBase64String(privateKey);
-         using RSA rsa = RSA.Create();
-         rsa.ImportRSAPrivateKey(keyBytes, out _);
+        privateKey = privateKey.Replace("-----BEGIN RSA PRIVATE KEY-----", "");
+        privateKey = privateKey.Replace("-----END RSA PRIVATE KEY-----", "");
+        //Console.WriteLine(privateKey);
+        byte[] keyBytes = Convert.FromBase64String(privateKey);
+        using RSA rsa = RSA.Create();
+        rsa.ImportRSAPrivateKey(keyBytes, out _);
         var rsaSecurityKey= new RsaSecurityKey(rsa);
         
         rsaSecurityKey.KeyId = _kid;
-         var now = DateTime.UtcNow;
-         var signingCredentials = new SigningCredentials(rsaSecurityKey, SecurityAlgorithms.RsaSha512)
+        var now = DateTime.UtcNow;
+        var signingCredentials = new SigningCredentials(rsaSecurityKey, SecurityAlgorithms.RsaSha512)
               {
                   CryptoProviderFactory = new CryptoProviderFactory { CacheSignatureProviders = false }
               };
          
 
-         var token = new JwtSecurityToken(
-             _clientId,
-             _audience,
-             new List<Claim>
-             {
-                 //new ("jti", Guid.NewGuid().ToString()),
-                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                 new (JwtClaimTypes.Subject, _clientId),
+        var token = new JwtSecurityToken(
+            _clientId,
+            _audience,
+            new List<Claim>
+            {
+                new ("jti", Guid.NewGuid().ToString()),
+                //new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new (JwtClaimTypes.Subject, _clientId),
+                new ("iss", _clientId )
                  
              },
              now,
@@ -73,6 +74,6 @@ public class JwtHandler
          return tokenHandler.WriteToken(token);
      }
 
-     
+    
+    } 
 } 
-}
