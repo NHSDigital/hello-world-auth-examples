@@ -24,13 +24,13 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 public class Auth {
-    private static String BASE_URL = "https://sandbox.api.service.nhs.uk/oauth2/token";
+    private static String BASE_URL = System.getenv("BASE_URL");
     private static String API_KEY = System.getenv("API_KEY");
     private static String PRIVATE_KEY_PATH = System.getenv("PRIVATE_KEY_PATH");
 
     public static String getAccessToken() throws IOException, Exception {
         // Setup connection
-        URL url = new URL(BASE_URL);
+        URL url = new URL(BASE_URL + "/oauth2/token");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
         connection.setDoOutput(true);
@@ -47,7 +47,6 @@ public class Auth {
         byte[] input = urlParameters.getBytes("utf-8");
         out.write(input);
 
-
         int responseCode = connection.getResponseCode();
 
         if (responseCode == HttpURLConnection.HTTP_OK) {
@@ -63,7 +62,6 @@ public class Auth {
             String streamText = new String(inputStream.readAllBytes());
             throw new Exception(streamText);
         }
-
     }
 
     private static String generateJwt() throws IOException {
@@ -81,7 +79,7 @@ public class Auth {
                 .setHeaderParam("kid", "test-1")
                 .setIssuer(API_KEY)
                 .setSubject(API_KEY)
-                .setAudience(BASE_URL)
+                .setAudience(BASE_URL + "/oauth2/token")
                 .setId(UUID.randomUUID().toString())
                 .setExpiration(expiryDate)
                 .signWith(privateKey, SignatureAlgorithm.RS512)
@@ -99,5 +97,4 @@ public class Auth {
         parser.close();
         return privateKey;
     }
-
 }
