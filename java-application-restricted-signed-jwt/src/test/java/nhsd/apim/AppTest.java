@@ -24,7 +24,7 @@ public class AppTest {
     @Test
     public void mainShouldReturnHelloApplication() throws IOException, Exception {
         App.main(new String[] {});
-        String expected = "{\"message\" : \"Hello application!\"}";
+        String expected = "{\n  \"message\": \"Hello Application!\"\n}";
 
         Assertions.assertEquals(expected, outputStreamCaptor.toString().trim());
 
