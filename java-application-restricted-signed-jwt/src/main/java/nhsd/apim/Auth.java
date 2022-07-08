@@ -24,19 +24,15 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 public class Auth {
-    private static String BASE_URL = System.getenv("BASE_URL");
-    private static String API_KEY = System.getenv("API_KEY");
-    private static String PRIVATE_KEY_PATH = System.getenv("PRIVATE_KEY_PATH");
-
-    public static String getAccessToken() throws IOException, Exception {
+    public static String getAccessToken(String tokenEndpoint, String clientID, String privateKeyPath) throws IOException, Exception {
         // Setup connection
-        URL url = new URL(BASE_URL + "/oauth2/token");
+        URL url = new URL(tokenEndpoint);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
         connection.setDoOutput(true);
         connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
-        String jwt = generateJwt();
+        String jwt = generateJwt(clientID, privateKeyPath, tokenEndpoint);
 
         // Set up params for token request
         String urlParameters = String.join("&",
@@ -64,22 +60,22 @@ public class Auth {
         }
     }
 
-    private static String generateJwt() throws IOException {
+    private static String generateJwt(String clientID, String privateKeyPath, String tokenEndpoint) throws IOException {
         // Set expiry time now + 5 mins
         Calendar now = Calendar.getInstance();
         now.add(Calendar.MINUTE, 5);
         Date expiryDate = now.getTime();
 
-        PrivateKey privateKey = getPrivateKey();
+        PrivateKey privateKey = getPrivateKey(privateKeyPath);
 
         // Set header and payload claims. Sign with private key
         String jwt = Jwts.builder()
                 .setHeaderParam("alg", "RS512")
                 .setHeaderParam("typ", "JWT")
                 .setHeaderParam("kid", "test-1")
-                .setIssuer(API_KEY)
-                .setSubject(API_KEY)
-                .setAudience(BASE_URL + "/oauth2/token")
+                .setIssuer(clientID)
+                .setSubject(clientID)
+                .setAudience(tokenEndpoint)
                 .setId(UUID.randomUUID().toString())
                 .setExpiration(expiryDate)
                 .signWith(privateKey, SignatureAlgorithm.RS512)
@@ -87,9 +83,9 @@ public class Auth {
         return jwt;
     }
 
-    private static PrivateKey getPrivateKey() throws IOException {
+    private static PrivateKey getPrivateKey(String privateKeyPath) throws IOException {
         // Use Bouncy castle openssl library
-        BufferedReader reader = new BufferedReader(new FileReader(PRIVATE_KEY_PATH));
+        BufferedReader reader = new BufferedReader(new FileReader(privateKeyPath));
         PEMParser parser = new PEMParser(reader);
         PEMKeyPair pemKeyPair = (PEMKeyPair) parser.readObject();
         KeyPair keyPair = new JcaPEMKeyConverter().getKeyPair(pemKeyPair);
