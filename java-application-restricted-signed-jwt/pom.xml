@@ -9,7 +9,7 @@
   <version>1.0-SNAPSHOT</version>
 
   <name>hello-world-auth-example</name>
-  <!-- FIXME change it to the project's website -->
+  <!-- FIXME: Change this to the project's website -->
   <url>http://www.example.com</url>
 
   <properties>
@@ -59,61 +59,12 @@
       <scope>runtime</scope>
     </dependency>
 
-    <!-- <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
-      <scope>test</scope>
-    </dependency> -->
-
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
       <version>5.8.1</version>
       <scope>test</scope>
     </dependency>
-
-
-    <!-- <dependency>
-      <groupId>org.powermock</groupId>
-      <artifactId>powermock-module-junit4</artifactId>
-      <version>${powermock.version}</version>
-      <scope>test</scope>
-   </dependency>
-   <dependency>
-      <groupId>org.powermock</groupId>
-      <artifactId>powermock-api-mockito</artifactId>
-      <version>${powermock.version}</version>
-      <scope>test</scope>
-   </dependency> -->
-
- <!-- <dependency>
-      <groupId>org.powermock</groupId>
-      <artifactId>powermock-module-junit4</artifactId>
-      <version>${powermock.version}</version>
-      <scope>test</scope>
-   </dependency>
-   <dependency>
-      <groupId>org.powermock</groupId>
-      <artifactId>powermock-api-mockito2</artifactId>
-      <version>${powermock.version}</version>
-      <scope>test</scope>
-   </dependency> -->
-
-   <!-- <dependency>
-    <groupId>org.mockito</groupId>
-    <artifactId>mockito-core</artifactId>
-    <version>4.6.1</version>
-  </dependency> -->
-  <dependency>
-    <groupId>org.mockito</groupId>
-    <artifactId>mockito-inline</artifactId>
-    <version>4.6.1</version>
-    <scope>test</scope>
-</dependency>
-
-
-
 
   </dependencies>
 
