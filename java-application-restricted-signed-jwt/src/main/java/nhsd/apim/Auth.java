@@ -24,7 +24,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 public class Auth {
-    public static String getAccessToken(String tokenEndpoint, String clientID, String privateKeyPath) throws IOException, Exception {
+    public static String getAccessToken(String tokenEndpoint, String clientID, String privateKeyPath) throws Exception {
         // Setup connection
         URL url = new URL(tokenEndpoint);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -45,19 +45,19 @@ public class Auth {
 
         int responseCode = connection.getResponseCode();
 
-        if (responseCode == HttpURLConnection.HTTP_OK) {
-            // Read response and return access token
-            InputStream inputStream = connection.getInputStream();
-            String streamText = new String(inputStream.readAllBytes());
-            JSONObject obj = new JSONObject(streamText);
-            String accessToken = obj.getString("access_token");
-            return accessToken;
-        } else {
-            // Throw error
+        if (responseCode != HttpURLConnection.HTTP_OK) {
             InputStream inputStream =  connection.getErrorStream();
             String streamText = new String(inputStream.readAllBytes());
             throw new Exception(streamText);
         }
+
+        // Read response and return access token
+        InputStream inputStream = connection.getInputStream();
+        String streamText = new String(inputStream.readAllBytes());
+        JSONObject obj = new JSONObject(streamText);
+        String accessToken = obj.getString("access_token");
+        return accessToken;
+
     }
 
     private static String generateJwt(String clientID, String privateKeyPath, String tokenEndpoint) throws IOException {
@@ -69,6 +69,10 @@ public class Auth {
         PrivateKey privateKey = getPrivateKey(privateKeyPath);
 
         // Set header and payload claims. Sign with private key
+        return buildJWT(clientID, tokenEndpoint, expiryDate, privateKey);
+    }
+
+    private static String buildJWT(String clientID, String tokenEndpoint, Date expiryDate, PrivateKey privateKey) {
         String jwt = Jwts.builder()
                 .setHeaderParam("alg", "RS512")
                 .setHeaderParam("typ", "JWT")

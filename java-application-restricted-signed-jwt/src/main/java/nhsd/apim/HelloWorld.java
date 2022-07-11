@@ -15,19 +15,16 @@ public class HelloWorld {
         connection.setRequestMethod("GET");
         connection.setRequestProperty("Authorization", "Bearer "+ accessToken);
 
-        int responseCode = connection.getResponseCode();
-
-        if (responseCode == HttpURLConnection.HTTP_OK) {
-            // Read response and return access token
-            InputStream inputStream = connection.getInputStream();
-            String streamText = new String(inputStream.readAllBytes());
-            return streamText;
-        } else {
-            // Throw error
+        if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
             InputStream inputStream =  connection.getErrorStream();
             String streamText = new String(inputStream.readAllBytes());
             throw new Exception(streamText);
         }
+
+        // Read response and return access token
+        InputStream inputStream = connection.getInputStream();
+        String streamText = new String(inputStream.readAllBytes());
+        return streamText;
     }
 
 }
