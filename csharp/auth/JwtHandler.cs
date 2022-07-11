@@ -33,7 +33,8 @@ public class JwtHandler
 
     public string GenerateJwt(int expInMinutes = 1)
     {
-        var now = DateTime.UtcNow;
+        var now = DateTime.UtcNow; 
+        Console.WriteLine(now);
 
         var token = new JwtSecurityToken(
             _clientId,
