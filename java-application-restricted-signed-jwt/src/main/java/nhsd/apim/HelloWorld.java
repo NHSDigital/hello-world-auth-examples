@@ -6,7 +6,6 @@ import java.net.URL;
 
 
 public class HelloWorld {
-    private static String BASE_URL = System.getenv("BASE_URL");
 
     public static String makeApplicationRestrictedRequest(String helloEndpoint, String accessToken) throws IOException, Exception {
         // Setup connection
