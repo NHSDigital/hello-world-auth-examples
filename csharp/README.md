@@ -29,6 +29,12 @@ Response from Hello World API:
 There are two classes that handle authentication. `JwtHandler` generates the JWT and `AuthClientCredentials` sends the POST `/token` request to the auth server to get the access token. 
 The `main` method sends a GET request to `/hello/application` endpoint of [hello-world](https://digital.nhs.uk/developer/api-catalogue/hello-world) API.
 
+The `JwtHandler` class can sign a jwt using either private key or a pfx bundle. Given you have your private and public key, you can use `openssl` to create a pfx bundle. Below snippet shows how to do this using your certificate file (we create a self signed one here for demonstration).
+```shell
+openssl x509 -req -days 3650 -in certificate.csr -signkey jwtRS512.key -out certificate.crt
+openssl pkcs12 -export -out jwtRS512.pfx -inkey jwtRS512.key -in certificate.crt
+```
+
 #### Dependencies
 List of dependencies:
 
