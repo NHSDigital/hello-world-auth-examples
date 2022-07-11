@@ -10,7 +10,7 @@ export KEY_FILE=<This is the absolute path to your pfx file or private key file>
 export CLIENT_ID=<application client id>
 export KID=<KID value associated with jwks>
 
-export ENDPOINT=<The /hello/application endpoint which for demonstrating application restriced APIs>
+export ENDPOINT=<The /hello/application endpoint which for demonstrating application restricted APIs>
 ```
 There is a sample environment file that you can use to populate environment variables. Rename `env.sample` to `.env` and modify it accordingly. Source it by running `source .env`. You can execute the
 application by running `dotnet run`. Alternatively, you can use the provided Makefile. Make sure `.env` exists and then run `make run`.
