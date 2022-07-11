@@ -8,13 +8,17 @@ import java.io.IOException;
  */
 public class App {
     public static void main(String[] args) throws IOException, Exception {
-        String TOKEN_ENDPOINT = System.getenv("TOKEN_ENDPOINT");
-        String HELLO_WORLD_ENDPOINT = System.getenv("HELLO_WORLD_ENDPOINT");
-        String CLIENT_ID = System.getenv("CLIENT_ID");
+        String TOKEN_URL = System.getenv("TOKEN_URL");
         String PRIVATE_KEY_PATH = System.getenv("PRIVATE_KEY_PATH");
+        String CLIENT_ID = System.getenv("CLIENT_ID");
+        String KID = System.getenv("KID");
+        String ENDPOINT = System.getenv("ENDPOINT");
 
-        String accessToken = Auth.getAccessToken(TOKEN_ENDPOINT, CLIENT_ID, PRIVATE_KEY_PATH);
-        String response = HelloWorld.makeApplicationRestrictedRequest(HELLO_WORLD_ENDPOINT, accessToken);
+        String accessToken = Auth.getAccessToken(TOKEN_URL, CLIENT_ID, PRIVATE_KEY_PATH, KID);
+        System.out.println("Received access token: " +  accessToken);
+
+        String response = HelloWorld.makeApplicationRestrictedRequest(ENDPOINT, accessToken);
+        System.out.println("Response from Hello World API:");
         System.out.println(response);
     }
 }

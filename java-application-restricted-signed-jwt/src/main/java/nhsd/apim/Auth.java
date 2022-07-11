@@ -24,7 +24,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 public class Auth {
-    public static String getAccessToken(String tokenEndpoint, String clientID, String privateKeyPath) throws Exception {
+    public static String getAccessToken(String tokenEndpoint, String clientID, String privateKeyPath, String KID) throws Exception {
         // Setup connection
         URL url = new URL(tokenEndpoint);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -32,7 +32,7 @@ public class Auth {
         connection.setDoOutput(true);
         connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
-        String jwt = generateJwt(clientID, privateKeyPath, tokenEndpoint);
+        String jwt = generateJwt(clientID, privateKeyPath, KID, tokenEndpoint);
 
         // Set up params for token request
         String urlParameters = String.join("&",
@@ -60,7 +60,7 @@ public class Auth {
 
     }
 
-    private static String generateJwt(String clientID, String privateKeyPath, String tokenEndpoint) throws IOException {
+    private static String generateJwt(String clientID, String privateKeyPath, String KID, String tokenEndpoint) throws IOException {
         // Set expiry time now + 5 mins
         Calendar now = Calendar.getInstance();
         now.add(Calendar.MINUTE, 5);
@@ -69,14 +69,14 @@ public class Auth {
         PrivateKey privateKey = getPrivateKey(privateKeyPath);
 
         // Set header and payload claims. Sign with private key
-        return buildJWT(clientID, tokenEndpoint, expiryDate, privateKey);
+        return buildJWT(clientID, tokenEndpoint, expiryDate, privateKey, KID);
     }
 
-    private static String buildJWT(String clientID, String tokenEndpoint, Date expiryDate, PrivateKey privateKey) {
+    private static String buildJWT(String clientID, String tokenEndpoint, Date expiryDate, PrivateKey privateKey, String KID) {
         String jwt = Jwts.builder()
                 .setHeaderParam("alg", "RS512")
                 .setHeaderParam("typ", "JWT")
-                .setHeaderParam("kid", "test-1")
+                .setHeaderParam("kid", KID)
                 .setIssuer(clientID)
                 .setSubject(clientID)
                 .setAudience(tokenEndpoint)
