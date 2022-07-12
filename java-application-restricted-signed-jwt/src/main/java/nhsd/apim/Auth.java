@@ -24,15 +24,15 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 public class Auth {
-    public static String getAccessToken(String tokenEndpoint, String clientID, String privateKeyPath, String KID) throws Exception {
+    public static String getAccessToken(String tokenURL, String clientID, String privateKeyPath, String KID) throws Exception {
         // Setup connection
-        URL url = new URL(tokenEndpoint);
+        URL url = new URL(tokenURL);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
         connection.setDoOutput(true);
         connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
-        String jwt = generateJwt(clientID, privateKeyPath, KID, tokenEndpoint);
+        String jwt = generateJwt(clientID, privateKeyPath, KID, tokenURL);
 
         // Set up params for token request
         String urlParameters = String.join("&",
