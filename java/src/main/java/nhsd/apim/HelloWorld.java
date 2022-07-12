@@ -14,8 +14,6 @@ public class HelloWorld {
         connection.setRequestMethod("GET");
         connection.setRequestProperty("Authorization", "Bearer "+ accessToken);
 
-        System.out.println("Sending GET " +  helloEndpoint);
-
         if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
             InputStream inputStream =  connection.getErrorStream();
             String streamText = new String(inputStream.readAllBytes());

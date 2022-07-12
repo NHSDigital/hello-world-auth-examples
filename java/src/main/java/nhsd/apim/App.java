@@ -15,10 +15,8 @@ public class App {
         String ENDPOINT = System.getenv("ENDPOINT");
 
         String accessToken = Auth.getAccessToken(TOKEN_URL, CLIENT_ID, PRIVATE_KEY_PATH, KID);
-        System.out.println("Received access token: " +  accessToken);
 
         String response = HelloWorld.makeApplicationRestrictedRequest(ENDPOINT, accessToken);
-        System.out.println("Response from Hello World API:");
         System.out.println(response);
     }
 }

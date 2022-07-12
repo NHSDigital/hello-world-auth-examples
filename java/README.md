@@ -14,9 +14,6 @@ application by running `mvn clean install` to build it and `java -jar target/hel
 
 You should see an output similar to this:
 ```shell
-Received access token: 7Xuh7rK8iO8890mpk2b3BuFQuISG
-Sending GET https://internal-dev.api.service.nhs.uk/hello-world/hello/application
-Response from Hello World API:
 {
   "message": "Hello Application!"
 }
