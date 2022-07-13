@@ -1,21 +1,18 @@
 # hello-world-auth-examples
 
-This is a series of example of how to implement Application Restricted Authentication.
-In this repo you can find two example projects. One based on Java and another based on C#.
+# Overview
+This repository shows you how to connect to an [application-restricted REST API](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#application-restricted-apis) using [signed JWT authentication](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/application-restricted-restful-apis-signed-jwt-authentication) using the Java and C# programming language.
+
+To call an application restricted API you need to tell the API who the calling application is. When using signed JWT authentication you need to authenticate your application by sending a JSON Web Token (JWT) to an authentication server, signed using your application's private key. In exchange you will receive an access token which you need to include in the API request. You can learn more about signed JWT authentication [here](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/application-restricted-restful-apis-signed-jwt-authentication).
+
+This tutorial will show how you can use Java or C# to generate and sign a JWT, exchange this for an access token with our authentication server and how to call our example [Hello World API](https://digital.nhs.uk/developer/api-catalogue/hello-world) using your access token.
 
 
 
-### Setup
+### Java Application Restricted example
 
-To run the Java example you need to have these dependencies:
+Follow [README](./application-restricted-signed-jwt-tutorials/java/README.md)
 
-* maven
-* java 
+### C# Application Restricted example
 
-After install those two dependencies navigate to your project folder on command line and run to compile the solution:
-
-```
-mvn clean install 
-```
-
-TBC
+Follow [README](./application-restricted-signed-jwt-tutorials/csharp/README.md)
