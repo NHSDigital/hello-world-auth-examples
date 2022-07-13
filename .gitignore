@@ -1,0 +1,37 @@
+**/.env
+**/.env/
+**/*.key
+**/*.key.pub
+
+node_modules/
+bin/
+dist/
+public/
+newman/
+build
+.venv
+venv
+target/
+
+# utils directory will be clone during pipeline.
+utils
+
+.#*
+
+__pycache__/
+.envrc
+
+### IntelliJ IDEA ###
+.idea/*
+.idea
+*.iws
+*.iml
+*.ipr
+!.idea/codeStyles
+!.idea/runConfigurations
+
+### Mac ###
+.DS_Store
+
+### vscode ###
+.vscode
