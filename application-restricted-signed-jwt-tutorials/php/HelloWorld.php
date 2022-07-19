@@ -1,11 +1,6 @@
 <?php
-//require_once __DIR__ .'/auth/JwtHandler.php';
-require_once 'auth/JwtHandler.php';
-require_once 'auth/AuthClientCredentials.php';
-use php\auth\JwtHandler;
-
+require_once __DIR__ .'/auth/AuthClientCredentials.php';
 use php\auth ;
-
 use php\auth\AuthClientCredentials;
 
 $tokenUrl = getenv("TOKEN_URL");
@@ -13,40 +8,32 @@ $audience = getenv("TOKEN_URL");
 $privateKeyFile = getenv("KEY_FILE");
 $clientId = getenv("CLIENT_ID");
 $kid = getenv("KID");
-// echo $tokenUrl.'\n';
-// echo $kid.'\n';
-// echo $audience.'\n';
-// $auth = new AuthClientCredentials($tokenUrl, $privateKeyFile, $clientId, $kid);
-// $accessToken = $auth->AccessToken();
-$jwth = new JwtHandler( $privateKeyFile, $audience, $clientId, $kid);
-$v = $jwth->GenerateJwt();
-//echo $v;
-$auth_cred = new AuthClientCredentials($tokenUrl, $v);
-$access_token = $auth_cred->AccessToken();
+$endpoint = getenv("ENDPOINT");
+        
+$auth = new AuthClientCredentials($tokenUrl, $privateKeyFile, $clientId, $kid);
+$accessToken = $auth->AccessToken();
+echo"Received access token: ".$accessToken."\r\n";
 
-$url = 'https://internal-dev.api.service.nhs.uk/hello-world/hello/application';
+$response = sendRequest($accessToken, $endpoint);
+echo"Response from Hello World API: ".$response."\r\n";
 
-$curl = curl_init($url);
-curl_setopt($curl, CURLOPT_URL, $url);
-curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+function sendRequest($accessToken, $endpoint)
+{
+    $curl = curl_init($endpoint);
+    curl_setopt($curl, CURLOPT_URL, $endpoint);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
-$headers = array(
-   "Accept: application/json",
-   "Authorization: Bearer {$accessToken}",
-);
-curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-//for debug only!
-curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+    $headers = array(
+    "Accept: application/json",
+    "Authorization: Bearer {$accessToken}",
+    );
+    curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+    //for debug only!
+    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 
-$resp = curl_exec($curl);
-curl_close($curl);
-//var_dump($resp);
-echo $resp;
-
-
-
-?>
-
- 
+    $resp = curl_exec($curl);
+    curl_close($curl);
+    return $resp;
+}
 ?>

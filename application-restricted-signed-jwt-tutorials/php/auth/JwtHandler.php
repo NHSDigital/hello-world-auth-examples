@@ -1,12 +1,5 @@
 <?php
-
 namespace php\auth;
-require __DIR__ . '/../vendor/autoload.php';
-//require_once '../vendor/autoload.php';
-
-
-use Firebase\JWT\JWT;
-use Firebase\JWT\Key;
 class JwtHandler
 {
     public $audience;
@@ -14,8 +7,8 @@ class JwtHandler
     public $kid;
     public $key;
 
-    function __construct($key, $audience, $client_id, $kid, ) 
-        {
+    function __construct($key, $audience, $client_id, $kid) 
+      {
         $this->audience = $audience;
         $this->client_id = $client_id;
         $this->kid = $kid;
@@ -29,7 +22,7 @@ class JwtHandler
         "sub"=> $this->client_id,
         "iss"=> $this->client_id,
         "jti"=> uniqid(),
-        "aud"=> "https://internal-dev.api.service.nhs.uk/oauth2/token",
+        "aud"=> $this->audience,
         "exp"=> (time()) + 300 # 5mins in the future
       ];
       $fp = fopen('jwtRS512.key',"r");
@@ -46,19 +39,12 @@ class JwtHandler
       //build and return the token
       $jwt_token = "$headers_encoded.$payload_encoded.$signature_encoded";
       return $jwt_token;
-
-      
-     //$jwt = JWT::encode($claims, $keyPrivateString, 'RS512', $this->kid);
-    
-      // echo $jwt.'\n'; 
-     // return $jwt;
-      
+            
     } 
 
    function base64UrlEncode(string $data): string
       {
-          
-          return \str_replace('=', '', \strtr(\base64_encode($data), '+/', '-_'));
+         return \str_replace('=', '', \strtr(\base64_encode($data), '+/', '-_'));
       }  
     
 }
