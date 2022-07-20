@@ -35,7 +35,7 @@ This project contains:
 
 To follow this tutorial download or clone this folder.
 
-## Create an application on our developer hub and generate a key pair
+## Create an application on our developer portal and generate a key pair
 
 You need to create an application using our [Developer portal](https://digital.nhs.uk/developer). This gives you access to
 your application ID and API key which you need to generate a JWT.
@@ -45,8 +45,7 @@ sign your JWT using your private key.
 ## To create an application
 
 To do this, follow Step 1 'Create an application'
-of [our guide](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/application-restricted-restful-apis-signed-jwt-authentication#step-1-create-an-application)
-.
+of [our guide](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/application-restricted-restful-apis-signed-jwt-authentication#step-1-create-an-application).
 
 Notes:
 
@@ -60,16 +59,14 @@ Notes:
 ### Generate a key pair
 
 To do this, follow Step 2 'Generate a key pair'
-of [our guide](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/application-restricted-restful-apis-signed-jwt-authentication#step-2-generate-a-key-pair)
-.
+of [our guide](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/application-restricted-restful-apis-signed-jwt-authentication#step-2-generate-a-key-pair).
 
 Make a note of the Key Identifier (KID) you have chosen.
 
 ### Register your public key
 
 To do this, follow Step 3 'Register your public key with us'
-of [our guide](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/application-restricted-restful-apis-signed-jwt-authentication#step-3-register-your-public-key-with-us)
-.
+of [our guide](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/application-restricted-restful-apis-signed-jwt-authentication#step-3-register-your-public-key-with-us).
 
 ## Populate the project's environment variables
 
@@ -102,7 +99,7 @@ Once you set the environment variables, you are ready to run the project.
 
 You should first source your environment variable file and then execute `HelloWorld.php` file.
 ```shell
-source .evn
+source .env
 php HelloWorld.php
 ```
 

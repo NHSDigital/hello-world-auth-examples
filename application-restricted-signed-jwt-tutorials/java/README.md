@@ -22,10 +22,10 @@ using your access token.
 
 This example project was developed using Java 17 and maven 3.8.6.
 
-## Checkout the Github Repository
+## Checkout the GitHub Repository
 
 You can find the code for this Java application-restricted REST API - signed JWT authentication tutorial in
-our [Github repository](https://github.com/NHSDigital/hello-world-auth-examples/tree/main/application-restricted-signed-jwt-tutorials/java).
+our [GitHub repository](https://github.com/NHSDigital/hello-world-auth-examples/tree/main/application-restricted-signed-jwt-tutorials/java).
 
 This project contains:
 
@@ -37,7 +37,7 @@ This project contains:
 
 To follow this tutorial download or clone this folder.
 
-## Create an application on our developer hub and generate a key pair
+## Create an application on our developer portal and generate a key pair
 
 You need to create an application using our [Developer portal](https://digital.nhs.uk/developer). This gives you access to
 your application ID and API key which you need to generate a JWT.
@@ -47,8 +47,7 @@ sign your JWT using your private key.
 ## To create an application
 
 To do this, follow Step 1 'Create an application'
-of [our guide](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/application-restricted-restful-apis-signed-jwt-authentication#step-1-create-an-application)
-.
+of [our guide](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/application-restricted-restful-apis-signed-jwt-authentication#step-1-create-an-application).
 
 Notes:
 
@@ -62,16 +61,14 @@ Notes:
 ### Generate a key pair
 
 To do this, follow Step 2 'Generate a key pair'
-of [our guide](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/application-restricted-restful-apis-signed-jwt-authentication#step-2-generate-a-key-pair)
-.
+of [our guide](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/application-restricted-restful-apis-signed-jwt-authentication#step-2-generate-a-key-pair).
 
 Make a note of the Key Identifier (KID) you have chosen.
 
 ### Register your public key
 
 To do this, follow Step 3 'Register your public key with us'
-of [our guide](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/application-restricted-restful-apis-signed-jwt-authentication#step-3-register-your-public-key-with-us)
-.
+of [our guide](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/application-restricted-restful-apis-signed-jwt-authentication#step-3-register-your-public-key-with-us).
 
 ## Populate the project's environment variables
 
