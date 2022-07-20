@@ -1,6 +1,5 @@
 <?php
 require_once __DIR__ .'/auth/AuthClientCredentials.php';
-use php\auth ;
 use php\auth\AuthClientCredentials;
 
 $tokenUrl = getenv("TOKEN_URL");
@@ -28,12 +27,7 @@ function sendRequest($accessToken, $endpoint)
     "Authorization: Bearer {$accessToken}",
     );
     curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-    //for debug only!
-    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-
     $resp = curl_exec($curl);
     curl_close($curl);
     return $resp;
 }
-?>
