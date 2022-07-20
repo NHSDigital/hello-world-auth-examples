@@ -17,26 +17,26 @@ class JwtHandler
     $this->privateKeyFile = $privateKeyFile;
   }
 
-  public  function GenerateJwt()
+  public function GenerateJwt()
   {
-
     $claims = [
-      "sub" => $this->client_id,
-      "iss" => $this->client_id,
-      "jti" => uniqid(),
-      "aud" => $this->audience,
-      "exp" => (time()) + 300 # 5mins in the future
+        "sub" => $this->client_id,
+        "iss" => $this->client_id,
+        "jti" => uniqid(),
+        "aud" => $this->audience,
+        "exp" => (time()) + 300 # 5mins in the future
     ];
-    $fp = fopen($this->privateKeyFile, "r");
-    $privateKey = fread($fp, 8192);
-    $additional_headers = [
-      "alg" => "RS512",
-      "typ" => "JWT",
-      "kid" => $this->kid
-    ];
-    $headers_encoded = $this->base64UrlEncode(json_encode($additional_headers));
     $payload_encoded = $this->base64UrlEncode(json_encode($claims));
 
+    $additional_headers = [
+        "alg" => "RS512",
+        "typ" => "JWT",
+        "kid" => $this->kid
+    ];
+    $headers_encoded = $this->base64UrlEncode(json_encode($additional_headers));
+
+    $fp = fopen($this->privateKeyFile, "r");
+    $privateKey = fread($fp, 8192);
     openssl_sign("$headers_encoded.$payload_encoded", $signature, $privateKey, 'sha512WithRSAEncryption');
     $signature_encoded = $this->base64UrlEncode($signature);
 
