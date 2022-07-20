@@ -35,7 +35,7 @@ This project contains:
 
 To follow this tutorial download or clone this folder.
 
-## Create an application on our developer hub and generate a key pair
+## Create an application on our developer portal and generate a key pair
 
 You need to create an application using our [Developer portal](https://digital.nhs.uk/developer). This gives you access to
 your application ID and API key which you need to generate a JWT.
