@@ -20,7 +20,7 @@ using your access token.
 
 ## Setting up your environment
 
-This example project was developed using PHP 8. This project does not have any dependency.
+This example project was developed using PHP 8. This project does not have any dependencies.
 
 ## Checkout the GitHub Repository
 
@@ -29,11 +29,9 @@ our [GitHub repository](https://github.com/NHSDigital/hello-world-auth-examples/
 
 This project contains:
 
-- an `Auth` class. The methods of this class handle the generation and signing of the JWT, and exchanging the JWT for an
-  access token with the authentication server
-- a `Hello World` class. The methods of this class make an application-restricted request to the API endpoint
-- the `App` class. This contains the main entry point to run the program. This program gets an access token using a
-  signed JWT and uses the access token to call the API
+- a `JwtHandler` class. This class handles the generation and signing of the JWT
+- an `AuthClientCredentials` class. This class handles the exchange of JWT with an access token from the auth server
+- a `HelloWorld` class. This class requests an access token and then uses that access token to send a GET request to the specified endpoint
 
 To follow this tutorial download or clone this folder.
 
@@ -55,7 +53,7 @@ Notes:
 - when creating a new app, you need to select the 'Environment'. For this tutorial select 'Sandbox'.
 - when editing your application details and selecting the API you want to use, select 'Hello World (Sandbox)'. You might
   be prompted for a callback URL which is not required for the signed JWT authentication method, so you can enter a
-  dummy value such as `https://www.nowhere.com`.
+  dummy value such as `https://www.example.com`.
 
 - make note of your `API Key`.
 
@@ -83,13 +81,13 @@ You should now have:
 
 To run the example tutorial, you need to set the following environment variables.
 
-| Variable Name      | Description                                                                                                                                                                                                 |
-|--------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `TOKEN_URL`        | The endpoint where you send your signed JWT in order to exchange for an access token. For the sandbox environment, the value is `https://sandbox.api.service.nhs.uk/oauth2/token`                           |
-| `CLIENT_ID`        | Your application's `API Key`                                                                                                                                                                                |
-| `KID`              | The KID you chose when generating a public/private key pair                                                                                                                                                 |
-| `PRIVATE_KEY_PATH` | The filepath pointing to where you have saved your private key                                                                                                                                              |
-| `ENDPOINT`         | The URL for the API you wish to call. In this tutorial, we make a request to the Hello World Sandbox's application-restricted endpoint: `https://sandbox.api.service.nhs.uk/hello-world/hello/application`  |
+| Variable Name | Description                                                                                                                                                                                                 |
+|---------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `TOKEN_URL`   | The endpoint where you send your signed JWT in order to exchange for an access token. For the sandbox environment, the value is `https://sandbox.api.service.nhs.uk/oauth2/token`                           |
+| `CLIENT_ID`   | Your application's `API Key`                                                                                                                                                                                |
+| `KID`         | The KID you chose when generating a public/private key pair                                                                                                                                                 |
+| `KEY_FILE`    | The filepath pointing to where you have saved your private key                                                                                                                                              |
+| `ENDPOINT`    | The URL for the API you wish to call. In this tutorial, we make a request to the Hello World Sandbox's application-restricted endpoint: `https://sandbox.api.service.nhs.uk/hello-world/hello/application`  |
 
 You can set your environment variables in a file named `.env`. This project contains a sample env file to use:
 
@@ -100,14 +98,13 @@ You can set your environment variables in a file named `.env`. This project cont
 
 Once you set the environment variables, you are ready to run the project.
 
-### Run using maven
+### Run the application
 
-Use the following commands to run the project using `maven` from the command line:
-
-`mvn clean install` - This compiles, tests and packages your code.
-
-`java -jar target/hello-world-auth-example-1.0-SNAPSHOT-jar-with-dependencies.jar` - This runs the executable jar file
-produced in the previous step.
+You should first source your environment variable file and then execute `HelloWorld.php` file.
+```shell
+source .evn
+php HelloWorld.php
+```
 
 ### Run using Makefile
 Alternatively you can set your environment variables in a file named `.env`. Then use the make command:  `make run`.
