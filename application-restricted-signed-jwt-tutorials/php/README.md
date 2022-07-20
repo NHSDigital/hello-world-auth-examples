@@ -25,7 +25,7 @@ This example project was developed using PHP 8. This project does not have any d
 ## Checkout the GitHub Repository
 
 You can find the code for this PHP application-restricted REST API - signed JWT authentication tutorial in
-our [GitHub repository](https://github.com/NHSDigital/hello-world-auth-examples/tree/main/application-restricted-signed-jwt-tutorials/java).
+our [GitHub repository](https://github.com/NHSDigital/hello-world-auth-examples/tree/main/application-restricted-signed-jwt-tutorials/php).
 
 This project contains:
 
