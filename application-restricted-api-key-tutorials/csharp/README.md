@@ -14,7 +14,7 @@ This example project was developed using .NET version 6.0.
 
 ## Checkout the GitHub Repository
 
-You can find the code for this C# application-restricted REST API - signed JWT authentication tutorial in
+You can find the code for this C# application-restricted REST API - API key authentication tutorial in
 our [GitHub repository](https://github.com/NHSDigital/hello-world-auth-examples/tree/main/application-restricted-api-key-tutorials/csharp).
 
 This project contains:
@@ -39,7 +39,7 @@ Notes:
 
 - when creating a new app, you need to select the 'Environment'. For this tutorial select 'Sandbox'.
 - when editing your application details and selecting the API you want to use, select 'Hello World (Sandbox)'. You might
-  be prompted for a callback URL which is not required for the signed JWT authentication method, so you can enter a
+  be prompted for a callback URL which is not required for the signed API Key authentication method, so you can enter a
   dummy value such as `https://www.example.com`.
 
 - make note of your `API Key`.
