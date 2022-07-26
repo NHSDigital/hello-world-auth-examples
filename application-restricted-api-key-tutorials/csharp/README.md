@@ -54,11 +54,11 @@ You should now have:
 
 To run the example tutorial, you need to set the following environment variables.
 
-| Variable Name | Description                                                                                                                                                                                                 |
+| Variable Name | Description                                                            |
 |---------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-                           
-| `CLIENT_ID`   | Your application's `API Key`                                                                                                                    
-| `ENDPOINT`    | The URL for the API you wish to call. In this tutorial, we make a request to the Hello World Sandbox's application-restricted endpoint: `https://sandbox.api.service.nhs.uk/hello-world/hello/application`  |
+| `CLIENT_ID`    | Your application's `API Key`  
+|  `ENDPOINT`    | The URL for the API you wish to call. In this tutorial, we make a request to the Hello World Sandbox's application-restricted endpoint: `https://sandbox.api.service.nhs.uk/hello-world/hello/application` | 
+
 
 You can set your environment variables in a file named `.env`. This project contains a sample env file to use:
 
