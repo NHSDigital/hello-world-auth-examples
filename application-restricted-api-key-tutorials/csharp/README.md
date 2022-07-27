@@ -23,12 +23,10 @@ This project contains:
 
 To follow this tutorial download or clone this folder.
 
-## Create an application on our developer portal 
+## Create an application on our developer portal
 
 You need to create an application using our [Developer portal](https://digital.nhs.uk/developer). This gives you access to
-your application ID and API key which you need to generate a JWT.
-You also need to create a public and private key pair. You register your public key with our authentication server and
-sign your JWT using your private key.
+your API key which you need to make a request.
 
 ## To create an application
 
@@ -56,8 +54,8 @@ To run the example tutorial, you need to set the following environment variables
 
 | Variable Name | Description                                                            |
 |---------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `CLIENT_ID`    | Your application's `API Key`  
-|  `ENDPOINT`    | The URL for the API you wish to call. In this tutorial, we make a request to the Hello World Sandbox's application-restricted endpoint: `https://sandbox.api.service.nhs.uk/hello-world/hello/application` | 
+| `CLIENT_ID`    | Your application's `API Key`
+|  `ENDPOINT`    | The URL for the API you wish to call. In this tutorial, we make a request to the Hello World Sandbox's application-restricted endpoint: `https://sandbox.api.service.nhs.uk/hello-world/hello/application` |
 
 
 You can set your environment variables in a file named `.env`. This project contains a sample env file to use:
