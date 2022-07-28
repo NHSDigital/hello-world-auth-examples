@@ -19,14 +19,15 @@ our [GitHub repository](https://github.com/NHSDigital/hello-world-auth-examples/
 
 This project contains:
 
-- a `HelloWorld` class located in the `HelloWorld.php` file. This class adds API key as a header and send a GET request to the specified endpoint
+- `HelloWorld.php` file which adds API key as a header and send a GET request to the specified endpoint
 
 To follow this tutorial download or clone this folder.
 
 ## Create an application on our developer portal 
 
-You need to create an application using our [Developer portal](https://digital.nhs.uk/developer). This gives you access to
-your application ID and API key. 
+You need to create an application using our [Developer portal](https://digital.nhs.uk/developer). This gives you access to your API key which you need to make a request.
+
+To create an application. 
 
 
 ## To create an application
