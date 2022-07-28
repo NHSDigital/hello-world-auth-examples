@@ -27,8 +27,6 @@ To follow this tutorial download or clone this folder.
 
 You need to create an application using our [Developer portal](https://digital.nhs.uk/developer). This gives you access to your API key which you need to make a request.
 
-To create an application. 
-
 
 ## To create an application
 
