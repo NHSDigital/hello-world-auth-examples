@@ -21,7 +21,7 @@ public class HelloWorld {
             throw new Exception(streamText);
         }
 
-        // Read response and return access token
+        // Return response
         InputStream inputStream = connection.getInputStream();
         String streamText = new String(inputStream.readAllBytes());
         return streamText;
