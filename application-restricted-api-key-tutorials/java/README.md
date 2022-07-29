@@ -55,7 +55,7 @@ To run the example tutorial, you need to set the following environment variables
 
 | Variable Name | Description                                                            |
 |---------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `API_KEY`     | Your application's `API Key`
+| `API_KEY`     | Your application's `API Key` |
 | `ENDPOINT`    | The URL for the API you wish to call. In this tutorial, we make a request to the Hello World Sandbox's application-restricted endpoint: `https://sandbox.api.service.nhs.uk/hello-world/hello/application` |
 
 
@@ -63,6 +63,8 @@ You can set your environment variables in a file named `.env`. This project cont
 
 - rename `env.sample` to `.env` and modify it.
 - source it by running `source .env`
+
+Do not wrap your string variable values in quotes, as this can cause issues with maven interpreting the URL when compiling.
 
 ## Run the code
 
