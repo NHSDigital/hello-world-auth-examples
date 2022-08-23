@@ -36,7 +36,7 @@ builder.Services.AddAuthentication(options =>
     // authorize endpoint - where user logs in
     options.AuthorizationEndpoint = configuration["NHSD:OAuthEndpoint"] + url;
 
-    // redirectUrl - middleware will create this endpoint
+    // callbackUrl - middleware will create this endpoint
     options.CallbackPath = new PathString("/callback");
 
     // /token request exchange our auth code for an access token
