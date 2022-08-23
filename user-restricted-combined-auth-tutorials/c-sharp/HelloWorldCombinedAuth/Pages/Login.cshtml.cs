@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication;
 
 namespace HelloWorldCombinedAuth.Pages
 {
+    // Specifies access to this page requires authentication. Triggers specified oAuth flow if user not authenticated
     [Authorize]
     public class LoginModel : PageModel
     {
@@ -19,6 +20,8 @@ namespace HelloWorldCombinedAuth.Pages
 
         public async Task OnGet()
         {
+            // Fetch tokens that have been stored in the authentication cookie to display
+
             var accessToken = await HttpContext.GetTokenAsync("access_token");
             var tokenRefresh = await HttpContext.GetTokenAsync("refresh_token");
             var tokenExpiresAt = await HttpContext.GetTokenAsync("expires_at");
