@@ -32,7 +32,7 @@ To follow this tutorial download or clone this folder.
 
 ## Create an application on our developer portal
 
-You need to create an application using our [Developer portal](https://digital.nhs.uk/developer/getting-started#create-a-developer-account). This gives you access to your application's API key and secret.
+You need to create an application using our [Developer portal](https://digital.nhs.uk/developer/getting-started#create-a-developer-account). This gives you access to your application's API Key and Secret.
 
 To do this, follow Step 1 'Create an application'
 of [our guide](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/application-restricted-restful-apis-signed-jwt-authentication#step-1-create-an-application).
@@ -41,7 +41,7 @@ Notes:
 
 - when creating a new app, you need to select the 'Environment'. For this tutorial select 'Sandbox'.
 - when editing your application details and selecting the API you want to use, select 'Hello World (Sandbox)'.
-- You will be prompted for a callback URL which is required for combined authentication and authorization. This URL is used to send users back to your application after successful (or unsuccessful) authorisation. This project is configured to run at `https://localhost:7114` and the oAuth handler creates as callback endpoint at `/callback`. Therefore the callback URL should be set to `https://localhost:7114/callback`.
+- you will be prompted for a callback URL which is required for combined authentication and authorization. This URL is used to send users back to your application after successful (or unsuccessful) authorisation. This project is configured to run at `https://localhost:7114` and the OAuth handler creates as callback endpoint at `/callback`. Therefore the callback URL should be set to `https://localhost:7114/callback`.
 
 - make note of your `API Key` and `API secret`.
 
