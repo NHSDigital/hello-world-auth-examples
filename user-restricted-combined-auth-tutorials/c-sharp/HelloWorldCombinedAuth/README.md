@@ -12,20 +12,19 @@ To learn more about this security pattern see [User-restricted RESTful APIs - NH
 
 
 ## Setting up your environment
-
 This example project was developed using .NET version 6.0.
 
 ## Checkout the GitHub Repository
 
 You can find the code for this C# user-restricted REST API - (NHS CIS2) combined authentication and authorisation tutorial in
-our [GitHub repository]().
+our [GitHub repository](https://github.com/NHSDigital/hello-world-auth-examples/tree/main/user-restricted-combined-auth-tutorials/c-sharp).
 
 ### Implementation details
 This project contains:
 
 - a `Program.cs` file. This contains the application startup code and configures the OAuth flow required to authenticate. It also configures cookie authentication, which means cookies are used to store whether the user is authenticated or not, and to store received access tokens.
 
-- a `Pages` folder. This folder contains our Razor Pages. Pages marked with an `[Authorize]` tag show that the user must be authenticated (as determined by a cookie) to access them. If an unauthenticated user tries to access these pages it will trigger the OAuth authentication handler (configured in `Program.cs`) to run.
+- a `Pages` folder. This folder contains the Razor Pages. Pages marked with an `[Authorize]` tag show that the user must be authenticated (as determined by a cookie) to access them. If an unauthenticated user tries to access these pages it will trigger the OAuth authentication handler (configured in `Program.cs`) to run.
 
 - a `HelloWorld` Razor page - located in the `Pages` folder. When this page is requested the stored access token is retrieved and used to send a GET request to the specified API endpoint.
 
