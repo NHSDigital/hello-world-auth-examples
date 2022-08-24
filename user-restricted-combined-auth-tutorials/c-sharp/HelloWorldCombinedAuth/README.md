@@ -6,10 +6,7 @@ This tutorial shows you how to connect to a [user-restricted REST API](https://d
 and the C# programming language. It uses [Razor Pages in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/razor-pages) to create a simple web application which authenticates the end user using our mock NHS CIS2 environment, receives an access token from our authorisation server and calls the user restricted endpoint of our [Hello World API](https://digital.nhs.uk/developer/api-catalogue/hello-world).
 
 To call a user-restricted API, the end user must be authenticated.
-NHS CIS2 is used to authenticate when the end user is a healthcare worker. With the combined authentication and authorisation pattern, authentication is done by NHS CIS2 but is coordinated behind our OAuth2.0 authorisation server.
-
-To learn more about this security pattern see [User-restricted RESTful APIs - NHS Care Identity Service 2 combined authentication and authorisation](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/user-restricted-restful-apis-nhs-cis2-combined-authentication-and-authorisation).
-
+NHS CIS2 is used to authenticate when the end user is a healthcare worker. With the combined authentication and authorisation pattern, authentication is done by NHS CIS2 but is coordinated behind our OAuth2.0 authorisation server. In exchange, you receive an access token which you need to include in the API request.
 
 ## Setting up your environment
 This example project was developed using .NET version 6.0.
@@ -17,7 +14,7 @@ This example project was developed using .NET version 6.0.
 ## Checkout the GitHub Repository
 
 You can find the code for this C# user-restricted REST API - (NHS CIS2) combined authentication and authorisation tutorial in
-our [GitHub repository](https://github.com/NHSDigital/hello-world-auth-examples/tree/main/user-restricted-combined-auth-tutorials/c-sharp).
+our [GitHub repository](https://github.com/NHSDigital/hello-world-auth-examples/tree/main/user-restricted-combined-auth-tutorials/cis2/csharp).
 
 ### Implementation details
 This project contains:
@@ -28,7 +25,7 @@ This project contains:
 
 - a `HelloWorld` Razor page - located in the `Pages` folder. When this page is requested the stored access token is retrieved and used to send a GET request to the specified API endpoint.
 
-To follow this tutorial download or clone this folder.
+To follow this tutorial download or clone [this repository](https://github.com/NHSDigital/hello-world-auth-examples/tree/main/user-restricted-combined-auth-tutorials/cis2/csharp).
 
 ## Create an application on our developer portal
 
