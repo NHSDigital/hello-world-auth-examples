@@ -1,20 +1,20 @@
-# User-restricted NHS Care Identity Service 2 combined authentication and authorisation C# tutorial
+# User-restricted NHS login combined authentication and authorisation C# tutorial
 
 ## Overview
 
-This tutorial shows you how to connect to a [user-restricted REST API](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#user-restricted-apis) using [NHS Care Identity Service 2 (NHS CIS2) combined authentication and authorisation](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/user-restricted-restful-apis-nhs-cis2-combined-authentication-and-authorisation)
-and the C# programming language. It uses [Razor Pages in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/razor-pages) to create a simple web application which authenticates the end user using our [mock NHS CIS2 authorisation service](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/testing-apis-with-our-mock-authorisation-service), receives an access token from our authorisation server and calls the user restricted endpoint of our [Hello World API](https://digital.nhs.uk/developer/api-catalogue/hello-world).
+This tutorial shows you how to connect to a [user-restricted REST API](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#user-restricted-apis) using [NHS login combined authentication and authorisation](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/user-restricted-restful-apis-nhs-login-combined-authentication-and-authorisation)
+and the C# programming language. It uses [Razor Pages in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/razor-pages) to create a simple web application which authenticates the end user using our sandbox NHS login environment, receives an access token from our authorisation server and calls the user restricted endpoint of our [Hello World API](https://digital.nhs.uk/developer/api-catalogue/hello-world).
 
 To call a user-restricted API, the end user must be authenticated.
-NHS CIS2 is used to authenticate when the end user is a healthcare worker. With the combined authentication and authorisation pattern, authentication is done by NHS CIS2 but is coordinated behind our OAuth2.0 authorisation server. In exchange, you receive an access token which you need to include in the API request.
+NHS login is used to authenticate when the end user is a patient. With the combined authentication and authorisation pattern, authentication is done by NHS login but is coordinated behind our OAuth2.0 authorisation server. In exchange, you receive an access token which you need to include in the API request.
 
 ## Setting up your environment
 This example project was developed using .NET version 6.0.
 
 ## Checkout the GitHub Repository
 
-You can find the code for this C# user-restricted REST API NHS CIS2 combined authentication and authorisation tutorial in
-our [GitHub repository](https://github.com/NHSDigital/hello-world-auth-examples/tree/main/user-restricted-combined-auth-tutorials/cis2/csharp).
+You can find the code for this C# user-restricted REST API NHS login combined authentication and authorisation tutorial in
+our [GitHub repository](https://github.com/NHSDigital/hello-world-auth-examples/tree/main/user-restricted-combined-auth-tutorials/nhs-login/csharp).
 
 ### Implementation details
 This project contains:
@@ -25,7 +25,7 @@ This project contains:
 
 - a `HelloWorld` Razor page - located in the `Pages` folder. When this page is requested the stored access token is retrieved and used to send a GET request to the specified API endpoint.
 
-To follow this tutorial download or clone [this repository](https://github.com/NHSDigital/hello-world-auth-examples/tree/main/user-restricted-combined-auth-tutorials/cis2/csharp).
+To follow this tutorial download or clone [this repository](https://github.com/NHSDigital/hello-world-auth-examples/tree/main/user-restricted-combined-auth-tutorials/nhs-login/csharp).
 
 ## Create an application on our developer portal
 
@@ -76,11 +76,10 @@ dotnet run
 ### Run using Makefile
 Alternatively you can set your environment variables in a file named `.env`. Then use the make command: `make run`.
 
-
 ## Using the application
 When you run the code, you should be able to load the application at `https://localhost:7114`.
-1. Click the button 'Login with NHS CIS2' to be directed to our mock NHS CIS2 authorisation service
-2. Select an option to simulate a login and click 'Sign in'
+1. Click the button 'Login with NHS login' to be directed to our mock NHS login authorisation service
+2. Sign in using a test NHS login user
 3. You will be redirected back to the application and the access token you have received will be displayed
 4. To use the access token in an request to the Hello World API, click 'Call API'
 5. The response from the API should read:
