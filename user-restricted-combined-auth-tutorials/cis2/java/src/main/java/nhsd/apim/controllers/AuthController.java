@@ -29,19 +29,31 @@ public class AuthController {
         return "index"; //view
     }
 
-    @GetMapping("/login")
-    public void login(HttpServletResponse response) throws Exception {
+    @GetMapping("/auth")
+    public void authUser(HttpServletResponse response) throws Exception {
         // Build the URL parameters needed for authorization
-        String authURL = Auth.authorize(OAUTH_ENDPOINT + "/authorize", CLIENT_ID, REDIRECT_URI);
+        String authURL = Auth.buildAuthorizationURL(OAUTH_ENDPOINT + "/authorize", CLIENT_ID, REDIRECT_URI);
         // Redirect to the external authorization endpoint and get the user to sign in with CIS2
         response.setHeader("Location", authURL);
         response.setStatus(302);
     }
 
     @GetMapping("/callback")
-    public String authRedirect(@RequestParam("code") String code, Model model) throws Exception {
+    public void authRedirect(@RequestParam("code") String code, HttpServletResponse response, Model model) throws Exception {
         model.addAttribute("code", code);
-        return "login";
+
+        String accessToken = Auth.getAccessToken(OAUTH_ENDPOINT + "/token", CLIENT_ID, CLIENT_SECRET, REDIRECT_URI, code);
+        String redirectURL = "/success?accessToken=" + accessToken;
+
+        response.setHeader("Location", redirectURL);
+        response.setStatus(302);
+    }
+
+    @GetMapping("/success")
+    public String authSuccessful(@RequestParam("accessToken") String accessToken, Model model) {
+        model.addAttribute("accessToken", accessToken);
+        // TODO - add token expiry
+        return "login"; //view
     }
 
     @GetMapping("/hello")

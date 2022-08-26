@@ -11,7 +11,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         String [] ignoredPaths = new String[]{
-                "/error", "/login", "/callback", "/", "/home", "/pageNotFound",
+                "/error", "/auth", "/callback", "/success", "/", "/home", "/pageNotFound",
                 "/css/**", "/js/**", "/fonts/**", "/img/**"
         };
 

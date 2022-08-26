@@ -17,9 +17,9 @@
 
     <div class="container p-3">
       <div class="row p-1">
-        <span th:text="'code = ' + ${code}"></span>
-        <p><strong>Access token:</strong></p>
-        <p><strong>Token expires at:</strong></p>
+        <p><strong>Code: </strong><span th:text="${code}"></span></p>
+        <p><strong>Access token: </strong><span th:text="${accessToken}"></span></p>
+        <p><strong>Token expires at: </strong><span th:text="${tokenExpires}"></span></p>
       </div>
       <a th:href="@{/hello}" class="btn-success btn-lg btn-text" id="call-api-button">Call API</a>
     </div>
