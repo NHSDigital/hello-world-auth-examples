@@ -12,7 +12,7 @@ public class HelloWorld {
         URL url = new URL(helloEndpoint);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
-        connection.setRequestProperty("Authorization", "Bearer "+ accessToken);
+        connection.setRequestProperty("Authorization", "Bearer " + accessToken);
 
         if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
             InputStream inputStream =  connection.getErrorStream();

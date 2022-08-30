@@ -4,11 +4,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
-import java.io.OutputStream;
+import org.json.JSONObject;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -42,24 +41,30 @@ public class AuthController {
     public void authRedirect(@RequestParam("code") String code, HttpServletResponse response, Model model) throws Exception {
         model.addAttribute("code", code);
 
-        String accessToken = Auth.getAccessToken(OAUTH_ENDPOINT + "/token", CLIENT_ID, CLIENT_SECRET, REDIRECT_URI, code);
-        String redirectURL = "/success?accessToken=" + accessToken;
+        JSONObject tokenResponse = Auth.getTokenResponse(OAUTH_ENDPOINT + "/token", CLIENT_ID, CLIENT_SECRET, REDIRECT_URI, code);
+        String accessToken = tokenResponse.getString("access_token");
+        String expiresIn = tokenResponse.getString("expires_in");
+
+        String redirectParameters = String.join("&",
+                "accessToken=" + accessToken,
+                "expiresIn=" + expiresIn);
+        String redirectURL = "/success?" + redirectParameters;
 
         response.setHeader("Location", redirectURL);
         response.setStatus(302);
     }
 
     @GetMapping("/success")
-    public String authSuccessful(@RequestParam("accessToken") String accessToken, Model model) {
+    public String authSuccessful(@RequestParam("accessToken") String accessToken, @RequestParam("expiresIn") String expiresIn, Model model) {
         model.addAttribute("accessToken", accessToken);
-        // TODO - add token expiry
+        model.addAttribute("expiresIn", expiresIn);
         return "login"; //view
     }
 
     @GetMapping("/hello")
-    public String helloWorld(Model model) {
-
+    public String helloWorld(Model model) throws Exception {
+//        model.addAttribute("accessToken", accessToken);
+//        String helloWorldResponse = HelloWorld.makeUserRestrictedRequest(ENDPOINT, accessToken);
         return "hello_world"; //view
     }
-
 }

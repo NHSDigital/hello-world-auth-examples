@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -17,6 +18,7 @@ import org.json.JSONObject;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -36,9 +38,7 @@ public class Auth {
         return outputURL;
     }
 
-    public static String getAccessToken(String tokenURL, String clientID, String clientSecret, String redirectURI, String code) throws Exception {
-        HttpURLConnection connection = null;
-
+    public static JSONObject getTokenResponse(String tokenURL, String clientID, String clientSecret, String redirectURI, String code) throws Exception {
         // Set up params for /token request
         String urlParameters = String.join("&",
                 "grant_type=authorization_code",
@@ -47,39 +47,31 @@ public class Auth {
                 "redirect_uri=" + redirectURI,
                 "code=" + code);
 
-        //Create connection
+        // Create connection
         URL url = new URL(tokenURL);
-        connection = (HttpURLConnection) url.openConnection();
+        HttpURLConnection connection = (HttpURLConnection)url.openConnection();
         connection.setRequestMethod("POST");
-        connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-        connection.setRequestProperty("Content-Length", Integer.toString(urlParameters.getBytes().length));
-        connection.setRequestProperty("Content-Language", "en-US");
-
-        connection.setUseCaches(false);
         connection.setDoOutput(true);
+        connection.setRequestProperty("content-type", "application/x-www-form-urlencoded");
 
-        //Send request
-        DataOutputStream wr = new DataOutputStream (connection.getOutputStream());
-        wr.writeBytes(urlParameters);
-        wr.close();
+        byte[] out = urlParameters.getBytes(StandardCharsets.UTF_8);
 
-        //Get Response
-        InputStream is = connection.getInputStream();
-        BufferedReader rd = new BufferedReader(new InputStreamReader(is));
-        StringBuilder response = new StringBuilder(); // or StringBuffer if Java version 5+
-        String line;
-        while ((line = rd.readLine()) != null) {
-            response.append(line);
-            response.append('\r');
+        OutputStream stream = connection.getOutputStream();
+        stream.write(out);
+
+        int responseCode = connection.getResponseCode();
+
+        if (responseCode != HttpURLConnection.HTTP_OK) {
+            InputStream inputStream =  connection.getErrorStream();
+            String streamText = new String(inputStream.readAllBytes());
+            throw new Exception(streamText);
         }
-        rd.close();
-        return response.toString();
 
         // Read response and return access token
-//        InputStream inputStream = connection.getInputStream();
-//        String streamText = new String(inputStream.readAllBytes());
-//        JSONObject obj = new JSONObject(streamText);
-//        String accessToken = obj.getString("access_token");
-//        return accessToken;
+        InputStream inputStream = connection.getInputStream();
+        String streamText = new String(inputStream.readAllBytes());
+        JSONObject obj = new JSONObject(streamText);
+
+        return obj;
     }
 }
