@@ -79,7 +79,7 @@ Alternatively you can set your environment variables in a file named `.env`. The
 ## Using the application
 When you run the code, you should be able to load the application at `https://localhost:7114`.
 1. Click the button 'Login with NHS login' to be directed to our mock NHS login authorisation service
-2. Sign in by selecting an NHS login [authentication level](https://nhsconnect.github.io/nhslogin/user-journeys/)
+2. Sign in by selecting the highest NHS login [authentication level](https://nhsconnect.github.io/nhslogin/user-journeys/): P9.
 3. You will be redirected back to the application and the access token you have received will be displayed
 4. To use the access token in an request to the Hello World API, click 'Call API'
 5. The response from the API should read:

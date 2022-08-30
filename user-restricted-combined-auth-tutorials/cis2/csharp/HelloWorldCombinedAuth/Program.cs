@@ -22,7 +22,6 @@ builder.Services.AddAuthentication(options =>
     options.Cookie.SameSite = SameSiteMode.Lax;
     options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
     options.ExpireTimeSpan = new System.TimeSpan(0, 10, 0);
-    options.SlidingExpiration = true;
 })
 .AddOAuth("NHSD", options =>
 {
