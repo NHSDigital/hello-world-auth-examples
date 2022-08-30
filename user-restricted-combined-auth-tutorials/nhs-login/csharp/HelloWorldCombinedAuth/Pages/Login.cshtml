@@ -1,0 +1,18 @@
+@page
+@model LoginModel
+@{
+    ViewData["Title"] = "Login page";
+}
+
+<div class="text-center">
+    <h1 class="p-3">Successfully logged in!</h1>
+
+    <div class="container p-3">
+        <div class="row p-1">
+            <p><strong>Access token:</strong> @Model.AccessToken</p>
+            <p><strong>Token expires at:</strong> @Model.SessionExpires</p>
+        </div>
+        <a class="btn-success btn-lg btn-text" id="call-api-button" asp-page="/HelloWorld">Call API</a>
+    </div>
+
+</div>

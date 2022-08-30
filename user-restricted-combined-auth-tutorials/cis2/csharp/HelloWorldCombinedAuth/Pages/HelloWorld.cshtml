@@ -1,0 +1,14 @@
+@page
+@model HelloWorldModel
+@{
+    ViewData["Title"] = "Hello World page";
+}
+
+<div class="text-center">
+    <h1 class="p-3">Making an API Call</h1>
+
+    <p><strong>Request to:</strong> @Model.APIEndpoint</p>
+    <p><strong>Response code:</strong> @Model.ResponseCode</p>
+    <p><strong>Response:</strong> @Model.ResponseContent</p>
+
+</div>
