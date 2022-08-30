@@ -23,6 +23,11 @@ public class AuthController {
     private String REDIRECT_URI = System.getenv("REDIRECT_URI");
     private String ENDPOINT = System.getenv("ENDPOINT");
 
+    @GetMapping("/error")
+    public String error(HttpServletResponse response) {
+        return "error";
+    }
+
     @GetMapping("/home")
     public String index(Model model) {
         return "index"; //view
