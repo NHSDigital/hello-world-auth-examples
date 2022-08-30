@@ -1,4 +1,4 @@
-package nhsd.apim;
+package nhsd.apim.user;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

@@ -1,4 +1,4 @@
-package nhsd.apim;
+package nhsd.apim.user;
 
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -11,7 +11,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         String [] ignoredPaths = new String[]{
-                "/error", "/auth", "/callback", "/success", "/", "/home", "/pageNotFound",
+                "/error", "/auth", "/callback", "/success", "/", "/home", "/hello", "/pageNotFound",
                 "/css/**", "/js/**", "/fonts/**", "/img/**"
         };
 

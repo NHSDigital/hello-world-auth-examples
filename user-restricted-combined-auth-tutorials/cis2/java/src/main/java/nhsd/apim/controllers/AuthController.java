@@ -1,4 +1,4 @@
-package nhsd.apim;
+package nhsd.apim.user;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -62,9 +62,19 @@ public class AuthController {
     }
 
     @GetMapping("/hello")
-    public String helloWorld(Model model) throws Exception {
-//        model.addAttribute("accessToken", accessToken);
-//        String helloWorldResponse = HelloWorld.makeUserRestrictedRequest(ENDPOINT, accessToken);
+    public String helloWorldResponse(@RequestParam("accessToken") String accessToken, Model model) throws Exception {
+        model.addAttribute("accessToken", accessToken);
+
+        String[] helloWorldResponse = HelloWorld.makeUserRestrictedRequest(ENDPOINT, accessToken);
+
+        String url = helloWorldResponse[0];
+        String responseCode = helloWorldResponse[1];
+        String responseBody = helloWorldResponse[2];
+
+        model.addAttribute("url", url);
+        model.addAttribute("responseCode", responseCode);
+        model.addAttribute("responseBody", responseBody);
+
         return "hello_world"; //view
     }
 }

@@ -20,7 +20,7 @@
         <p><strong>Access token: </strong><span th:text="${accessToken}"></span></p>
         <p><strong>Token expires at: </strong><span th:text="${expiresIn}"></span></p>
       </div>
-      <a th:href="@{/hello}" class="btn-success btn-lg btn-text" id="call-api-button">Call API</a>
+      <a th:href="@{/hello(accessToken=${accessToken})}" class="btn-success btn-lg btn-text" id="call-api-button">Call API</a>
     </div>
   </div>
 
