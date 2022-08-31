@@ -26,7 +26,7 @@ import java.util.UUID;
 
 public class Auth {
 
-    public static String buildAuthorizationURL(String authURL, String clientID, String redirectURI) throws Exception {
+    public static String buildAuthorizationURL(final String authURL, final String clientID, final String redirectURI) throws Exception {
         // Set up params for /authorize request
         String urlParameters = String.join("&",
                 "response_type=code",
@@ -38,7 +38,7 @@ public class Auth {
         return outputURL;
     }
 
-    public static JSONObject getTokenResponse(String tokenURL, String clientID, String clientSecret, String redirectURI, String code) throws Exception {
+    public static JSONObject getTokenResponse(final String tokenURL, final String clientID, final String clientSecret, final String redirectURI, final String code) throws Exception {
         // Set up params for /token request
         String urlParameters = String.join("&",
                 "grant_type=authorization_code",
