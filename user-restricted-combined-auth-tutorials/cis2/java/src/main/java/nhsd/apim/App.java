@@ -23,12 +23,5 @@ public class App
         System.out.println("User Restricted App.java");
 
         SpringApplication.run(App.class, args);
-
-//        String code = Auth.authorize(OAUTH_ENDPOINT + "/authorize", CLIENT_ID, REDIRECT_URI);
-//        String accessToken = Auth.getAccessToken(OAUTH_ENDPOINT + "/token", CLIENT_ID, CLIENT_SECRET, REDIRECT_URI, code);
-//
-//        String response = HelloWorld.makeUserRestrictedRequest(ENDPOINT, accessToken);
-//        System.out.println(response);
-
     }
 }
