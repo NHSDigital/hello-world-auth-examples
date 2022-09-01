@@ -1,4 +1,4 @@
-package nhsd.apim.user;
+package nhsd.apim.auth;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -25,18 +25,6 @@ import java.util.Date;
 import java.util.UUID;
 
 public class Auth {
-
-    public static String buildAuthorizationURL(String authURL, String clientID, String redirectURI) throws Exception {
-        // Set up params for /authorize request
-        String urlParameters = String.join("&",
-                "response_type=code",
-                "client_id=" + clientID,
-                "redirect_uri=" + redirectURI,
-                "state=" + UUID.randomUUID().toString());
-        String outputURL = authURL + "?" + urlParameters;
-
-        return outputURL;
-    }
 
     public static JSONObject getTokenResponse(String tokenURL, String clientID, String clientSecret, String redirectURI, String code) throws Exception {
         // Set up params for /token request

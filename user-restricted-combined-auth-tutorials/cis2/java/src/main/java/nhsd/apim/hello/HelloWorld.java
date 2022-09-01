@@ -1,4 +1,5 @@
-package nhsd.apim.user;
+package nhsd.apim.hello;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;

@@ -1,4 +1,7 @@
-package nhsd.apim.user;
+package nhsd.apim.controllers;
+
+import nhsd.apim.hello.HelloWorld;
+import nhsd.apim.auth.Auth;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -15,7 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Controller
-public class AuthController {
+public class MainController {
 
     private String OAUTH_ENDPOINT = System.getenv("OAUTH_ENDPOINT");
     private String CLIENT_ID = System.getenv("CLIENT_ID");
@@ -33,17 +36,17 @@ public class AuthController {
         return "index"; //view
     }
 
-    @GetMapping("/auth")
-    public void authUser(HttpServletResponse response) throws Exception {
-        // Build the URL parameters needed for authorization
-        String authURL = Auth.buildAuthorizationURL(OAUTH_ENDPOINT + "/authorize", CLIENT_ID, REDIRECT_URI);
-        // Redirect to the external authorization endpoint and get the user to sign in with CIS2
-        response.setHeader("Location", authURL);
-        response.setStatus(302);
-    }
+//    @GetMapping("/auth")
+//    public void authUser(HttpServletResponse response) throws Exception {
+//        // Build the URL parameters needed for authorization
+//        String authURL = Auth.buildAuthorizationURL(OAUTH_ENDPOINT + "/authorize", CLIENT_ID, REDIRECT_URI);
+//        // Redirect to the external authorization endpoint and get the user to sign in with CIS2
+//        response.setHeader("Location", authURL);
+//        response.setStatus(302);
+//    }
 
     @GetMapping("/callback")
-    public void authRedirect(@RequestParam("code") String code, HttpServletResponse response, Model model) throws Exception {
+    public void authRedirect(@RequestParam("code") String code, @RequestParam("state") String state ,HttpServletResponse response, Model model) throws Exception {
         model.addAttribute("code", code);
 
         JSONObject tokenResponse = Auth.getTokenResponse(OAUTH_ENDPOINT + "/token", CLIENT_ID, CLIENT_SECRET, REDIRECT_URI, code);
@@ -63,7 +66,7 @@ public class AuthController {
     public String authSuccessful(@RequestParam("accessToken") String accessToken, @RequestParam("expiresIn") String expiresIn, Model model) {
         model.addAttribute("accessToken", accessToken);
         model.addAttribute("expiresIn", expiresIn);
-        return "login"; //view
+        return "auth_successful"; //view
     }
 
     @GetMapping("/hello")
