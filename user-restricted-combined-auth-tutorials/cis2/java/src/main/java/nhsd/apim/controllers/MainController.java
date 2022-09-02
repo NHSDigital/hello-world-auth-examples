@@ -20,11 +20,11 @@ import java.util.List;
 @Controller
 public class MainController {
 
-    private String OAUTH_ENDPOINT = System.getenv("OAUTH_ENDPOINT");
-    private String CLIENT_ID = System.getenv("CLIENT_ID");
-    private String CLIENT_SECRET = System.getenv("CLIENT_SECRET");
-    private String REDIRECT_URI = System.getenv("REDIRECT_URI");
-    private String ENDPOINT = System.getenv("ENDPOINT");
+    private final String OAUTH_ENDPOINT = System.getenv("OAUTH_ENDPOINT");
+    private final String CLIENT_ID = System.getenv("CLIENT_ID");
+    private final String CLIENT_SECRET = System.getenv("CLIENT_SECRET");
+    private final String REDIRECT_URI = System.getenv("REDIRECT_URI");
+    private final String ENDPOINT = System.getenv("ENDPOINT");
 
     @GetMapping("/error")
     public String error(HttpServletResponse response) {

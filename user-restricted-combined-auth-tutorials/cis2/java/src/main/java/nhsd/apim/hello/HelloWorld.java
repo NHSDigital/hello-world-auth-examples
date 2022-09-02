@@ -8,7 +8,7 @@ import java.net.URL;
 
 public class HelloWorld {
 
-    public static String[] makeUserRestrictedRequest(String helloEndpoint, String accessToken) throws IOException, Exception {
+    public static String[] makeUserRestrictedRequest(final String helloEndpoint, final String accessToken) throws IOException, Exception {
         // Setup connection
         URL url = new URL(helloEndpoint);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
