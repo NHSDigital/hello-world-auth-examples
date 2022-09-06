@@ -6,13 +6,12 @@ spring:
           simulated-auth:
             client-id: ${CLIENT_ID}
             client-secret: ${CLIENT_SECRET}
+            client-authentication-method: post
             authorization-grant-type: authorization_code
-            scope: openid
             redirect-uri: ${REDIRECT_URI}
         provider:
           simulated-auth:
             authorization-uri: ${OAUTH_ENDPOINT}/authorize
             token-uri: ${OAUTH_ENDPOINT}/token
-            user-info-uri: ${OAUTH_ENDPOINT}/user
-            user-name-attribute: sub
-            jwk-set-uri: ${OAUTH_ENDPOINT}/jwk
+            user-info-uri: ${OAUTH_ENDPOINT}/userinfo
+            userNameAttribute: name
