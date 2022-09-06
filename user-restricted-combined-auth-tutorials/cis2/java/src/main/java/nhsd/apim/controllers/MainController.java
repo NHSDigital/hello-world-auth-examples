@@ -31,8 +31,10 @@ public class MainController {
         OAuth2AccessToken accessToken = client.getAccessToken();
         String accessTokenString = accessToken.getTokenValue();
         String expiresIn = accessToken.getExpiresAt().toString();
+
         model.addAttribute("accessToken", accessTokenString);
         model.addAttribute("expiresIn", expiresIn);
+
         return "auth_successful"; //view
     }
 
