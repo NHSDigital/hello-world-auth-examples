@@ -8,8 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RestController;
 
 
-@SpringBootApplication
-@RestController
+//@SpringBootApplication
+//@RestController
 public class CIS2Security extends WebSecurityConfigurerAdapter {
 
     @Override
