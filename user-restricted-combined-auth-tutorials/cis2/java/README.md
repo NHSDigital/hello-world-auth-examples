@@ -9,7 +9,7 @@ To call a user-restricted API, the end user must be authenticated.
 NHS CIS2 is used to authenticate when the end user is a healthcare worker. With the combined authentication and authorisation pattern, authentication is done by NHS CIS2 but is coordinated behind our OAuth2.0 authorisation server. In exchange, you receive an access token which you need to include in the API request.
 
 ## Setting up your environment
-This example project was developed using Java 17 and Spring Boot 2.7.3.
+This example project was developed using Java 17 and Maven 3.8.6.
 
 ## Checkout the GitHub Repository
 
