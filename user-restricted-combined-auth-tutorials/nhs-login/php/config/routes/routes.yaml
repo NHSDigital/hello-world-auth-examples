@@ -1,0 +1,5 @@
+# config/routes.yaml
+
+auth:
+    path: /auth
+    controller: App\Controller\HelloAuthController::auth
