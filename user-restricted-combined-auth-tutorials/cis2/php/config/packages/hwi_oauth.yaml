@@ -1,0 +1,15 @@
+hwi_oauth:
+    resource_owners:
+        nhs_login:
+            type:                oauth2
+            client_id:           oCQ32UaEcjnbXZVtA4VUXEBkPkVSaqgm
+            client_secret:       rgoKKJsIqHeXSYq5
+            access_token_url:    https://sandbox.api.service.nhs.uk/oauth2/token
+            authorization_url:   https://sandbox.api.service.nhs.uk/oauth2/authorize
+            infos_url:           https://sandbox.api.service.nhs.uk/oauth2/userinfo
+            scope:               "read"
+            user_response_class: HWI\Bundle\OAuthBundle\OAuth\Response\PathUserResponse
+            paths:
+                identifier: id
+                nickname:   username
+                realname:   fullname
