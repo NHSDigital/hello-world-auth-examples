@@ -1,0 +1,6 @@
+# config/routes.yaml
+
+# the "app_lucky_number" route name is not important yet
+auth:
+    path: /auth
+    controller: App\Controller\HelloAuthController::auth
