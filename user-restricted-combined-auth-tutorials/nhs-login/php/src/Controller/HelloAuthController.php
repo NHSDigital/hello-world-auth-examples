@@ -20,6 +20,9 @@ class HelloAuthController extends AbstractController
     #[Route('/auth')]
     public function auth()
     {
+        $options = [
+            'scope' => ['nhs-login']
+        ];
 
         $provider = new \League\OAuth2\Client\Provider\GenericProvider([
             'clientId'                => $_ENV["CLIENT_ID"] ,    // The client ID assigned to you by the provider
@@ -32,7 +35,7 @@ class HelloAuthController extends AbstractController
 
         // If we don't have an authorization code then get one
         if (!isset($_GET['code'])) {
-            $authorizationUrl = $provider->getAuthorizationUrl();                      
+            $authorizationUrl = $provider->getAuthorizationUrl($options);                      
             // Redirect the user to the authorization URL.
             header('Location: ' . $authorizationUrl);
             exit;
