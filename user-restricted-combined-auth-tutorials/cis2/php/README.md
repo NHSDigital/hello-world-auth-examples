@@ -3,7 +3,7 @@
 ## Overview
 
 This tutorial shows you how to connect to a [user-restricted REST API](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#user-restricted-apis) using [NHS Care Identity Service 2 (NHS CIS2) combined authentication and authorisation](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/user-restricted-restful-apis-nhs-cis2-combined-authentication-and-authorisation)
-and the C# programming language. It uses [Symfony](https://symfony.com/) to create a simple web application which authenticates the end user using our [mock NHS CIS2 authorisation service](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/testing-apis-with-our-mock-authorisation-service), receives an access token from our authorisation server and calls the user restricted endpoint of our [Hello World API](https://digital.nhs.uk/developer/api-catalogue/hello-world).
+and the PHP programming language. It uses [Symfony](https://symfony.com/) to create a simple web application which authenticates the end user using our [mock NHS CIS2 authorisation service](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/testing-apis-with-our-mock-authorisation-service), receives an access token from our authorisation server and calls the user restricted endpoint of our [Hello World API](https://digital.nhs.uk/developer/api-catalogue/hello-world).
 
 To call a user-restricted API, the end user must be authenticated.
 NHS CIS2 is used to authenticate when the end user is a healthcare worker. With the combined authentication and authorisation pattern, authentication is done by NHS CIS2 but is coordinated behind our OAuth2.0 authorisation server. In exchange, you receive an access token which you need to include in the API request.
@@ -34,7 +34,7 @@ Notes:
 
 - when creating a new app, you need to select the 'Environment'. For this tutorial select 'Sandbox'.
 - when editing your application details and selecting the API you want to use, select 'Hello World (Sandbox)'.
-- you will be prompted for a callback URL which is required for combined authentication and authorization. This URL is used to send users back to your application after successful (or unsuccessful) authorisation. This project is configured to run at `http://localhost:8000` and the OAuth handler creates as callback endpoint at `/hello`. Therefore the callback URL should be set to `http://localhost:8000/hello`.
+- you are prompted for a callback URL which is required for combined authentication and authorization. This URL is used to send users back to your application after successful (or unsuccessful) authorisation. This project is configured to run at `http://localhost:8000` and the OAuth handler creates as callback endpoint at `/hello`. Therefore the callback URL should be set to `http://localhost:8000/hello`.
 
 - make note of your `API Key` and `API secret`.
 
@@ -76,7 +76,7 @@ Alternatively you can set your environment variables in a file named `.env`. The
 When you run the code, you should be able to load the application at `http://localhost:8000`.
 1. Click the button 'Login with NHS CIS2' to be directed to our mock NHS CIS2 authorisation service
 2. Select an option to simulate a login and click 'Sign in'
-3. You will be redirected back to the application. The access token you have received will be used to make a request to the Hello World API.
+3. You are be redirected back to the application. The access token you have received is used to make a request to the Hello World API.
 4. The response from the API should read:
 
 ```

@@ -34,7 +34,7 @@ Notes:
 
 - when creating a new app, you need to select the 'Environment'. For this tutorial select 'Sandbox'.
 - when editing your application details and selecting the API you want to use, select 'Hello World (Sandbox)'.
-- you will be prompted for a callback URL which is required for combined authentication and authorization. This URL is used to send users back to your application after successful (or unsuccessful) authorisation. This project is configured to run at `http://localhost:8000` and the OAuth handler creates as callback endpoint at `/hello`. Therefore the callback URL should be set to `http://localhost:8000/hello`.
+- you are be prompted for a callback URL which is required for combined authentication and authorization. This URL is used to send users back to your application after successful (or unsuccessful) authorisation. This project is configured to run at `http://localhost:8000` and the OAuth handler creates as callback endpoint at `/hello`. Therefore the callback URL should be set to `http://localhost:8000/hello`.
 
 - make note of your `API Key` and `API secret`.
 
@@ -76,7 +76,7 @@ Alternatively you can set your environment variables in a file named `.env`. The
 When you run the code, you should be able to load the application at `http://localhost:8000`.
 1. Click the button 'Login with NHS login' to be directed to our mock NHS login authorisation service
 2. Sign in by selecting the highest NHS login [authentication level](https://nhsconnect.github.io/nhslogin/user-journeys/): P9.
-3. You will be redirected back to the application. The access token you have received will be used to make a request to the Hello World API.
+3. You are be redirected back to the application. The access token you have received is used to make a request to the Hello World API.
 4. The response from the API should read:
 
 ```
