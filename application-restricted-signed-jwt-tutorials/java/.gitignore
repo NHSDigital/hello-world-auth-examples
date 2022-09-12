@@ -3,7 +3,7 @@ target
 **/*.key
 .env
 
-
+bin/
 # Compiled class file
 *.class
 
