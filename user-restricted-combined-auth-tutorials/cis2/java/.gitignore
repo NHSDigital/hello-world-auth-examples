@@ -3,6 +3,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 bin/
+public/
 ### STS ###
 .apt_generated
 .classpath

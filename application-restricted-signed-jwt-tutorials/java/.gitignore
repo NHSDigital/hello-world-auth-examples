@@ -4,6 +4,7 @@ target
 .env
 
 bin/
+public/
 # Compiled class file
 *.class
 

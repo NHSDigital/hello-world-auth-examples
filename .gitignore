@@ -4,7 +4,6 @@
 **/*.key.pub
 
 node_modules/
-public/
 newman/
 build
 .venv
