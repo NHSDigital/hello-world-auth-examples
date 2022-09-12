@@ -4,8 +4,6 @@
 **/*.key.pub
 
 node_modules/
-bin/
-public/
 newman/
 build
 .venv
@@ -34,3 +32,4 @@ __pycache__/
 
 ### vscode ###
 .vscode
+*.env
