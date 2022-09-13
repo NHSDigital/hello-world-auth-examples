@@ -27,17 +27,15 @@ class ISTokenExchange {
         "grant_type" => 'urn:ietf:params:oauth:grant-type:token-exchange'
     );
 
-    error_log('here1');
     $curl = curl_init('https://sandbox.api.service.nhs.uk/oauth2-mock/token');
     curl_setopt($curl, CURLOPT_URL, 'https://sandbox.api.service.nhs.uk/oauth2-mock/token');
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-    error_log('here2');
-    $resp = curl_exec($curl);
-    error_log($resp);
 
+    $resp = curl_exec($curl);
+  
     curl_close($curl);
     $json = json_decode($resp);
     return $json->access_token;
