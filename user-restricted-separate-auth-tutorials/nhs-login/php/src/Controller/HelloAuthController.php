@@ -57,10 +57,6 @@ class HelloAuthController extends AbstractController {
         $IStokenUrl = 'https://sandbox.api.service.nhs.uk/oauth2-mock/token';
         $ISclientId = $_ENV['IDENTITY_SERVICE_CLIENT_ID'];
 
-        error_log("#####################");
-        error_log( $ISkey_path);
-        error_log( $key_path);
-
         $jwtHandler = new JwtHandler($key_path, $tokenUrl, $clientId, "test-1", 'RS256', 'sha256WithRSAEncryption');
         $jwt = $jwtHandler->GenerateJwt();
 
