@@ -1,0 +1,14 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="p-3">Welcome</h1>
+
+    <div class="container p-3">
+        <p>Call the user restricted Hello World API by authenticating with (mock) NHS CIS2.</p>
+        <a class="btn btn-success btn-lg btn-text" id="login-button" asp-page="/Login">Login with NHS CIS2</a>
+    </div>
+</div>

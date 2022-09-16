@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "dgSpecHash": "499b7gxBOAkrpwRl7NUDH6JYc6Jiu78wYuPfbtqi6EdCq8cQn0MLPRUTCT3WDUrcbxcBbctNFEWbO2ca8zVEdg==",
+  "success": true,
+  "projectFilePath": "/home/jackm/RiderProjects/hello-world-auth-examples/user-restricted-separated-auth-tutorials/cis2/csharp/HelloWorldSeparateAuth/HelloWorldSeparateAuth/HelloWorldSeparateAuth.csproj",
+  "expectedPackageFiles": [
+    "/home/jackm/.nuget/packages/microsoft.aspnetcore.authentication.jwtbearer/6.0.9/microsoft.aspnetcore.authentication.jwtbearer.6.0.9.nupkg.sha512",
+    "/home/jackm/.nuget/packages/microsoft.aspnetcore.authentication.openidconnect/6.0.8/microsoft.aspnetcore.authentication.openidconnect.6.0.8.nupkg.sha512",
+    "/home/jackm/.nuget/packages/microsoft.csharp/4.5.0/microsoft.csharp.4.5.0.nupkg.sha512",
+    "/home/jackm/.nuget/packages/microsoft.extensions.apidescription.server/3.0.0/microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "/home/jackm/.nuget/packages/microsoft.identitymodel.jsonwebtokens/6.10.0/microsoft.identitymodel.jsonwebtokens.6.10.0.nupkg.sha512",
+    "/home/jackm/.nuget/packages/microsoft.identitymodel.logging/6.10.0/microsoft.identitymodel.logging.6.10.0.nupkg.sha512",
+    "/home/jackm/.nuget/packages/microsoft.identitymodel.protocols/6.10.0/microsoft.identitymodel.protocols.6.10.0.nupkg.sha512",
+    "/home/jackm/.nuget/packages/microsoft.identitymodel.protocols.openidconnect/6.10.0/microsoft.identitymodel.protocols.openidconnect.6.10.0.nupkg.sha512",
+    "/home/jackm/.nuget/packages/microsoft.identitymodel.tokens/6.10.0/microsoft.identitymodel.tokens.6.10.0.nupkg.sha512",
+    "/home/jackm/.nuget/packages/microsoft.openapi/1.2.3/microsoft.openapi.1.2.3.nupkg.sha512",
+    "/home/jackm/.nuget/packages/swashbuckle.aspnetcore/6.2.3/swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
+    "/home/jackm/.nuget/packages/swashbuckle.aspnetcore.swagger/6.2.3/swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
+    "/home/jackm/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.2.3/swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
+    "/home/jackm/.nuget/packages/swashbuckle.aspnetcore.swaggerui/6.2.3/swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512",
+    "/home/jackm/.nuget/packages/system.identitymodel.tokens.jwt/6.10.0/system.identitymodel.tokens.jwt.6.10.0.nupkg.sha512",
+    "/home/jackm/.nuget/packages/system.security.cryptography.cng/4.5.0/system.security.cryptography.cng.4.5.0.nupkg.sha512",
+    "/home/jackm/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.2/microsoft.aspnetcore.app.ref.6.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}
