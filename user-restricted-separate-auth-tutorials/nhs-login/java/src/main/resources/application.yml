@@ -11,7 +11,7 @@ spring:
             redirect-uri: ${REDIRECT_URI}
         provider:
           simulated-auth:
-            authorization-uri: ${OAUTH_ENDPOINT}/authorize
+            authorization-uri: ${OAUTH_ENDPOINT}
             token-uri: ${OAUTH_ENDPOINT}/token
             user-info-uri: ${OAUTH_ENDPOINT}/userinfo
             userNameAttribute: name
