@@ -11,7 +11,17 @@ spring:
             redirect-uri: ${REDIRECT_URI}
         provider:
           simulated-auth:
-            authorization-uri: ${OAUTH_ENDPOINT}
+            authorization-uri: ${OAUTH_ENDPOINT}/auth
             token-uri: ${OAUTH_ENDPOINT}/token
             user-info-uri: ${OAUTH_ENDPOINT}/userinfo
             userNameAttribute: name
+
+auth:
+  provider:
+    kid: "test-1"
+    private-key-path: "/Users/jalal/projects/apim/hello-world-auth-examples/user-restricted-separate-auth-tutorials/nhs-login/java/hello-world-tutorials.key"
+  service:
+    kid: "test-1"
+    private-key-path: "/Users/jalal/projects/apim/hello-world-auth-examples/user-restricted-separate-auth-tutorials/nhs-login/java/hello-world-tutorials.key"
+    tokenUri: "https://internal-dev.api.service.nhs.uk/oauth2-mock/token"
+    clientId: "7LHW0um8gU0V8hqYPCcVhGdkdwGyziGv"
