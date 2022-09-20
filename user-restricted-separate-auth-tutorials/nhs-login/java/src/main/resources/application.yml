@@ -22,6 +22,6 @@ auth:
     private-key-path: "/Users/jalal/projects/apim/hello-world-auth-examples/user-restricted-separate-auth-tutorials/nhs-login/java/hello-world-tutorials.key"
   service:
     kid: "test-1"
-    private-key-path: "/Users/jalal/projects/apim/hello-world-auth-examples/user-restricted-separate-auth-tutorials/nhs-login/java/hello-world-tutorials.key"
-    tokenUri: "https://internal-dev.api.service.nhs.uk/oauth2-mock/token"
+    private-key-path: "/Users/jalal/projects/apim/hello-world-auth-examples/user-restricted-separate-auth-tutorials/nhs-login/java/service.key"
+    tokenUri: "https://sandbox.api.service.nhs.uk/oauth2-mock/token"
     clientId: "7LHW0um8gU0V8hqYPCcVhGdkdwGyziGv"

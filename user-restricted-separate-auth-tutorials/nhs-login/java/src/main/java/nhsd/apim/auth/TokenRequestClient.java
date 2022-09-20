@@ -67,8 +67,10 @@ public class TokenRequestClient {
         this.objectMapper = objectMapper;
     }
     public String getToken(OAuth2AuthorizationCodeGrantRequest authorizationGrantRequest) throws JsonProcessingException {
-        String idToken = getTokenRequest(authorizationGrantRequest);
-        String jwt = providerJwtGen.generateJwt(serviceClientId, serviceKid, serviceTokenUri);
+        String idToken = getIdToken(authorizationGrantRequest);
+        String jwt = serviceJwtGen.generateJwt(serviceClientId, serviceKid, serviceTokenUri);
+        System.out.println("token exchange");
+        System.out.println(jwt);
 
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
         body.add(OAuth2ParameterNames.GRANT_TYPE, "urn:ietf:params:oauth:grant-type:token-exchange");
@@ -87,7 +89,7 @@ public class TokenRequestClient {
         return "";
     }
 
-    private String getTokenRequest(OAuth2AuthorizationCodeGrantRequest authorizationGrantRequest) throws JsonProcessingException {
+    private String getIdToken(OAuth2AuthorizationCodeGrantRequest authorizationGrantRequest) throws JsonProcessingException {
         OAuth2AuthorizationExchange authorizationExchange = authorizationGrantRequest.getAuthorizationExchange();
         ClientRegistration clientRegistration = authorizationGrantRequest.getClientRegistration();
 
@@ -99,6 +101,8 @@ public class TokenRequestClient {
         String redirectUri = authorizationExchange.getAuthorizationRequest().getRedirectUri();
         String clientAssertionType = "urn:ietf:params:oauth:client-assertion-type:jwt-bearer";
         String jwt = providerJwtGen.generateJwt(clientId, providerKid, tokenUri);
+        System.out.println("auth jwt:");
+        System.out.println(jwt);
 
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
         body.add(OAuth2ParameterNames.GRANT_TYPE, "authorization_code");
@@ -118,6 +122,8 @@ public class TokenRequestClient {
         ObjectMapper om = new ObjectMapper();
         om.configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false);
         TokenResponse tr = om.readValue(res.getBody(), TokenResponse.class);
+        System.out.println("access token:");
+        System.out.println(tr.accessToken);
         return tr.accessToken;
     }
 
