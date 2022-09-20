@@ -22,6 +22,8 @@ class SeparateAuthHttpClient {
     );
 
     $data = array(
+        "client_secret"=> "d8744650-11e0-4a0e-a368-6a4537104a4f",
+        "client_id"=> "hello-world-tutorials",
         "grant_type" => "authorization_code",
         "code" => $this->code,
         "redirect_uri" => 'http://localhost:8000/hello',

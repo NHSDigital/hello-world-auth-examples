@@ -4,6 +4,8 @@ namespace App\Service;
 
 class JwtHandler
 {
+
+  
   private $audience;
   private $client_id;
   private $kid;
