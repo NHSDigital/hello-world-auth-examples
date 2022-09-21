@@ -1,3 +1,4 @@
+using System.Text.Json.Nodes;
 using HelloWorldSeparateAuth.JWT;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Authorization;
@@ -46,22 +47,18 @@ namespace HelloWorldCombinedAuth.Pages
             };
             var content = new FormUrlEncodedContent(values);
             
-            // var requestUri = new Uri(QueryHelpers.AddQueryString(tokenUrl, content));
-            
             // Exchange the NHS Login ID token for an Access token
             var client = new HttpClient();
             var response = await client.PostAsync(tokenUrl, content);
-            Console.WriteLine(response);
-
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var parsedContent = JsonNode.Parse(responseContent);
+            
             // Fetch tokens that have been stored in the authentication cookie to display
-            // var accessToken = await HttpContext.GetTokenAsync("access_token");
-            // var tokenRefresh = await HttpContext.GetTokenAsync("refresh_token");
-            // var tokenExpiresAt = await HttpContext.GetTokenAsync("expires_at");
+            var accessToken = parsedContent["access_token"].ToString();
+            var tokenExpiresIn = int.Parse(parsedContent["expires_in"].ToString());
 
-
-            // AccessToken = (accessToken ?? "").ToString();
-            // SessionExpires = Convert.ToDateTime(tokenExpiresAt).ToString("dd/MM/yy H:mm:ss");
-
+            AccessToken = accessToken;
+            SessionExpires = DateTime.Now.AddSeconds(tokenExpiresIn).ToString("dd/MM/yy H:mm:ss");
         }
 
     }
