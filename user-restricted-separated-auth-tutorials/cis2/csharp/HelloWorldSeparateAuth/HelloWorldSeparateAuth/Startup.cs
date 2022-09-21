@@ -23,13 +23,6 @@ public class Startup
             (_configuration.GetSection("ApplicationConfigurations"));
 
         services.AddRazorPages();
-
-        var keycloakClientAssertion = _jwtHandler.GenerateJwt(
-            _configuration["KEYCLOAK_CLIENT_ID"],
-            _configuration["KEYCLOAK_AUTHORITY"],
-            _configuration["KEYCLOAK_PRIVATE_KEY_PATH"],
-            _configuration["KID"]
-            );
         
         services.AddAuthentication(options => {
                 options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -54,7 +47,12 @@ public class Startup
                     {
                         OnAuthorizationCodeReceived = context =>
                         {
-                            context.TokenEndpointRequest.ClientAssertion = keycloakClientAssertion;
+                            context.TokenEndpointRequest.ClientAssertion = _jwtHandler.GenerateJwt(
+                                _configuration["KEYCLOAK_CLIENT_ID"],
+                                _configuration["KEYCLOAK_AUTHORITY"],
+                                _configuration["KEYCLOAK_PRIVATE_KEY_PATH"],
+                                _configuration["KID"]
+                            );
                             context.TokenEndpointRequest.ClientAssertionType = "urn:ietf:params:oauth:client-assertion-type:jwt-bearer";
                             return Task.CompletedTask;
                         }
