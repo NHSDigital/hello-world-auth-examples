@@ -2,11 +2,6 @@ package nhsd.apim.auth;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.security.oauth2.core.OAuth2AccessToken;
-import org.springframework.security.oauth2.core.endpoint.OAuth2AccessTokenResponse;
-import org.springframework.security.oauth2.core.oidc.endpoint.OidcParameterNames;
-
-import java.util.Map;
 
 /**
  * This object represent both ID Token response from OIDC and Access Token from service provider's Auth Server
@@ -36,16 +31,4 @@ class TokenResponseModel {
     public String sessionState;
     @JsonProperty("scope")
     public String scope;
-
-//    OidcParameterNames.ID_TOKEN
-    public OAuth2AccessTokenResponse toOauth2AccessTokenResponse(String idToken) {
-        return OAuth2AccessTokenResponse
-                .withToken(accessToken)
-                .refreshToken(refreshToken)
-                .expiresIn(Long.parseLong(expiresIn))
-                .tokenType(OAuth2AccessToken.TokenType.BEARER)
-                .additionalParameters(Map.of(OidcParameterNames.ID_TOKEN, idToken))
-                .build();
-    }
-
 }

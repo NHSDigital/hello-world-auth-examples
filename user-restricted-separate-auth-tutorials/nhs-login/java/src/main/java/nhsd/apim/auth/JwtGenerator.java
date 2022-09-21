@@ -26,7 +26,6 @@ public class JwtGenerator {
     private final PrivateKey privateKey;
 
     public JwtGenerator(String privateKeyPath) throws IOException {
-        // Use Bouncy castle openssl library
         BufferedReader reader = new BufferedReader(new FileReader(privateKeyPath));
         PEMParser parser = new PEMParser(reader);
         PEMKeyPair pemKeyPair = (PEMKeyPair) parser.readObject();
