@@ -33,11 +33,15 @@ public class Startup
         
         services.AddAuthentication(options => {
                 options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
             })
             .AddCookie(options => {
+                options.Cookie.HttpOnly = true;
+                options.Cookie.SameSite = SameSiteMode.Lax;
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                 // The NHS Login ID token is only valid for 5 minutes
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+                options.ExpireTimeSpan = new System.TimeSpan(0, 5, 0);
             })
             .AddOpenIdConnect(options =>
                 {
@@ -52,14 +56,6 @@ public class Startup
                         {
                             context.TokenEndpointRequest.ClientAssertion = keycloakClientAssertion;
                             context.TokenEndpointRequest.ClientAssertionType = "urn:ietf:params:oauth:client-assertion-type:jwt-bearer";
-                            return Task.CompletedTask;
-                        },
-                        OnTokenValidated = context =>
-                        {
-                            return Task.CompletedTask;
-                        },
-                        OnAuthenticationFailed = context =>
-                        {
                             return Task.CompletedTask;
                         }
                     };

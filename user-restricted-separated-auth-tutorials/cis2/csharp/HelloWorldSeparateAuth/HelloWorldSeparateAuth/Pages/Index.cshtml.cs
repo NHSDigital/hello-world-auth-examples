@@ -1,19 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿namespace HelloWorldSeparateAuth.Pages;
 
-namespace HelloWorldCombinedAuth.Pages
+using Microsoft.AspNetCore.Mvc.RazorPages;
+
+public class IndexModel : PageModel
 {
-    public class IndexModel : PageModel
+    private readonly ILogger<IndexModel> _logger;
+
+    public IndexModel(ILogger<IndexModel> logger)
     {
-        private readonly ILogger<IndexModel> _logger;
+        _logger = logger;
+    }
 
-        public IndexModel(ILogger<IndexModel> logger)
-        {
-            _logger = logger;
-        }
+    public void OnGet()
+    {
 
-        public void OnGet()
-        {
-
-        }
     }
 }

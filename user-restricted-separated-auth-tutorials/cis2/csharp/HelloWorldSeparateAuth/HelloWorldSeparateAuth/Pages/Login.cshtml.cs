@@ -1,5 +1,6 @@
-namespace HelloWorldCombinedAuth.Pages;
+namespace HelloWorldSeparateAuth.Pages;
 
+using HelloWorldSeparateAuth;
 using System.Text.Json.Nodes;
 using HelloWorldSeparateAuth.JWT;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -54,9 +55,16 @@ public class LoginModel : PageModel
         
         // Fetch tokens that have been stored in the authentication cookie to display
         var accessToken = parsedContent?["access_token"]?.ToString();
-        var tokenExpiresIn = int.Parse(parsedContent?["expires_in"]?.ToString());
-
+        var refreshToken = parsedContent?["refresh_token"]?.ToString();
+        var tokenExpiryString = parsedContent?["expires_in"]?.ToString();
+        // Parse the expiry in seconds to a nullable int in case of an error response
+        var tokenExpiresIn = double.TryParse(tokenExpiryString, out var tempVal) ? tempVal : (double?)null;
+        
+        // Store the token values in the model to display on the razor page
         AccessToken = accessToken;
-        SessionExpires = DateTime.Now.AddSeconds(tokenExpiresIn).ToString("dd/MM/yy H:mm:ss");
+        SessionExpires = DateTime.Now.AddSeconds(tokenExpiresIn.GetValueOrDefault(599)).ToString("dd/MM/yy H:mm:ss");
+        
+        // Store the new access token in our config class so we can retrieve it later
+        Config.AccessToken = accessToken;
     }
 }
