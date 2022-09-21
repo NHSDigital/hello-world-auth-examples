@@ -36,7 +36,8 @@ public class Startup
                 options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
             })
             .AddCookie(options => {
-                options.LoginPath = "/Account/Login/";
+                // The NHS Login ID token is only valid for 5 minutes
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
             })
             .AddOpenIdConnect(options =>
                 {
