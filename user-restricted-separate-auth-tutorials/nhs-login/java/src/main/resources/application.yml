@@ -2,6 +2,7 @@ spring:
   security:
     oauth2:
       client:
+
         registration:
           simulated-auth:
             client-id: ${CLIENT_ID}
@@ -9,19 +10,24 @@ spring:
             client-authentication-method: post
             authorization-grant-type: authorization_code
             redirect-uri: ${REDIRECT_URI}
+#            scope: openid
         provider:
           simulated-auth:
-            authorization-uri: ${OAUTH_ENDPOINT}/auth
+#            issuer-uri: "https://identity.ptl.api.platform.nhs.uk/auth/realms/NHS-Login-mock-sandbox"
+            authorization-uri: ${OAUTH_ENDPOINT}/auth?scope=openid
             token-uri: ${OAUTH_ENDPOINT}/token
             user-info-uri: ${OAUTH_ENDPOINT}/userinfo
-            userNameAttribute: name
+#            userNameAttribute: name
+
+# spring security override userinfo
+# https://docs.spring.io/spring-authorization-server/docs/current/reference/html/guides/how-to-userinfo.html
 
 auth:
   provider:
     kid: "test-1"
-    private-key-path: "/Users/jalal/projects/apim/hello-world-auth-examples/user-restricted-separate-auth-tutorials/nhs-login/java/hello-world-tutorials.key"
+    private-key-path: "/Users/seyed.jalal.hosseini/projects/nhsd/hello-world-auth-examples/user-restricted-separate-auth-tutorials/nhs-login/java/hello-world-tutorials.key"
   service:
     kid: "test-1"
-    private-key-path: "/Users/jalal/projects/apim/hello-world-auth-examples/user-restricted-separate-auth-tutorials/nhs-login/java/service.key"
+    private-key-path: "/Users/seyed.jalal.hosseini/projects/nhsd/hello-world-auth-examples/user-restricted-separate-auth-tutorials/nhs-login/java/service.key"
     tokenUri: "https://sandbox.api.service.nhs.uk/oauth2-mock/token"
     clientId: "7LHW0um8gU0V8hqYPCcVhGdkdwGyziGv"
