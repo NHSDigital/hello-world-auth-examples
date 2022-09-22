@@ -2,7 +2,7 @@ namespace HelloWorldSeparateAuth.Pages;
 
 using HelloWorldSeparateAuth;
 using System.Text.Json.Nodes;
-using HelloWorldSeparateAuth.JWT;
+using JWT;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
