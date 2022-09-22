@@ -1,4 +1,3 @@
-using HelloWorldSeparateAuth.Configuration;
 using HelloWorldSeparateAuth.JWT;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
@@ -19,9 +18,6 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
-        services.Configure<ApplicationConfigurations>
-            (_configuration.GetSection("ApplicationConfigurations"));
-
         services.AddRazorPages();
         
         services.AddAuthentication(options => {
