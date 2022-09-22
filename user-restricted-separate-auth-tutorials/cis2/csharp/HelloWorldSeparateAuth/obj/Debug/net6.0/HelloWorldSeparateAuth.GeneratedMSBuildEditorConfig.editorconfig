@@ -1,0 +1,52 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = HelloWorldSeparateAuth
+build_property.RootNamespace = HelloWorldSeparateAuth
+build_property.ProjectDir = /home/jackm/RiderProjects/hello-world-auth-examples/user-restricted-separate-auth-tutorials/cis2/csharp/HelloWorldSeparateAuth/
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = /home/jackm/RiderProjects/hello-world-auth-examples/user-restricted-separate-auth-tutorials/cis2/csharp/HelloWorldSeparateAuth
+build_property._RazorSourceGeneratorDebug = 
+
+[/home/jackm/RiderProjects/hello-world-auth-examples/user-restricted-separate-auth-tutorials/cis2/csharp/HelloWorldSeparateAuth/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/jackm/RiderProjects/hello-world-auth-examples/user-restricted-separate-auth-tutorials/cis2/csharp/HelloWorldSeparateAuth/Pages/HelloWorld.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSGVsbG9Xb3JsZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/jackm/RiderProjects/hello-world-auth-examples/user-restricted-separate-auth-tutorials/cis2/csharp/HelloWorldSeparateAuth/Pages/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/jackm/RiderProjects/hello-world-auth-examples/user-restricted-separate-auth-tutorials/cis2/csharp/HelloWorldSeparateAuth/Pages/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvTG9naW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/jackm/RiderProjects/hello-world-auth-examples/user-restricted-separate-auth-tutorials/cis2/csharp/HelloWorldSeparateAuth/Pages/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJpdmFjeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/jackm/RiderProjects/hello-world-auth-examples/user-restricted-separate-auth-tutorials/cis2/csharp/HelloWorldSeparateAuth/Pages/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/jackm/RiderProjects/hello-world-auth-examples/user-restricted-separate-auth-tutorials/cis2/csharp/HelloWorldSeparateAuth/Pages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/jackm/RiderProjects/hello-world-auth-examples/user-restricted-separate-auth-tutorials/cis2/csharp/HelloWorldSeparateAuth/Pages/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/jackm/RiderProjects/hello-world-auth-examples/user-restricted-separate-auth-tutorials/cis2/csharp/HelloWorldSeparateAuth/Pages/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hhcmVkL19MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-2td9kus5x8
