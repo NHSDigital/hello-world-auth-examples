@@ -18,7 +18,7 @@ class TokenNotFound extends RuntimeException {
 }
 
 @RestController
-public class AppController {
+public class MainController {
     private final static ObjectMapper OM = new ObjectMapper();
 
     private final SeparatedAuthenticationService separatedAuthenticationService;
@@ -29,7 +29,7 @@ public class AppController {
 
     private String token;
 
-    public AppController(SeparatedAuthenticationService separatedAuthenticationService, RestTemplate restTemplate) {
+    public MainController(SeparatedAuthenticationService separatedAuthenticationService, RestTemplate restTemplate) {
         this.separatedAuthenticationService = separatedAuthenticationService;
         this.restTemplate = restTemplate;
     }
