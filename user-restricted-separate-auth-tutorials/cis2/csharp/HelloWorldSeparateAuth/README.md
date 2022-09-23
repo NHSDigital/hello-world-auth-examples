@@ -1,19 +1,20 @@
-# User-restricted Separate Authentication and Authorisation for NHS Login C# tutorial
+# User-restricted Separate Authentication and Authorisation for NHS CIS2 C# tutorial
 
 ## Overview
 
-This tutorial shows you how to connect to a [user-restricted REST API](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#user-restricted-apis) using [NHS login combined authentication and authorisation](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/user-restricted-restful-apis-nhs-login-combined-authentication-and-authorisation)
-and the C# programming language. It uses [.NET Core](https://dotnet.microsoft.com/en-us/) to create a simple web application which authenticates the end user using our sandbox NHS login environment, receives an access token from our authorisation server and calls the user restricted endpoint of our [Hello World API](https://digital.nhs.uk/developer/api-catalogue/hello-world).
+This tutorial shows you how to connect to a [user-restricted REST API](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#user-restricted-apis) using [NHS CIS2 separate authentication and authorisation](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/user-restricted-restful-apis-nhs-cis2-separate-authentication-and-authorisation)
+and the C# programming language. It uses [.NET Core](https://dotnet.microsoft.com/en-us/) to create a simple web application which authenticates the end user using our sandbox NHS CIS2 environment, receives an access token from our authorisation server and calls the user restricted endpoint of our [Hello World API](https://digital.nhs.uk/developer/api-catalogue/hello-world).
 
 To call a user-restricted API, the end user must be authenticated.
-NHS login is used to authenticate when the end user is a patient. With the separate authentication and authorisation pattern, authentication and authorisation are done separately. You might authenticate the user when they sign in but only get authorisation to call the API if and when you need it. You do authentication directly with NHS login and then separately do authorisation with our OAuth2.0 authorisation service.
+NHS CIS2 is used to authenticate when the end user is a healthcare worker. With the separate authentication and authorisation pattern, authentication and authorisation are done separately. You might authenticate the user when they sign in but only get authorisation to call the API if and when you need it. You do authentication directly with NHS CIS2 and then separately do authorisation with our OAuth2.0 authorisation service.
+
 ## Setting up your environment
 This example project was developed using .NET 6.0.102 so you need to have this installed.
 
 ## Checkout the GitHub Repository
 
-You can find the code for this PHP user-restricted REST API NHS login combined authentication and authorisation tutorial in
-our [GitHub repository](https://github.com/NHSDigital/hello-world-auth-examples/tree/main/user-restricted-separate-auth-tutorials/nhs-login/csharp).
+You can find the code for this PHP user-restricted REST API NHS CIS2 combined authentication and authorisation tutorial in
+our [GitHub repository](https://github.com/NHSDigital/hello-world-auth-examples/tree/main/user-restricted-separate-auth-tutorials/cis2/csharp).
 
 ### Implementation details
 This project contains:
@@ -23,7 +24,7 @@ This project contains:
 - A `JWT/JwtHandler.cs` file that generates and signs JSON Web Tokens
 - A `Pages` directory that contains each Razor Page used by the example client, each page contains its own html view and controller logic.   
 
-To follow this tutorial download or clone [this repository](https://github.com/NHSDigital/hello-world-auth-examples/tree/main/user-restricted-separated-auth-tutorials/nhs-login/csharp).
+To follow this tutorial download or clone [this repository](https://github.com/NHSDigital/hello-world-auth-examples/tree/main/user-restricted-separated-auth-tutorials/cis2/csharp).
 
 ## Create an application on our developer portal
 
@@ -49,16 +50,17 @@ You should now have your application's:
 
 To run the example tutorial, you need to set the following environment variables.
 
-| Variable name               | Description                                                                   |
-|-----------------------------|-------------------------------------------------------------------------------|
-| `KEYCLOAK_CLIENT_ID`        | `test-client-nhs-login`                                                       |
-| `KEYCLOAK_AUTHORITY`        | `https://identity.ptl.api.platform.nhs.uk/auth/realms/NHS-Login-mock-sandbox` |
- | `KEYCLOAK_PRIVATE_KEY_PATH` | The path to your private key for the Keycloak realm                           | 
- | `OAUTH_ENDPOINT`            | `https://sandbox.api.service.nhs.uk/oauth2-mock`                              |
- | `ENDPOINT`                  | `https://sandbox.api.service.nhs.uk/hello-world/hello/user`                   |
- | `CLIENT_ID`                 | Your application's `API Key`                                                  |
- | `PRIVATE_KEY_PATH`          | The path to the private key generated for your `client_assertion`             |
- | `KID`                       | `test-1`                                                                      |
+| Variable name                | Description                                                                   |
+|------------------------------|-------------------------------------------------------------------------------|
+| `KEYCLOAK_CLIENT_ID`         | `test-client-cis2`                                                            |
+ | `KEYCLOAK_CLIENT_SECRET`     | `d32d122e-8f65-4077-bb34-14ac4c2c3b41`                                                                            |
+| `KEYCLOAK_AUTHORITY`         | `https://identity.ptl.api.platform.nhs.uk/auth/realms/NHS-Login-mock-sandbox` |
+ | `KEYCLOAK_PRIVATE_KEY_PATH`  | The path to your private key for the Keycloak realm                           | 
+ | `OAUTH_ENDPOINT`             | `https://sandbox.api.service.nhs.uk/oauth2-mock`                              |
+ | `ENDPOINT`                   | `https://sandbox.api.service.nhs.uk/hello-world/hello/user`                   |
+ | `CLIENT_ID`                  | Your application's `API Key`                                                  |
+ | `PRIVATE_KEY_PATH`           | The path to the private key generated for your `client_assertion`             |
+ | `KID`                        | `test-1`                                                                      |
 
 You can set your environment variables in a file named `.env`. This project contains a sample env file to use:
 
@@ -82,7 +84,7 @@ Alternatively you can set your environment variables in a file named `.env`. The
 
 ## Using the application
 When you run the code, you should be able to load the application at `http://localhost:5001`.
-1. Click the button 'Login with NHS login' to be directed to Keycloak.
+1. Click the button 'Login with NHS CIS2' to be directed to Keycloak.
 2. Sign in with your user credentials for the client.
 3. You are be redirected back to the application. The access token you have received is used to make a request to the Hello World API.
 4. The response from the API should read:
