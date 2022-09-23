@@ -10,11 +10,9 @@ public class Startup
     public Startup(IConfiguration configuration)
     {
         _configuration = configuration;
-        _jwtHandler = new JwtHandler();
     }
 
     public IConfiguration _configuration { get; }
-    private readonly JwtHandler _jwtHandler;
 
     public void ConfigureServices(IServiceCollection services)
     {
