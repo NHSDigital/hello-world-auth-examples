@@ -49,16 +49,16 @@ You should now have your application's:
 
 To run the example tutorial, you need to set the following environment variables.
 
-| Variable name               | Description                                                                   |
-|-----------------------------|-------------------------------------------------------------------------------|
-| `KEYCLOAK_CLIENT_ID`        | `test-client-nhs-login`                                                       |
-| `KEYCLOAK_AUTHORITY`        | `https://identity.ptl.api.platform.nhs.uk/auth/realms/NHS-Login-mock-sandbox` |
- | `KEYCLOAK_PRIVATE_KEY_PATH` | The path to your private key for the Keycloak realm                           | 
- | `OAUTH_ENDPOINT`            | `https://sandbox.api.service.nhs.uk/oauth2-mock`                              |
- | `ENDPOINT`                  | `https://sandbox.api.service.nhs.uk/hello-world/hello/user`                   |
- | `CLIENT_ID`                 | Your application's `API Key`                                                  |
- | `PRIVATE_KEY_PATH`          | The path to the private key generated for your `client_assertion`             |
- | `KID`                       | `test-1`                                                                      |
+| Variable name               | Description                                                                                                                        |
+|-----------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| `KEYCLOAK_CLIENT_ID`        | `test-client-nhs-login`                                                                                                            |
+| `KEYCLOAK_AUTHORITY`        | `https://identity.ptl.api.platform.nhs.uk/auth/realms/NHS-Login-mock-sandbox`                                                      |
+ | `KEYCLOAK_PRIVATE_KEY_PATH` | The path to the provider key. NHS login will provide this key, but for this tutorial you can use a our mock NHS login provider key | 
+ | `OAUTH_ENDPOINT`            | `https://sandbox.api.service.nhs.uk/oauth2-mock`                                                                                   |
+ | `ENDPOINT`                  | `https://sandbox.api.service.nhs.uk/hello-world/hello/user`                                                                        |
+ | `CLIENT_ID`                 | Your application's `API Key`                                                                                                       |
+ | `PRIVATE_KEY_PATH`          | The path to the private key generated for your `client_assertion`                                                                  |
+ | `KID`                       | `test-1`                                                                                                                           |
 
 You can set your environment variables in a file named `.env`. This project contains a sample env file to use:
 
