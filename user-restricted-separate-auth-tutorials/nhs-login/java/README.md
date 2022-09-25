@@ -6,7 +6,7 @@ This tutorial shows you how to connect to a [user-restricted REST API](https://d
 and the Java programming language. It uses [Spring](https://spring.io/quickstart) to create a simple web application which authenticates the end user using our [mock NHS login authorisation service](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/testing-apis-with-our-mock-authorisation-service), receives an access token from our authorisation server and calls the user restricted endpoint of our [Hello World API](https://digital.nhs.uk/developer/api-catalogue/hello-world).
 
 To call a user-restricted API, the end user must be authenticated.
-NHS login is used to authenticate when the end user is a healthcare worker. With the separate authentication and authorisation pattern, authentication is done by NHS login. In exchange, you receive an access ID token which you need to exchange it with an access token. You need to include this access token in the API request.
+NHS login is used to authenticate when the end user is a patient. With the separate authentication and authorisation pattern, authentication is done by NHS login. In exchange, you receive an access ID token which you need to exchange it with an access token. You need to include this access token in the API request.
 
 ## Setting up your environment
 This example project was developed using Java 17 and Maven 3.8.6.
@@ -89,9 +89,10 @@ mvn spring-boot:run
 ```
 
 #### Mock NHS login app
-This tutorial comes with a NHS login mock provider. This application is called `hello-world-tutorials` and public key
+This tutorial comes with a NHS login mock provider. This application is called `hello-world-tutorials` and private key
 is provided (`hello-world-tutorial`). The default user is called `tutorialuser` and the password is the same as username.
 Check `application.yml` file for other configuration options.
+**NOTE:** Private key is part of source code for sample application. You should never store private keys in the repository.
 
 ### Run using Makefile
 Alternatively you can set your environment variables in a file named `.env`. Then use the make command: `make run`.

@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>nhsd.apim</groupId>
-	<artifactId>user-restricted-combined-auth-cis2</artifactId>
+	<artifactId>user-restricted-separate-auth-nhs-login</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>user-cis2</name>
 	<description>Demo project for Spring Boot</description>
