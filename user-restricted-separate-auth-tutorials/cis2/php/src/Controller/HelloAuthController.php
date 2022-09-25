@@ -49,21 +49,20 @@ class HelloAuthController extends AbstractController {
     public function callback(): Response {   
         
         $code = $_GET['code'];
-
-        $tokenUrl = 'https://identity.ptl.api.platform.nhs.uk/auth/realms/Cis2-mock-sandbox/protocol/openid-connect/token';
-
-        $ISkey_path = $_ENV['IDENTITY_SERVICE_KEY_PATH'];
         $IStokenUrl = 'https://sandbox.api.service.nhs.uk/oauth2-mock/token';
-        $ISclientId = $_ENV['IDENTITY_SERVICE_CLIENT_ID'];
+        $tokenUrl = 'https://identity.ptl.api.platform.nhs.uk/auth/realms/Cis2-mock-sandbox/protocol/openid-connect/token';
+        
+        $APPPrivateKey_path = $_ENV['CLIENT_ID'];
+        $APPClientSecret = $_ENV['CLIENT_SECRET'];
 
         try {
 
             $separateAuthClient = new SeparateAuthHttpClient($code, "", $tokenUrl);
             $token = $separateAuthClient->getAccessToken();
             
-            // if( !isset( $token->id_token) ){
-            //     return $this->redirectToRoute('homepage');
-            // }
+            if( !isset( $token->id_token) ){
+                return $this->redirectToRoute('homepage');
+            }
             
             
             $idToken = $token->id_token;
@@ -71,7 +70,7 @@ class HelloAuthController extends AbstractController {
             error_log(json_encode($idToken, JSON_PRETTY_PRINT));
     
             
-            $ISJwtHandler = new JwtHandler($ISkey_path, $IStokenUrl, $ISclientId, "test-1", 'RS512', 'sha512WithRSAEncryption');
+            $ISJwtHandler = new JwtHandler($APPPrivateKey_path, $IStokenUrl, $APPClientSecret, "test-1", 'RS512', 'sha512WithRSAEncryption');
             $ISjwt = $ISJwtHandler->GenerateJwt();
             
             error_log("IS JWT");

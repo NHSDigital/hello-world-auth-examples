@@ -21,7 +21,6 @@ class ISTokenExchange {
 
     $data = array(
         "subject_token" => $this->subject_token,
-        'client_secret'           => 'vb81YoTQVqcHrmes',
         "client_assertion" => $this->client_assertion,
         "subject_token_type" => 'urn:ietf:params:oauth:token-type:id_token',
         "client_assertion_type" => 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
@@ -39,8 +38,7 @@ class ISTokenExchange {
   
     curl_close($curl);
     $json = json_decode($resp);
-    error_log("TOKEN EXCHANGE");
-    error_log(json_encode($json, JSON_PRETTY_PRINT));
+
 
     return $json->access_token;
   }

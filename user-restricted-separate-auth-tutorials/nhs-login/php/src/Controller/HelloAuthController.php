@@ -7,7 +7,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Service\JwtHandler;
 use App\Service\SeparateAuthHttpClient;
-use Error;
 
 class HelloAuthController extends AbstractController {
     
@@ -48,36 +47,35 @@ class HelloAuthController extends AbstractController {
     public function callback(): Response {   
         
         $code = $_GET['code'];
+        $AUTHtokenUrl = 'https://sandbox.api.service.nhs.uk/oauth2-mock/token';
 
-        $key_path = $_ENV['NHS_LOGIN_KEY_PATH'];
+        // FILL THESE VARIABLES
+        // Please remove the extension from the file auth.
+        $key_path = '/app/auth.key';
         $tokenUrl = 'https://identity.ptl.api.platform.nhs.uk/auth/realms/NHS-Login-mock-sandbox/protocol/openid-connect/token';
-        $clientId = 'hello-world-tutorials'; //$_ENV['NHS_LOGIN_CLIENT_ID'];
+        $clientId = 'hello-world-tutorials';
 
-        $ISkey_path = $_ENV['IDENTITY_SERVICE_KEY_PATH'];
-        $IStokenUrl = 'https://sandbox.api.service.nhs.uk/oauth2-mock/token';
-        $ISclientId = $_ENV['IDENTITY_SERVICE_CLIENT_ID'];
+        $APPPrivateKey_path = $_ENV['CLIENT_ID'];
+        $APPClientSecret = $_ENV['CLIENT_SECRET'];
 
         $jwtHandler = new JwtHandler($key_path, $tokenUrl, $clientId, "test-1", 'RS512', 'sha512WithRSAEncryption');
         $jwt = $jwtHandler->GenerateJwt();
-
-        error_log("JWT-NHS-LOGIN");
-        error_log($jwt);
 
         try {
 
             $separateAuthClient = new SeparateAuthHttpClient($code, $jwt, $tokenUrl);
             $token = $separateAuthClient->getAccessToken();
 
-            // if( !isset( $token->id_token) ){
-            //     return $this->redirectToRoute('homepage');
-            // }
+            if( !isset( $token->id_token) ){
+                return $this->redirectToRoute('homepage');
+            }
             
             
             $idToken = $token->id_token;
             
     
             
-            $ISJwtHandler = new JwtHandler($ISkey_path, $IStokenUrl, $ISclientId, "test-1", 'RS512', 'sha512WithRSAEncryption');
+            $ISJwtHandler = new JwtHandler($APPPrivateKey_path, $AUTHtokenUrl, $APPClientSecret, "test-1", 'RS512', 'sha512WithRSAEncryption');
             $ISjwt = $ISJwtHandler->GenerateJwt();
             
      

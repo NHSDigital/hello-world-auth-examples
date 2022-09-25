@@ -57,20 +57,9 @@ You can set your environment variables in a file named `.env`. This project cont
 - rename `env.test` to `.env` and modify it.
 - source it by running `source .env`
 
-## Run the code
-
-Once you set the environment variables, you are ready to run the project.
-
 ### Run the application
 
-You should first source your environment variable file before executing your application.
-```shell
-source .env
-symfony server:start
-```
-
-### Run using Makefile
-Alternatively you can set your environment variables in a file named `.env`. Then use the make command: `make run`.
+Set your environment variables in a file named `.env`. Then use the make command: `make run`.
 
 ## Using the application
 When you run the code, you should be able to load the application at `http://localhost:8000`.

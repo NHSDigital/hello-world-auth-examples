@@ -4,7 +4,7 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
-        "php": ">=8.1",
+        "php": "^8.1",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "league/oauth2-client": "^2.6",
@@ -17,7 +17,7 @@
         "symfony/doctrine-messenger": "6.1.*",
         "symfony/dotenv": "6.1.*",
         "symfony/expression-language": "6.1.*",
-        "symfony/flex": "^2",
+        "symfony/flex": "^1.0",
         "symfony/form": "6.1.*",
         "symfony/framework-bundle": "6.1.*",
         "symfony/http-client": "6.1.*",
@@ -40,12 +40,13 @@
         "symfony/web-link": "6.1.*",
         "symfony/webpack-encore-bundle": "^1.15",
         "symfony/yaml": "6.1.*",
+        "symfony/symfony": "4.3.99",
         "twig/extra-bundle": "^2.12|^3.0",
         "twig/twig": "^2.12|^3.0"
     },
     "config": {
         "allow-plugins": {
-            "composer/package-versions-deprecated": true,
+            "composer/package-versions-depated": true,
             "symfony/flex": true,
             "symfony/runtime": true
         },
@@ -92,7 +93,8 @@
     "extra": {
         "symfony": {
             "allow-contrib": false,
-            "require": "6.1.*"
+            "require": "6.1.*",
+            "docker": true
         }
     },
     "require-dev": {
