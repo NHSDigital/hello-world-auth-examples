@@ -9,11 +9,11 @@ public class Startup
 {
     public Startup(IConfiguration configuration)
     {
-        _configuration = configuration;
+        CONFIGURATION = configuration;
         _jwtHandler = new JwtHandler();
     }
 
-    public IConfiguration _configuration { get;  }
+    private IConfiguration CONFIGURATION { get;  }
     private readonly JwtHandler _jwtHandler;
 
     public void ConfigureServices(IServiceCollection services)
@@ -30,24 +30,24 @@ public class Startup
                 options.Cookie.SameSite = SameSiteMode.Lax;
                 options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                 // The NHS Login ID token is only valid for 5 minutes
-                options.ExpireTimeSpan = new System.TimeSpan(0, 5, 0);
+                options.ExpireTimeSpan = new TimeSpan(0, 5, 0);
             })
             .AddOpenIdConnect(options =>
                 {
-                    options.ClientId = _configuration["KEYCLOAK_CLIENT_ID"];
-                    options.Authority = _configuration["KEYCLOAK_AUTHORITY"];
+                    options.ClientId = CONFIGURATION["KEYCLOAK_CLIENT_ID"];
+                    options.Authority = CONFIGURATION["KEYCLOAK_AUTHORITY"];
                     options.ResponseType = OpenIdConnectResponseType.Code;
                     options.GetClaimsFromUserInfoEndpoint = true;
                     options.SaveTokens = true;
-                    options.Events = new OpenIdConnectEvents()
+                    options.Events = new OpenIdConnectEvents
                     {
                         OnAuthorizationCodeReceived = context =>
                         {
                             context.TokenEndpointRequest.ClientAssertion = _jwtHandler.GenerateJwt(
-                                _configuration["KEYCLOAK_CLIENT_ID"],
-                                _configuration["KEYCLOAK_AUTHORITY"],
-                                _configuration["KEYCLOAK_PRIVATE_KEY_PATH"],
-                                _configuration["KID"]
+                                CONFIGURATION["KEYCLOAK_CLIENT_ID"],
+                                CONFIGURATION["KEYCLOAK_AUTHORITY"],
+                                CONFIGURATION["KEYCLOAK_PRIVATE_KEY_PATH"],
+                                CONFIGURATION["KID"]
                             );
                             context.TokenEndpointRequest.ClientAssertionType = "urn:ietf:params:oauth:client-assertion-type:jwt-bearer";
                             return Task.CompletedTask;

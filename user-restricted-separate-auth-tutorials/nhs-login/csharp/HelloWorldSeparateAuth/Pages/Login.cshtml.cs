@@ -12,12 +12,12 @@ using Microsoft.AspNetCore.Authentication;
 public class LoginModel : PageModel
 {
     private readonly IConfiguration _configuration;
-    private readonly ILogger<IndexModel> _logger;
+    private readonly ILogger<LoginModel> _logger;
     private readonly JwtHandler _jwtHandler;
     public string? AccessToken { get; set; }
     public string? SessionExpires { get; set; }
 
-    public LoginModel(IConfiguration configuration, ILogger<IndexModel> logger)
+    public LoginModel(IConfiguration configuration, ILogger<LoginModel> logger)
     {
         _configuration = configuration;
         _logger = logger;
@@ -36,7 +36,7 @@ public class LoginModel : PageModel
         
         // Build the request URI parameters with the IDToken from Keycloak and the Client Assertion JWT
         var tokenUrl = _configuration["OAUTH_ENDPOINT"] + "/token";
-        var values = new Dictionary<string, string?>()
+        var values = new Dictionary<string, string?>
         {
             {"client_id", _configuration["CLIENT_ID"]},
             {"subject_token", idToken},
@@ -55,7 +55,6 @@ public class LoginModel : PageModel
         
         // Fetch tokens that have been stored in the authentication cookie to display
         var accessToken = parsedContent?["access_token"]?.ToString();
-        var refreshToken = parsedContent?["refresh_token"]?.ToString();
         var tokenExpiryString = parsedContent?["expires_in"]?.ToString();
         // Parse the expiry in seconds to a nullable int in case of an error response
         var tokenExpiresIn = double.TryParse(tokenExpiryString, out var tempVal) ? tempVal : (double?)null;
