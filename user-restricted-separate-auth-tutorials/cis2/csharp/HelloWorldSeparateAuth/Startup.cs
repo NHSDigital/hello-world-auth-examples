@@ -1,4 +1,3 @@
-using HelloWorldSeparateAuth.JWT;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
@@ -9,10 +8,10 @@ public class Startup
 {
     public Startup(IConfiguration configuration)
     {
-        _configuration = configuration;
+        CONFIGURATION = configuration;
     }
 
-    public IConfiguration _configuration { get; }
+    private IConfiguration CONFIGURATION { get; }
 
     public void ConfigureServices(IServiceCollection services)
     {
@@ -30,13 +29,13 @@ public class Startup
                 options.Cookie.SameSite = SameSiteMode.Lax;
                 options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                 // The ID token is only valid for 5 minutes
-                options.ExpireTimeSpan = new System.TimeSpan(0, 5, 0);
+                options.ExpireTimeSpan = new TimeSpan(0, 5, 0);
             })
             .AddOpenIdConnect(options =>
             {
-                options.ClientId = _configuration["KEYCLOAK_CLIENT_ID"];
-                options.ClientSecret = _configuration["KEYCLOAK_CLIENT_SECRET"];
-                options.Authority = _configuration["KEYCLOAK_AUTHORITY"];
+                options.ClientId = CONFIGURATION["KEYCLOAK_CLIENT_ID"];
+                options.ClientSecret = CONFIGURATION["KEYCLOAK_CLIENT_SECRET"];
+                options.Authority = CONFIGURATION["KEYCLOAK_AUTHORITY"];
                 options.ResponseType = OpenIdConnectResponseType.Code;
                 options.GetClaimsFromUserInfoEndpoint = true;
                 options.SaveTokens = true;

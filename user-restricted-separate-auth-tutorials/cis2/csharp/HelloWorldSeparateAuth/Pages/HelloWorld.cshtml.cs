@@ -7,13 +7,13 @@ using Microsoft.AspNetCore.Authorization;
 [Authorize]
 public class HelloWorldModel : PageModel
 {
-    private readonly ILogger<IndexModel> _logger;
+    private readonly ILogger<HelloWorldModel> _logger;
     private readonly IConfiguration _configuration;
     public string? ResponseCode { get; set; }
     public string? ResponseContent { get; set; }
     public string? ApiEndpoint {get; set; }
 
-    public HelloWorldModel(ILogger<IndexModel> logger, IConfiguration configuration)
+    public HelloWorldModel(ILogger<HelloWorldModel> logger, IConfiguration configuration)
     {
         _logger = logger;
         _configuration = configuration;
