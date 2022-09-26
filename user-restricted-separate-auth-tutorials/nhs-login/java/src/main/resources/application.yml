@@ -1,0 +1,18 @@
+auth:
+  provider:
+    kid: "test-1"
+    client-id: ${CLIENT_ID}
+    client-secret: ${CLIENT_SECRET}
+    redirect-uri: ${REDIRECT_URI}
+    authorization-uri: ${OAUTH_ENDPOINT}/auth
+    scope: openid
+    token-uri: ${OAUTH_ENDPOINT}/token
+    private-key-path: ${PROVIDER_KEY_PATH}
+  service:
+    kid: "test-1"
+    private-key-path: ${SERVICE_KEY_PATH}
+    tokenUri: "https://sandbox.api.service.nhs.uk/oauth2-mock/token"
+    clientId: "7LHW0um8gU0V8hqYPCcVhGdkdwGyziGv"
+
+app:
+  endpoint: ${ENDPOINT}
