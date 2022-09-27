@@ -1,4 +1,4 @@
-package nhsd.apim;
+package nhsd.apim.app-restricted;
 
 import java.io.IOException;
 
