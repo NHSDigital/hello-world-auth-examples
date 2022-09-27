@@ -1,27 +1,27 @@
-# User-restricted NHS login combined authentication and authorisation PHP tutorial
+# User-restricted NHS login separate authentication and authorisation PHP tutorial
 
 ## Overview
 
-This tutorial shows you how to connect to a [user-restricted REST API](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#user-restricted-apis) using [NHS login combined authentication and authorisation](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/user-restricted-restful-apis-nhs-login-combined-authentication-and-authorisation)
+This tutorial shows you how to connect to a [user-restricted REST API](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#user-restricted-apis) using [NHS login separate authentication and authorisation](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/user-restricted-restful-apis-nhs-login-separate-authentication-and-authorisation)
 and the PHP programming language. It uses [Symfony](https://symfony.com/) to create a simple web application which authenticates the end user using our sandbox NHS login environment, receives an access token from our authorisation server and calls the user restricted endpoint of our [Hello World API](https://digital.nhs.uk/developer/api-catalogue/hello-world).
 
 To call a user-restricted API, the end user must be authenticated.
-NHS login is used to authenticate when the end user is a patient. With the combined authentication and authorisation pattern, authentication is done by NHS login but is coordinated behind our OAuth2.0 authorisation server. In exchange, you receive an access token which you need to include in the API request.
+NHS login is used to authenticate when the end user is a patient. With the separate authentication and authorisation pattern, authentication is done by NHS login. In exchange, you receive an access ID token which you need to exchange it with an access token. You need to include this access token in the API request.
 
 ## Setting up your environment
 This example project was developed using Symfony 6.1.4 and PHP 8.1.9 so you need to have these installed.
 
 ## Checkout the GitHub Repository
 
-You can find the code for this PHP user-restricted REST API NHS login combined authentication and authorisation tutorial in
-our [GitHub repository](https://github.com/NHSDigital/hello-world-auth-examples/tree/main/user-restricted-combined-auth-tutorials/nhs-login/php).
+You can find the code for this PHP user-restricted REST API NHS login separate authentication and authorisation tutorial in
+our [GitHub repository](https://github.com/NHSDigital/hello-world-auth-examples/tree/main/user-restricted-separate-auth-tutorials/nhs-login/php).
 
 ### Implementation details
 This project contains:
 
 - a `HelloAuthController` file. This contains the routes of the web application startup code and configures the OAuth flow required to authenticate. It uses the OAuth2 client provided by [league/oauth2-client](https://github.com/thephpleague/oauth2-client).
 
-To follow this tutorial download or clone [this repository](https://github.com/NHSDigital/hello-world-auth-examples/tree/main/user-restricted-combined-auth-tutorials/nhs-login/php).
+To follow this tutorial download or clone [this repository](https://github.com/NHSDigital/hello-world-auth-examples/tree/main/user-restricted-separate-auth-tutorials/nhs-login/php).
 
 ## Create an application on our developer portal
 

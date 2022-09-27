@@ -13,7 +13,7 @@ This example project was developed using Java 17 and Maven 3.8.6.
 
 ## Checkout the GitHub Repository
 
-You can find the code for this Java user-restricted REST API NHS CIS2 combined authentication and authorisation tutorial in
+You can find the code for this Java user-restricted REST API NHS CIS2 separate authentication and authorisation tutorial in
 our [GitHub repository](https://github.com/NHSDigital/hello-world-auth-examples/tree/main/user-restricted-separate-auth-tutorials/nhs-login/java).
 
 ### Implementation details
