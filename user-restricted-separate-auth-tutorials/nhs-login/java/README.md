@@ -13,7 +13,7 @@ This example project was developed using Java 17 and Maven 3.8.6.
 
 ## Checkout the GitHub Repository
 
-You can find the code for this Java user-restricted REST API NHS CIS2 combined authentication and authorisation tutorial in
+You can find the code for this Java user-restricted REST API NHS Login separate authentication and authorisation tutorial in
 our [GitHub repository](https://github.com/NHSDigital/hello-world-auth-examples/tree/main/user-restricted-separate-auth-tutorials/nhs-login/java).
 
 ### Implementation details
@@ -99,7 +99,7 @@ Alternatively you can set your environment variables in a file named `.env`. The
 
 ## Using the application
 When you run the code, you should be able to load the application at `https://localhost:8080`.
-1. Click the button 'Login with NHS CIS2' to be directed to our mock NHS CIS2 authorisation service
+1. Click the button 'Login with NHS LOGIN' to be directed to our mock NHS LOGIN authorisation service
 2. Select an option to simulate a login and click 'Sign in'
 3. You will be redirected back to the application and the access token you have received will be displayed
 4. To use the access token in a request to the Hello World API, click 'Call API'
