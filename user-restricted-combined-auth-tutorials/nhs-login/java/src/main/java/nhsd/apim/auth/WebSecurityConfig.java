@@ -1,17 +1,21 @@
 package nhsd.apim.auth;
 
+import java.io.IOException;
+import java.time.Duration;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
+import org.springframework.security.oauth2.core.OAuth2RefreshToken;
 import org.springframework.security.oauth2.core.endpoint.MapOAuth2AccessTokenResponseConverter;
 import org.springframework.security.oauth2.core.endpoint.OAuth2AccessTokenResponse;
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
-import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter;
-import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.oauth2.client.endpoint.OAuth2AuthorizationCodeGrantRequest;
 import org.springframework.security.oauth2.client.endpoint.OAuth2AccessTokenResponseClient;
@@ -19,24 +23,12 @@ import org.springframework.security.oauth2.client.endpoint.DefaultAuthorizationC
 import org.springframework.security.oauth2.client.endpoint.OAuth2AuthorizationCodeGrantRequestEntityConverter;
 import org.springframework.security.oauth2.core.http.converter.OAuth2AccessTokenResponseHttpMessageConverter;
 import org.springframework.util.MultiValueMap;
-import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.http.converter.FormHttpMessageConverter;
+import org.springframework.http.RequestEntity;
 import org.springframework.security.oauth2.client.http.OAuth2ErrorResponseErrorHandler;
 
-import java.io.IOException;
-import java.time.Duration;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import org.springframework.http.RequestEntity;
-
 @Configuration
-//@EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
@@ -49,7 +41,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .oauth2Login()
                 .tokenEndpoint()
                     .accessTokenResponseClient(accessTokenResponseClient());
-
     }
 
     @Bean
@@ -73,8 +64,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return accessTokenResponseClient;
     }
 
-    public class CustomRequestEntityConverter implements Converter<OAuth2AuthorizationCodeGrantRequest, RequestEntity<?>> {
-        private OAuth2AuthorizationCodeGrantRequestEntityConverter defaultConverter;
+    public static class CustomRequestEntityConverter implements Converter<OAuth2AuthorizationCodeGrantRequest, RequestEntity<?>> {
+        private final OAuth2AuthorizationCodeGrantRequestEntityConverter defaultConverter;
 
         public CustomRequestEntityConverter() {
             defaultConverter = new OAuth2AuthorizationCodeGrantRequestEntityConverter();
@@ -83,10 +74,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         @Override
         public RequestEntity<?> convert(OAuth2AuthorizationCodeGrantRequest req) {
             RequestEntity<?> entity = defaultConverter.convert(req);
+            assert entity != null;
             MultiValueMap<String, String> params = (MultiValueMap<String,String>) entity.getBody();
 
             // Generate a signed JWT for the client assertion
-            String clientAssertion = null;
+            String clientAssertion;
             try {
                 clientAssertion = new JwtGenerator(System.getenv("PRIVATE_KEY_PATH"))
                         .generateJwt(
@@ -98,6 +90,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 throw new RuntimeException(e);
             }
 
+            assert params != null;
             params.add("client_assertion", clientAssertion);
             params.add("client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer");
 
@@ -107,13 +100,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
-    public class CustomTokenResponseConverter implements Converter<Map<String, String>, OAuth2AccessTokenResponse> {
-        private static final Set<String> TOKEN_RESPONSE_PARAMETER_NAMES = Stream.of(
-                OAuth2ParameterNames.ACCESS_TOKEN,
-                OAuth2ParameterNames.TOKEN_TYPE,
-                OAuth2ParameterNames.EXPIRES_IN,
-                OAuth2ParameterNames.REFRESH_TOKEN,
-                OAuth2ParameterNames.SCOPE).collect(Collectors.toSet());
+    public static class CustomTokenResponseConverter implements Converter<Map<String, String>, OAuth2AccessTokenResponse> {
         @Override
         public OAuth2AccessTokenResponse convert(Map<String, String> tokenResponseParameters) {
             MapOAuth2AccessTokenResponseConverter mapOAuth2AccessTokenResponseConverter = new MapOAuth2AccessTokenResponseConverter();
@@ -121,13 +108,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
             // To auth with NHS Login we need the ID token instead of the access token
             String idToken = tokenResponseParameters.get("id_token");
+            assert original != null;
             OAuth2AccessToken accessToken = original.getAccessToken();
+            OAuth2RefreshToken refreshToken = original.getRefreshToken();
+            assert refreshToken != null;
 
             return OAuth2AccessTokenResponse.withToken(idToken)
                     .tokenType(accessToken.getTokenType())
                     .scopes(accessToken.getScopes())
                     .expiresIn(Duration.ofMinutes(5).toSeconds())
-                    .refreshToken(original.getRefreshToken().getTokenValue())
+                    .refreshToken(refreshToken.getTokenValue())
                     .additionalParameters(original.getAdditionalParameters())
                     .build();
         }

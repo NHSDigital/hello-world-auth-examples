@@ -1,6 +1,5 @@
 package nhsd.apim.hello;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -8,7 +7,7 @@ import java.net.URL;
 
 public class HelloWorld {
 
-    public static String[] makeUserRestrictedRequest(final String helloEndpoint, final String accessToken) throws IOException, Exception {
+    public static String[] makeUserRestrictedRequest(final String helloEndpoint, final String accessToken) throws Exception {
         // Setup connection
         URL url = new URL(helloEndpoint);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -27,8 +26,7 @@ public class HelloWorld {
         InputStream inputStream = connection.getInputStream();
         String streamText = new String(inputStream.readAllBytes());
 
-        String[] outputData = {helloEndpoint, responseCode, streamText};
-        return outputData;
+        return new String[]{helloEndpoint, responseCode, streamText};
     }
 
 }

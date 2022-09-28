@@ -9,17 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import javax.servlet.http.HttpServletResponse;
+import java.util.Objects;
 
 @Controller
 public class MainController {
     private final String ENDPOINT = System.getenv("ENDPOINT");
-
-    @GetMapping("/error")
-    public String error(HttpServletResponse response) {
-        return "error";
-    }
 
     @GetMapping("/home")
     public String index(Model model) {
@@ -30,7 +25,7 @@ public class MainController {
     public String authSuccessful(@RegisteredOAuth2AuthorizedClient OAuth2AuthorizedClient client, Model model) {
         OAuth2AccessToken accessToken = client.getAccessToken();
         String accessTokenString = accessToken.getTokenValue();
-        String expiresIn = accessToken.getExpiresAt().toString();
+        String expiresIn = Objects.requireNonNull(accessToken.getExpiresAt()).toString();
 
         model.addAttribute("accessToken", accessTokenString);
         model.addAttribute("expiresIn", expiresIn);
