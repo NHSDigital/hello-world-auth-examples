@@ -84,8 +84,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         public RequestEntity<?> convert(OAuth2AuthorizationCodeGrantRequest req) {
             RequestEntity<?> entity = defaultConverter.convert(req);
             MultiValueMap<String, String> params = (MultiValueMap<String,String>) entity.getBody();
+
             // Generate a signed JWT for the client assertion
-            // FIXME - get rid of this try/except
             String clientAssertion = null;
             try {
                 clientAssertion = new JwtGenerator(System.getenv("PRIVATE_KEY_PATH"))
@@ -97,8 +97,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+
             params.add("client_assertion", clientAssertion);
             params.add("client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer");
+
             return new RequestEntity<>(params, entity.getHeaders(),
                     entity.getMethod(), entity.getUrl());
         }
