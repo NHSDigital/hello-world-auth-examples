@@ -3,22 +3,10 @@ spring:
     oauth2:
       client:
         registration:
-#          simulated-auth:
-#            client-id: ${CLIENT_ID}
-#            client-secret: ${CLIENT_SECRET}
-#            client-authentication-method: post
-#            authorization-grant-type: authorization_code
-#            redirect-uri: ${REDIRECT_URI}
           keycloak:
             client-id: ${CLIENT_ID}
             authorization-grant-type: authorization_code
             scope: openid
         provider:
-#          simulated-auth:
-#            authorization-uri: ${OAUTH_ENDPOINT}/authorize
-#            token-uri: ${OAUTH_ENDPOINT}/token
-#            user-info-uri: ${OAUTH_ENDPOINT}/userinfo
-#            userNameAttribute: name
           keycloak:
             issuer-uri: ${OAUTH_ENDPOINT}
-            user-name-attribute: preferred_username
