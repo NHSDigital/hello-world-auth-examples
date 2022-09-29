@@ -57,7 +57,7 @@ To run the example tutorial, you need to set the following environment variables
 |-----------------|----------------------------------------------------------------------------|
 | `CLIENT_ID`     | Your application's `API Key`                                               |
 | `CLIENT_SECRET` | Your application's `API Secret`                                            |
-| `OAUTH_ENDPOINT`| Your application's `Environment URL` followed by `/oauth2`                 |
+| `OAUTH_ENDPOINT`| Your application's `Environment URL` followed by `/oauth2-mock`                 |
 | `REDIRECT_URI`  | Your application's `Callback URL`                                          |
 | `ENDPOINT`      | Your application's `Environment URL` followed by `/hello-world/hello/user` |
 
