@@ -1,57 +1,67 @@
 package nhsd.apim.controllers;
 
-import nhsd.apim.hello.HelloWorld;
-
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
-import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
-import org.springframework.security.oauth2.core.OAuth2AccessToken;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import nhsd.apim.auth.SeparatedAuthenticationService;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.view.RedirectView;
 
-import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
-@Controller
+class TokenNotFound extends RuntimeException {
+}
+
+@RestController
 public class MainController {
-    private final String ENDPOINT = System.getenv("ENDPOINT");
+    private final static ObjectMapper OM = new ObjectMapper();
 
-    @GetMapping("/error")
-    public String error(HttpServletResponse response) {
-        return "error";
+    private final SeparatedAuthenticationService separatedAuthenticationService;
+    private final RestTemplate restTemplate;
+
+    @Value("${app.endpoint}")
+    private String endpoint;
+
+    private String token;
+
+    public MainController(SeparatedAuthenticationService separatedAuthenticationService, RestTemplate restTemplate) {
+        this.separatedAuthenticationService = separatedAuthenticationService;
+        this.restTemplate = restTemplate;
     }
 
-    @GetMapping("/home")
-    public String index(Model model) {
-        return "index"; //view
+    @GetMapping("/hello/user")
+    public String helloUser() {
+        if (token == null) {
+            throw new TokenNotFound(); // Trigger authorization. See tokenNotFoundHandler method.
+        } else {
+            RequestEntity<Void> req = RequestEntity.get(endpoint)
+                    .header("Authorization", "Bearer " + this.token)
+                    .build();
+            ResponseEntity<String> res = restTemplate.exchange(req, String.class);
+            return res.getBody();
+        }
     }
 
-    @GetMapping("/success")
-    public String authSuccessful(@RegisteredOAuth2AuthorizedClient OAuth2AuthorizedClient client, Model model) {
-        OAuth2AccessToken accessToken = client.getAccessToken();
-        String accessTokenString = accessToken.getTokenValue();
-        String expiresIn = accessToken.getExpiresAt().toString();
-
-        model.addAttribute("accessToken", accessTokenString);
-        model.addAttribute("expiresIn", expiresIn);
-
-        return "auth_successful"; //view
+    @ExceptionHandler(TokenNotFound.class)
+    RedirectView tokenNotFoundHandler(final TokenNotFound e) {
+        return new RedirectView(separatedAuthenticationService.redirect());
     }
 
-    @GetMapping("/hello")
-    public String helloWorldResponse(@RequestParam("accessToken") String accessToken, Model model) throws Exception {
-        model.addAttribute("accessToken", accessToken);
+    @GetMapping("/")
+    public String index() {
+        return "Visit hello/user for response from HelloWorld service";
+    }
 
-        String[] helloWorldResponse = HelloWorld.makeUserRestrictedRequest(ENDPOINT, accessToken);
+    @GetMapping("/callback")
+    public RedirectView callback(@RequestParam(required = false) Map<String, String> queryParam) {
+        String code = queryParam.get("code");
+        this.token = separatedAuthenticationService.authenticate(code);
 
-        String url = helloWorldResponse[0];
-        String responseCode = helloWorldResponse[1];
-        String responseBody = helloWorldResponse[2];
-
-        model.addAttribute("url", url);
-        model.addAttribute("responseCode", responseCode);
-        model.addAttribute("responseBody", responseBody);
-
-        return "hello_world"; //view
+        return new RedirectView("/hello/user");
     }
 }
