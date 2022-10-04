@@ -23,12 +23,9 @@ public class SeparateAuthRequestClient {
     private static final String TOKEN_EXCHANGE_GRANT_TYPE = "urn:ietf:params:oauth:grant-type:token-exchange";
     private static final ObjectMapper OM = new ObjectMapper();
 
-    private final JwtGenerator providerJwtGen;
     private final JwtGenerator serviceJwtGen;
     private final RestTemplate restTemplate;
 
-    @Value("${auth.provider.kid}")
-    private String providerKid;
     @Value("${auth.service.kid}")
     private String serviceKid;
     @Value("${auth.service.tokenUri}")
@@ -38,13 +35,14 @@ public class SeparateAuthRequestClient {
 
     @Value("${auth.provider.client-id}")
     private String providerClientId;
+    @Value("${auth.provider.client-secret}")
+    private String providerClientSecret;
     @Value("${auth.provider.token-uri}")
     private String providerTokenUri;
     @Value("${auth.provider.redirect-uri}")
     private String providerRedirectUri;
 
-    public SeparateAuthRequestClient(JwtGenerator providerJwtGen, JwtGenerator serviceJwtGen, RestTemplate restTemplate) {
-        this.providerJwtGen = providerJwtGen;
+    public SeparateAuthRequestClient(JwtGenerator serviceJwtGen, RestTemplate restTemplate) {
         this.serviceJwtGen = serviceJwtGen;
         this.restTemplate = restTemplate;
         OM.configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false);
@@ -70,15 +68,12 @@ public class SeparateAuthRequestClient {
     }
 
     private String getIdToken(String code) throws JsonProcessingException {
-        String jwt = providerJwtGen.generateJwt(providerClientId, providerKid, providerTokenUri);
-
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
         body.add("grant_type", "authorization_code");
         body.add("code", code);
         body.add("client_id", providerClientId);
+        body.add("client_secret", providerClientSecret);
         body.add("redirect_uri", providerRedirectUri);
-        body.add("client_assertion_type", CLIENT_ASSERTION_TYPE);
-        body.add("client_assertion", jwt);
 
         URI url = UriComponentsBuilder.fromUriString(providerTokenUri).build().toUri();
         RequestEntity<MultiValueMap<String, String>> request = new RequestEntity<>(body, new LinkedMultiValueMap<>(), HttpMethod.POST, url);

@@ -1,20 +1,20 @@
-# User-restricted NHS login separate authentication and authorisation Java tutorial
+# User-restricted NHS Care Identity Service 2 separate authentication and authorisation Java tutorial
 
 ## Overview
 
-This tutorial shows you how to connect to a [user-restricted REST API](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#user-restricted-apis) using [NHS login separate authentication and authorisation](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/user-restricted-restful-apis-nhs-login-separate-authentication-and-authorisation)
-and the Java programming language. It uses [Spring](https://spring.io/quickstart) to create a simple web application which authenticates the end user using our [mock NHS login authorisation service](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/testing-apis-with-our-mock-authorisation-service), receives an access token from our authorisation server and calls the user restricted endpoint of our [Hello World API](https://digital.nhs.uk/developer/api-catalogue/hello-world).
+This tutorial shows you how to connect to a [user-restricted REST API](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation#user-restricted-apis) using [NHS Care Identity Service 2 separate authentication and authorisation](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/user-restricted-restful-apis-nhs-cis2-separate-authentication-and-authorisation)
+and the Java programming language. It uses [Spring](https://spring.io/quickstart) to create a simple web application which authenticates the end user using our [mock NHS Care Identity Service 2 authorisation service](https://digital.nhs.uk/developer/guides-and-documentation/security-and-authorisation/testing-apis-with-our-mock-authorisation-service), receives an access token from our authorisation server and calls the user restricted endpoint of our [Hello World API](https://digital.nhs.uk/developer/api-catalogue/hello-world).
 
 To call a user-restricted API, the end user must be authenticated.
-NHS login is used to authenticate when the end user is a patient. With the separate authentication and authorisation pattern, authentication is done by NHS login. In exchange, you receive an access ID token which you need to exchange it with an access token. You need to include this access token in the API request.
+NHS Care Identity Service 2 is used to authenticate when the end user is a healthcare worker. With the separate authentication and authorisation pattern, authentication is done by NHS Care Identity Service 2 (CIS2). In exchange, you receive an access ID token which you need to exchange it with an access token. You need to include this access token in the API request.
 
 ## Setting up your environment
 This example project was developed using Java 17 and Maven 3.8.6.
 
 ## Checkout the GitHub Repository
 
-You can find the code for this Java user-restricted REST API NHS Login separate authentication and authorisation tutorial in
-our [GitHub repository](https://github.com/NHSDigital/hello-world-auth-examples/tree/main/user-restricted-separate-auth-tutorials/nhs-login/java).
+You can find the code for this Java user-restricted REST API NHS Care Identity Service 2 separate authentication and authorisation tutorial in
+our [GitHub repository](https://github.com/NHSDigital/hello-world-auth-examples/tree/main/user-restricted-separate-auth-tutorials/cis2/java).
 
 ### Implementation details
 This project contains:
@@ -69,7 +69,6 @@ To run the example tutorial, you need to set the following environment variables
 | `REDIRECT_URI`      | Your application's `Callback URL`                                                                                                       |
 | `ENDPOINT`          | Your application's `Environment URL` followed by `/hello-world/hello/user`                                                              |
 | `SERVICE_KEY_PATH`  | Absolute path to the private key file you created before                                                                                |
-| `PROVIDER_KEY_PATH` | Absolute path to the provider key. NHS login will provide this key, but for this tutorial you can use a our mock NHS login provider key |
 
 You can set your environment variables in a file named `.env`. This project contains a sample env file to use:
 
@@ -88,8 +87,8 @@ source .env
 mvn spring-boot:run
 ```
 
-#### Mock NHS login app
-This tutorial comes with a NHS login mock provider. This application is called `hello-world-tutorials` and private key
+#### Mock CIS2 app
+This tutorial comes with a CIS2 mock provider. This application is called `hello-world-tutorials` and private key
 is provided (`hello-world-tutorial`). The default user is called `tutorialuser` and the password is the same as username.
 Check `application.yml` file for other configuration options.
 **NOTE:** Private key is part of source code for sample application. You should never store private keys in the repository.
@@ -99,7 +98,7 @@ Alternatively you can set your environment variables in a file named `.env`. The
 
 ## Using the application
 When you run the code, you should be able to load the application at `https://localhost:8080`.
-1. Click the button 'Login with NHS LOGIN' to be directed to our mock NHS LOGIN authorisation service
+1. Click the button 'Login with NHS LOGIN' to be directed to our mock CIS2 authorisation service
 2. Select an option to simulate a login and click 'Sign in'
 3. You will be redirected back to the application and the access token you have received will be displayed
 4. To use the access token in a request to the Hello World API, click 'Call API'

@@ -1,6 +1,5 @@
 package nhsd.apim.controllers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import nhsd.apim.auth.SeparatedAuthenticationService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.RequestEntity;
@@ -19,8 +18,6 @@ class TokenNotFound extends RuntimeException {
 
 @RestController
 public class MainController {
-    private final static ObjectMapper OM = new ObjectMapper();
-
     private final SeparatedAuthenticationService separatedAuthenticationService;
     private final RestTemplate restTemplate;
 

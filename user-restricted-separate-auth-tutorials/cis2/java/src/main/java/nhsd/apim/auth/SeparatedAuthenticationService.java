@@ -3,7 +3,6 @@ package nhsd.apim.auth;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.UUID;
@@ -12,8 +11,6 @@ import java.util.UUID;
 public class SeparatedAuthenticationService {
     @Value("${auth.provider.client-id}")
     private String clientId;
-    @Value("${auth.provider.client-secret}")
-    private String clientSecret;
     @Value("${auth.provider.redirect-uri}")
     private String redirectUri;
     @Value("${auth.provider.scope}")
@@ -22,16 +19,12 @@ public class SeparatedAuthenticationService {
     private String authUri;
 
     private final SeparateAuthRequestClient separateAuthRequestClient;
-    private final RestTemplate restTemplate;
-    private String state ;
 
-    public SeparatedAuthenticationService(SeparateAuthRequestClient separateAuthRequestClient, RestTemplate restTemplate) {
+    public SeparatedAuthenticationService(SeparateAuthRequestClient separateAuthRequestClient) {
         this.separateAuthRequestClient = separateAuthRequestClient;
-        this.restTemplate = restTemplate;
     }
 
     public String redirect() {
-        state =  UUID.randomUUID().toString();
         return UriComponentsBuilder
                 .fromUriString(authUri)
                 .queryParam("response_type", "code")
@@ -40,7 +33,6 @@ public class SeparatedAuthenticationService {
                 .queryParam("redirect_uri", redirectUri)
                 .queryParam("scope", scope)
                 .build().toString();
-
     }
 
     public String authenticate(String code) {

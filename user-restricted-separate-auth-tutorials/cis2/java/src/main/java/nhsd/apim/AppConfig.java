@@ -11,16 +11,8 @@ import java.io.IOException;
 
 @Configuration
 public class AppConfig {
-    @Value("${auth.provider.private-key-path}")
-    private String providerPrivateKeyPath;
-
     @Value("${auth.service.private-key-path}")
     private String servicePrivateKeyPath;
-
-    @Bean
-    public JwtGenerator providerJwtGen() throws IOException {
-        return new JwtGenerator(providerPrivateKeyPath);
-    }
 
     @Bean
     public JwtGenerator serviceJwtGen() throws IOException {
