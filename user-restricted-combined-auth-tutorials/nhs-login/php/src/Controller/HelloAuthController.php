@@ -28,8 +28,8 @@ class HelloAuthController extends AbstractController
             'clientId'                => $_ENV["CLIENT_ID"] ,    // The client ID assigned to you by the provider
             'clientSecret'            => $_ENV["CLIENT_SECRET"],    // The client password assigned to you by the provider
             'redirectUri'             => 'http://localhost:8000/hello',
-            'urlAuthorize'            => 'https://sandbox.api.service.nhs.uk/oauth2/authorize',
-            'urlAccessToken'          => 'https://sandbox.api.service.nhs.uk/oauth2/token',
+            'urlAuthorize'            => 'https://sandbox.api.service.nhs.uk/oauth2-mock/authorize',
+            'urlAccessToken'          => 'https://sandbox.api.service.nhs.uk/oauth2-mock/token',
             'urlResourceOwnerDetails' => ''
         ]);
 
@@ -50,8 +50,8 @@ class HelloAuthController extends AbstractController
             'clientId'                => $_ENV["CLIENT_ID"] ,    // The client ID assigned to you by the provider
             'clientSecret'            => $_ENV["CLIENT_SECRET"],    // The client password assigned to you by the provider
             'redirectUri'             => 'http://localhost:8000/hello',
-            'urlAuthorize'            => 'https://sandbox.api.service.nhs.uk/oauth2/authorize',
-            'urlAccessToken'          => 'https://sandbox.api.service.nhs.uk/oauth2/token',
+            'urlAuthorize'            => 'https://sandbox.api.service.nhs.uk/oauth2-mock/authorize',
+            'urlAccessToken'          => 'https://sandbox.api.service.nhs.uk/oauth2-mock/token',
             'urlResourceOwnerDetails' => ''
         ]);
 
