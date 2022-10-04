@@ -40,7 +40,7 @@ Notes:
 
 - when creating a new app, you need to select the 'Environment'. For this tutorial select 'Sandbox'.
 - when editing your application details and selecting the API you want to use, select 'Hello World (Sandbox)'.
-- you will be prompted for a callback URL which is required for combined authentication and authorization. This URL is used to send users back to your application after successful (or unsuccessful) authorisation. This project is configured to run at `https://localhost:8080` and Spring Security creates as callback endpoint at `/login/oauth2/code/simulated-auth`. Therefore the callback URL should be set to `https://localhost:8080/login/oauth2/code/simulated-auth`.
+- you will be prompted for a callback URL which is required for combined authentication and authorization. This URL is used to send users back to your application after successful (or unsuccessful) authorisation. This project is configured to run at `https://localhost:8080` and Spring Security creates as callback endpoint at `/login/oauth2/code/simulated-auth`. Therefore the callback URL should be set to `http://localhost:8080/login/oauth2/code/simulated-auth`.
 
 - make note of your `API Key` and `API secret`.
 
@@ -57,7 +57,7 @@ To run the example tutorial, you need to set the following environment variables
 |-----------------|----------------------------------------------------------------------------|
 | `CLIENT_ID`     | Your application's `API Key`                                               |
 | `CLIENT_SECRET` | Your application's `API Secret`                                            |
-| `OAUTH_ENDPOINT`| Your application's `Environment URL` followed by `/oauth2`                 |
+| `OAUTH_ENDPOINT`| Your application's `Environment URL` followed by `/oauth2-mock`                 |
 | `REDIRECT_URI`  | Your application's `Callback URL`                                          |
 | `ENDPOINT`      | Your application's `Environment URL` followed by `/hello-world/hello/user` |
 
