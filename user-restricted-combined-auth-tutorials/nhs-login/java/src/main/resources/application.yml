@@ -5,8 +5,14 @@ spring:
         registration:
           keycloak:
             client-id: ${CLIENT_ID}
+            client-secret: ${CLIENT_SECRET}
+#            client-authentication-method: post
             authorization-grant-type: authorization_code
-            scope: openid
+            redirect-uri: ${REDIRECT_URI}
+            scope: nhs-login
         provider:
           keycloak:
-            issuer-uri: ${OAUTH_ENDPOINT}
+            authorization-uri: ${OAUTH_ENDPOINT}/authorize
+            token-uri: ${OAUTH_ENDPOINT}/token
+#            user-info-uri: https://identity.ptl.api.platform.nhs.uk/auth/realms/NHS-Login-mock-sandbox/protocol/openid-connect/userinfo
+#            userNameAttribute: name

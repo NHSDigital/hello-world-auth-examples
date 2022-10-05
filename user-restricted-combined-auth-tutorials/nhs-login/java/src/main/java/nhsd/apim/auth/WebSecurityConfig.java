@@ -41,6 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .oauth2Login()
                 .tokenEndpoint()
                     .accessTokenResponseClient(accessTokenResponseClient());
+                // TODO - create a custom handler for the UserInfoUri call so we can use Keycloaks userinfo endpoint
     }
 
     @Bean
@@ -55,6 +56,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         OAuth2AccessTokenResponseHttpMessageConverter tokenResponseHttpMessageConverter =
                 new OAuth2AccessTokenResponseHttpMessageConverter();
         tokenResponseHttpMessageConverter.setTokenResponseConverter(new CustomTokenResponseConverter());
+
         // Assign this custom response converter with the RestTemplate
         RestTemplate restTemplate = new RestTemplate(Arrays.asList(
                 new FormHttpMessageConverter(), tokenResponseHttpMessageConverter));
@@ -77,22 +79,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             assert entity != null;
             MultiValueMap<String, String> params = (MultiValueMap<String,String>) entity.getBody();
 
-            // Generate a signed JWT for the client assertion
-            String clientAssertion;
-            try {
-                clientAssertion = new JwtGenerator(System.getenv("PRIVATE_KEY_PATH"))
-                        .generateJwt(
-                                System.getenv("CLIENT_ID"),
-                                System.getenv("KID"),
-                                System.getenv("OAUTH_ENDPOINT")
-                        );
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
             assert params != null;
-            params.add("client_assertion", clientAssertion);
-            params.add("client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer");
+            params.add("client_id", System.getenv("CLIENT_ID"));
+            params.add("client_secret", System.getenv("CLIENT_SECRET"));
 
             return new RequestEntity<>(params, entity.getHeaders(),
                     entity.getMethod(), entity.getUrl());
@@ -106,14 +95,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             MapOAuth2AccessTokenResponseConverter mapOAuth2AccessTokenResponseConverter = new MapOAuth2AccessTokenResponseConverter();
             OAuth2AccessTokenResponse original = mapOAuth2AccessTokenResponseConverter.convert(tokenResponseParameters);
 
-            // To auth with NHS Login we need the ID token instead of the access token
-            String idToken = tokenResponseParameters.get("id_token");
+
             assert original != null;
             OAuth2AccessToken accessToken = original.getAccessToken();
             OAuth2RefreshToken refreshToken = original.getRefreshToken();
             assert refreshToken != null;
 
-            return OAuth2AccessTokenResponse.withToken(idToken)
+            return OAuth2AccessTokenResponse.withToken(accessToken.getTokenValue())
                     .tokenType(accessToken.getTokenType())
                     .scopes(accessToken.getScopes())
                     .expiresIn(Duration.ofMinutes(5).toSeconds())
