@@ -116,12 +116,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     private OAuth2UserService<OAuth2UserRequest, OAuth2User> oidcUserService() {
-        final CustomOAuth2UserService delegate = new CustomOAuth2UserService();
-
-        return (userRequest) -> {
-            OAuth2User oAuth2User = delegate.loadUser(userRequest);
-            return oAuth2User;
-        };
+        return new CustomOAuth2UserService();
     }
 
     public static class CustomOAuth2UserService extends DefaultOAuth2UserService {
