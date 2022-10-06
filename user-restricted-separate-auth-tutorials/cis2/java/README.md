@@ -25,7 +25,7 @@ This project contains:
 
 - a `auth` folder containing a set of classes that perform authentication, signing JWT and sending the token request.
 
-To follow this tutorial download or clone [this repository](https://github.com/NHSDigital/hello-world-auth-examples/tree/main/user-restricted-separate-auth-tutorials/nhs-login/java).
+To follow this tutorial download or clone [this repository](https://github.com/NHSDigital/hello-world-auth-examples/tree/main/user-restricted-separate-auth-tutorials/cis2/java).
 
 ## To create an application
 
@@ -59,18 +59,22 @@ You should now have your application's:
 - `API Key`
 - `API Secret`
 
-To run the example tutorial, you need to set the following environment variables.
+To run the example tutorial, you need to set the following environment variables. Variables with `PROVIDER_` prefix refers to the identity provider. In this tutorial we
+use a mocked cis2 provider. There is already an application created for the hello-world tutorials so, you don't need to create one. In real production you must register your application with the 
+required provider. All the required values for the mock provider is given to you and, you can find them in the `env.sample` file. The private key that you need to 
+sign your JWT is also provided. In real application you should keep all these values as secrets and not include them in your project.
+Variables with `SERVICE_` prefix refers to the application that you created in the NHS Digital portal i.e. previous steps.
 
-| Variable name            | Description                                                                |
-|--------------------------|----------------------------------------------------------------------------|
-| `CLIENT_ID`              | Your application's `API Key`                                               |
-| `CLIENT_SECRET`          | Your application's `API Secret`                                            |
-| `OAUTH_ENDPOINT`         | Your application's `Environment URL` followed by `/oauth2`                 |
-| `REDIRECT_URI`           | Your application's `Callback URL`                                          |
-| `ENDPOINT`               | Your application's `Environment URL` followed by `/hello-world/hello/user` |
-| `SERVICE_KEY_PATH`       | Absolute path to the private key file you created before                   |
-| `SERVICE_CLIENT_ID`      | Your application client_id. This is the client-id of your NHS Digital app  |
-| `SERVICE_OAUTH_ENDPOINT` | Your service oauth endpoint.                                               |
+| Variable name             | Description                                                                                                        |
+|---------------------------|--------------------------------------------------------------------------------------------------------------------|
+| `PROVIDER_CLIENT_ID`      | Your provider application's `client-id`                                                                            |
+| `PROVIDER_CLIENT_SECRET`  | Your provider application's `client-secret`                                                                        |
+| `PROVIDER_OAUTH_ENDPOINT` | Your oauth2 endpoint of the provider                                                                               |
+| `PROVIDER_REDIRECT_URI`   | Your application's `Callback URL`. This is the URL that provider will use                                          |
+| `ENDPOINT`                | Your application's `Environment URL` followed by `/hello-world/hello/user`                                         |
+| `SERVICE_KEY_PATH`        | Absolute path to the private key file you created before when registering your application with NHS Digital portal |
+| `SERVICE_CLIENT_ID`       | Your application client_id. This is the client-id of your NHS Digital app                                          |
+| `SERVICE_OAUTH_ENDPOINT`  | Your service oauth endpoint.                                                                                       |
 
 You can set your environment variables in a file named `.env`. This project contains a sample env file to use:
 
@@ -90,8 +94,8 @@ mvn spring-boot:run
 ```
 
 #### Mock CIS2 app
-This tutorial comes with a CIS2 mock provider. This application is called `hello-world-tutorials` and private key
-is provided (`hello-world-tutorial`). The default user is called `tutorialuser` and the password is the same as username.
+This tutorial comes with a CIS2 mock provider. This application is called `hello-world-tutorials` and all the
+required values are provided (see `env.sample` file). The default user is called `tutorialuser` and the password is the same as username.
 Check `application.yml` file for other configuration options.
 **NOTE:** Private key is part of source code for sample application. You should never store private keys in the repository.
 
@@ -99,12 +103,10 @@ Check `application.yml` file for other configuration options.
 Alternatively you can set your environment variables in a file named `.env`. Then use the make command: `make run`.
 
 ## Using the application
-When you run the code, you should be able to load the application at `https://localhost:8080`.
-1. Click the button 'Login with NHS LOGIN' to be directed to our mock CIS2 authorisation service
-2. Select an option to simulate a login and click 'Sign in'
-3. You will be redirected back to the application and the access token you have received will be displayed
-4. To use the access token in a request to the Hello World API, click 'Call API'
-5. The response from the API should read:
+When you run the code, you should be able to load the application at `https://localhost:8080`
+1. Enter this url: `http://localhost:8080/hello/user`
+1. You will be redirected to the provider login page. Enter provided `tutorialuser` as username and the same as password
+1. Upon successful authentication you will be redirected to the main page. You should the see response from hello-world service `hello/user`
 
 ```
 {
