@@ -21,6 +21,13 @@ public class MainController {
         return "index"; //view
     }
 
+    @GetMapping("/userinfo")
+    public String[] userinfo(Model model) {
+        /* Since NHS Login doesn't have the /userinfo endpoint exposed like on CIS2, we hardcode the attributes that
+        Spring's OIDC discovery mechanism is looking for here to bypass the requirement for a /userinfo endpoint. */
+        return new String[]{"name", "test"};
+    }
+
     @GetMapping("/success")
     public String authSuccessful(@RegisteredOAuth2AuthorizedClient OAuth2AuthorizedClient client, Model model) {
         OAuth2AccessToken accessToken = client.getAccessToken();

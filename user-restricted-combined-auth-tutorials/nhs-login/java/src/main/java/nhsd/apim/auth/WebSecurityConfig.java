@@ -1,27 +1,29 @@
 package nhsd.apim.auth;
 
-import java.io.IOException;
 import java.time.Duration;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.OAuth2RefreshToken;
 import org.springframework.security.oauth2.core.endpoint.MapOAuth2AccessTokenResponseConverter;
 import org.springframework.security.oauth2.core.endpoint.OAuth2AccessTokenResponse;
-import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.oauth2.client.endpoint.OAuth2AuthorizationCodeGrantRequest;
 import org.springframework.security.oauth2.client.endpoint.OAuth2AccessTokenResponseClient;
 import org.springframework.security.oauth2.client.endpoint.DefaultAuthorizationCodeTokenResponseClient;
 import org.springframework.security.oauth2.client.endpoint.OAuth2AuthorizationCodeGrantRequestEntityConverter;
 import org.springframework.security.oauth2.core.http.converter.OAuth2AccessTokenResponseHttpMessageConverter;
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
+import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.security.oauth2.core.user.OAuth2UserAuthority;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.http.converter.FormHttpMessageConverter;
@@ -40,8 +42,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 )
                 .oauth2Login()
                 .tokenEndpoint()
-                    .accessTokenResponseClient(accessTokenResponseClient());
-                // TODO - create a custom handler for the UserInfoUri call so we can use Keycloaks userinfo endpoint
+                    .accessTokenResponseClient(accessTokenResponseClient())
+                .and().userInfoEndpoint()
+                    .userService(this.oidcUserService());
+
     }
 
     @Bean
@@ -109,6 +113,41 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .additionalParameters(original.getAdditionalParameters())
                     .build();
         }
+    }
 
+    private OAuth2UserService<OAuth2UserRequest, OAuth2User> oidcUserService() {
+        final CustomOAuth2UserService delegate = new CustomOAuth2UserService();
+
+        return (userRequest) -> {
+            OAuth2User oAuth2User = delegate.loadUser(userRequest);
+            return oAuth2User;
+        };
+    }
+
+    public static class CustomOAuth2UserService extends DefaultOAuth2UserService {
+        /*
+        We declare a custom user service here to get around Spring's need for a /userinfo endpoint to authenticate
+        the user, we've already got an access token at this point but Spring wants an OAuth2User instance to
+        connect to it if we want to restrict access to specific endpoints on our app.
+
+        Since NHS Login doesn't have the /userinfo endpoint exposed like on CIS2, we hardcode the attributes that
+        Spring's OIDC discovery mechanism is looking for, generate an authority, and give the name attribute that
+        we already specified in application.yml.
+        */
+        @Override
+        public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+            var attributes = new HashMap<String, Object>();
+            // Attribute values taken from a test user on Keycloak
+            attributes.put("sub", "a76446b9-8fca-4bc3-b491-2fe148c2554f");
+            attributes.put("email_verified", false);
+            attributes.put("name", "User Test Mr");
+            attributes.put("given_name", "Test");
+            attributes.put("family_name", "User");
+
+            Set<GrantedAuthority> authorities = new LinkedHashSet<>();
+            authorities.add(new OAuth2UserAuthority(attributes));
+
+            return new DefaultOAuth2User(authorities, attributes, "name");
+        }
     }
 }
