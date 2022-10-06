@@ -61,14 +61,16 @@ You should now have your application's:
 
 To run the example tutorial, you need to set the following environment variables.
 
-| Variable name       | Description                                                                                                                             |
-|---------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
-| `CLIENT_ID`         | Your application's `API Key`                                                                                                            |
-| `CLIENT_SECRET`     | Your application's `API Secret`                                                                                                         |
-| `OAUTH_ENDPOINT`    | Your application's `Environment URL` followed by `/oauth2`                                                                              |
-| `REDIRECT_URI`      | Your application's `Callback URL`                                                                                                       |
-| `ENDPOINT`          | Your application's `Environment URL` followed by `/hello-world/hello/user`                                                              |
-| `SERVICE_KEY_PATH`  | Absolute path to the private key file you created before                                                                                |
+| Variable name            | Description                                                                |
+|--------------------------|----------------------------------------------------------------------------|
+| `CLIENT_ID`              | Your application's `API Key`                                               |
+| `CLIENT_SECRET`          | Your application's `API Secret`                                            |
+| `OAUTH_ENDPOINT`         | Your application's `Environment URL` followed by `/oauth2`                 |
+| `REDIRECT_URI`           | Your application's `Callback URL`                                          |
+| `ENDPOINT`               | Your application's `Environment URL` followed by `/hello-world/hello/user` |
+| `SERVICE_KEY_PATH`       | Absolute path to the private key file you created before                   |
+| `SERVICE_CLIENT_ID`      | Your application client_id. This is the client-id of your NHS Digital app  |
+| `SERVICE_OAUTH_ENDPOINT` | Your service oauth endpoint.                                               |
 
 You can set your environment variables in a file named `.env`. This project contains a sample env file to use:
 

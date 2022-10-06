@@ -9,8 +9,8 @@ auth:
   service:
     kid: "test-1"
     private-key-path: ${SERVICE_KEY_PATH}
-    tokenUri: "https://sandbox.api.service.nhs.uk/oauth2-mock/token"
-    clientId: "7LHW0um8gU0V8hqYPCcVhGdkdwGyziGv"
+    tokenUri: ${SERVICE_OAUTH_ENDPOINT}/token
+    clientId: ${SERVICE_CLIENT_ID}
 
 app:
   endpoint: ${ENDPOINT}
