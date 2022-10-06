@@ -10,13 +10,13 @@ import java.util.UUID;
 @Component
 public class SeparatedAuthenticationService {
     @Value("${auth.provider.client-id}")
-    private String clientId;
+    private String providerClientId;
     @Value("${auth.provider.redirect-uri}")
-    private String redirectUri;
+    private String providerRedirectUri;
     @Value("${auth.provider.scope}")
     private String scope;
     @Value("${auth.provider.authorization-uri}")
-    private String authUri;
+    private String providerAuthUri;
 
     private final SeparateAuthRequestClient separateAuthRequestClient;
 
@@ -26,11 +26,11 @@ public class SeparatedAuthenticationService {
 
     public String redirect() {
         return UriComponentsBuilder
-                .fromUriString(authUri)
+                .fromUriString(providerAuthUri)
                 .queryParam("response_type", "code")
-                .queryParam("client_id", clientId)
+                .queryParam("client_id", providerClientId)
                 .queryParam("state", UUID.randomUUID().toString())
-                .queryParam("redirect_uri", redirectUri)
+                .queryParam("redirect_uri", providerRedirectUri)
                 .queryParam("scope", scope)
                 .build().toString();
     }

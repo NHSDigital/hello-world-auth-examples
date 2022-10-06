@@ -1,16 +1,16 @@
 auth:
   provider:
-    client-id: ${CLIENT_ID}
-    client-secret: ${CLIENT_SECRET}
-    redirect-uri: ${REDIRECT_URI}
-    authorization-uri: ${OAUTH_ENDPOINT}/auth
+    client-id: ${PROVIDER_CLIENT_ID}
+    client-secret: ${PROVIDER_CLIENT_SECRET}
+    redirect-uri: ${PROVIDER_REDIRECT_URI}
+    authorization-uri: ${PROVIDER_OAUTH_ENDPOINT}/auth
     scope: openid
-    token-uri: ${OAUTH_ENDPOINT}/token
+    token-uri: ${PROVIDER_OAUTH_ENDPOINT}/token
   service:
     kid: "test-1"
     private-key-path: ${SERVICE_KEY_PATH}
-    tokenUri: ${SERVICE_OAUTH_ENDPOINT}/token
-    clientId: ${SERVICE_CLIENT_ID}
+    token-uri: ${SERVICE_OAUTH_ENDPOINT}/token
+    client-id: ${SERVICE_CLIENT_ID}
 
 app:
   endpoint: ${ENDPOINT}

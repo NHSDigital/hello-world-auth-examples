@@ -28,9 +28,9 @@ public class SeparateAuthRequestClient {
 
     @Value("${auth.service.kid}")
     private String serviceKid;
-    @Value("${auth.service.tokenUri}")
+    @Value("${auth.service.token-uri}")
     private String serviceTokenUri;
-    @Value("${auth.service.clientId}")
+    @Value("${auth.service.client-id}")
     private String serviceClientId;
 
     @Value("${auth.provider.client-id}")
