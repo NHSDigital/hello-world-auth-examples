@@ -1,4 +1,4 @@
-package nhsd.apim.signedJWT;
+package nhsd.apim;
 
 import java.io.IOException;
 
