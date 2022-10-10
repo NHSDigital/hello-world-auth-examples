@@ -1,0 +1,17 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: ${CLIENT_ID}
+            client-secret: ${CLIENT_SECRET}
+            authorization-grant-type: authorization_code
+            redirect-uri: ${REDIRECT_URI}
+            scope: nhs-login
+        provider:
+          keycloak:
+            authorization-uri: ${OAUTH_ENDPOINT}/authorize
+            token-uri: ${OAUTH_ENDPOINT}/token
+            user-info-uri: http://localhost:8080/userinfo
+            userNameAttribute: name
