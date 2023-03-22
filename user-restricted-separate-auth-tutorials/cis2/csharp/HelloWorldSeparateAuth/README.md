@@ -54,7 +54,7 @@ To run the example tutorial, you need to set the following environment variables
 |------------------------------|-------------------------------------------------------------------------------|
 | `KEYCLOAK_CLIENT_ID`         | `test-client-cis2`                                                            |
  | `KEYCLOAK_CLIENT_SECRET`     | `d32d122e-8f65-4077-bb34-14ac4c2c3b41`                                                                            |
-| `KEYCLOAK_AUTHORITY`         | `https://identity.ptl.api.platform.nhs.uk/auth/realms/NHS-Login-mock-sandbox` |
+| `KEYCLOAK_AUTHORITY`         | `https://identity.ptl.api.platform.nhs.uk/realms/NHS-Login-mock-sandbox` |
  | `KEYCLOAK_PRIVATE_KEY_PATH`  | The path to your private key for the Keycloak realm                           | 
  | `OAUTH_ENDPOINT`             | `https://sandbox.api.service.nhs.uk/oauth2-mock`                              |
  | `ENDPOINT`                   | `https://sandbox.api.service.nhs.uk/hello-world/hello/user`                   |

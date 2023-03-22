@@ -29,8 +29,8 @@ class HelloAuthController extends AbstractController {
             'clientId'                => 'hello-world-tutorials' ,    // The client ID assigned to you by the provider 
             'client_secret'           => 'dde091bb-97af-483e-8d3e-02d6592cf318',
             'redirectUri'             => 'http://localhost:8000/hello',
-            'urlAuthorize'            => 'https://identity.ptl.api.platform.nhs.uk/auth/realms/Cis2-mock-sandbox/protocol/openid-connect/auth',
-            'urlAccessToken'          => 'https://identity.ptl.api.platform.nhs.uk/auth/realms/Cis2-mock-sandbox/protocol/openid-connect/token',
+            'urlAuthorize'            => 'https://identity.ptl.api.platform.nhs.uk/realms/Cis2-mock-sandbox/protocol/openid-connect/auth',
+            'urlAccessToken'          => 'https://identity.ptl.api.platform.nhs.uk/realms/Cis2-mock-sandbox/protocol/openid-connect/token',
             'scopes' => ['openid', 'nationalrbacaccess'], 
             'urlResourceOwnerDetails' => ''
         ]);
@@ -50,7 +50,7 @@ class HelloAuthController extends AbstractController {
         
         $code = $_GET['code'];
         $IStokenUrl = 'https://sandbox.api.service.nhs.uk/oauth2-mock/token';
-        $tokenUrl = 'https://identity.ptl.api.platform.nhs.uk/auth/realms/Cis2-mock-sandbox/protocol/openid-connect/token';
+        $tokenUrl = 'https://identity.ptl.api.platform.nhs.uk/realms/Cis2-mock-sandbox/protocol/openid-connect/token';
         
         $APPPrivateKey_path = $_ENV['CLIENT_ID'];
         $APPClientSecret = $_ENV['CLIENT_SECRET'];
