@@ -27,8 +27,8 @@ class HelloAuthController extends AbstractController {
         $provider = new \League\OAuth2\Client\Provider\GenericProvider([
             'clientId'                => 'hello-world-tutorials' ,    // The client ID assigned to you by the provider 
             'redirectUri'             => 'http://localhost:8000/hello',
-            'urlAuthorize'            => 'https://identity.ptl.api.platform.nhs.uk/auth/realms/NHS-Login-mock-sandbox/protocol/openid-connect/auth',
-            'urlAccessToken'          => 'https://identity.ptl.api.platform.nhs.uk/auth/realms/NHS-Login-mock-sandbox/protocol/openid-connect/token',
+            'urlAuthorize'            => 'https://identity.ptl.api.platform.nhs.uk/realms/NHS-Login-mock-sandbox/protocol/openid-connect/auth',
+            'urlAccessToken'          => 'https://identity.ptl.api.platform.nhs.uk/realms/NHS-Login-mock-sandbox/protocol/openid-connect/token',
             'scopes' => ['openid', 'profile'], 
             'urlResourceOwnerDetails' => ''
         ]);
@@ -52,7 +52,7 @@ class HelloAuthController extends AbstractController {
         // FILL THESE VARIABLES
         // Please remove the extension from the file auth.
         $key_path = '/app/auth.key';
-        $tokenUrl = 'https://identity.ptl.api.platform.nhs.uk/auth/realms/NHS-Login-mock-sandbox/protocol/openid-connect/token';
+        $tokenUrl = 'https://identity.ptl.api.platform.nhs.uk/realms/NHS-Login-mock-sandbox/protocol/openid-connect/token';
         $clientId = 'hello-world-tutorials';
 
         $APPPrivateKey_path = $_ENV['CLIENT_ID'];
