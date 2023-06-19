@@ -52,7 +52,7 @@ To run the example tutorial, you need to set the following environment variables
 | Variable name               | Description                                                                                                                        |
 |-----------------------------|------------------------------------------------------------------------------------------------------------------------------------|
 | `KEYCLOAK_CLIENT_ID`        | `test-client-nhs-login`                                                                                                            |
-| `KEYCLOAK_AUTHORITY`        | `https://identity.ptl.api.platform.nhs.uk/auth/realms/NHS-Login-mock-sandbox`                                                      |
+| `KEYCLOAK_AUTHORITY`        | `https://identity.ptl.api.platform.nhs.uk/realms/NHS-Login-mock-sandbox`                                                      |
  | `KEYCLOAK_PRIVATE_KEY_PATH` | The path to the provider key. NHS login will provide this key, but for this tutorial you can use a our mock NHS login provider key | 
  | `OAUTH_ENDPOINT`            | `https://sandbox.api.service.nhs.uk/oauth2-mock`                                                                                   |
  | `ENDPOINT`                  | `https://sandbox.api.service.nhs.uk/hello-world/hello/user`                                                                        |
