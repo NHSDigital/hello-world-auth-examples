@@ -115,3 +115,21 @@ When you run the code, you should receive the following response from the Hello 
   "message": "Hello Application!"
 }
 ```
+
+## Troubleshooting
+
+If you get this error loading the private key:
+```
+java.lang.ClassCastException: class org.bouncycastle.asn1.pkcs.PrivateKeyInfo cannot be cast to class org.bouncycastle.openssl.PEMKeyPair
+```
+then you need to reformat the PEM file from PKCS8 to the traditional RSA format:
+```bash
+openssl pkey -in <FROM>.pem -traditional > <TO>.pem
+```
+
+The resulting PEM file should have this style header:
+```
+-----BEGIN RSA PRIVATE KEY-----
+...
+-----END RSA PRIVATE KEY-----
+```

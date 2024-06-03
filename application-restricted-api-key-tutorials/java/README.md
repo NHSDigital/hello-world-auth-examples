@@ -38,7 +38,7 @@ Notes:
 
 - when creating a new app, you need to select the 'Environment'. For this tutorial select 'Sandbox'.
 - when editing your application details and selecting the API you want to use, select 'Hello World (Sandbox)'. You might
-  be prompted for a callback URL which is not required for the signed API Key authentication method, so you can enter a
+  be prompted for a callback URL which is not required for the API Key authentication method, so you can enter a
   dummy value such as `https://www.example.com`.
 
 - make note of your `API Key`.
