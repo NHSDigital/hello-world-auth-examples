@@ -17,6 +17,8 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-        "cross-spawn": "^7.0.3"
+        "@popperjs/core": "^2.11.8",
+        "cross-spawn": "^7.0.6",
+        "express": "^4.21.0"
     }
 }
