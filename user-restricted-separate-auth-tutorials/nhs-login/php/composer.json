@@ -40,7 +40,7 @@
         "symfony/web-link": "6.1.*",
         "symfony/webpack-encore-bundle": "^1.15",
         "symfony/yaml": "6.1.*",
-        "symfony/symfony": "4.3.99",
+        "symfony/symfony": "4.3.9",
         "symfony/security-http": "7.1.8",
         "twig/extra-bundle": "^2.12|^3.0",
         "twig/twig": "^3.11.1"
