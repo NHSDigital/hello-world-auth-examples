@@ -20,5 +20,8 @@
         "@popperjs/core": "^2.11.8",
         "cross-spawn": "^7.0.6",
         "express": "^4.21.0"
+    },
+    "resolutions": {
+        "lodash": "4.17.23"
     }
 }
