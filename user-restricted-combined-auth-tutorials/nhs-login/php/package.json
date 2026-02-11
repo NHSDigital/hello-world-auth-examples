@@ -25,6 +25,6 @@
     },
     "resolutions": {
         "lodash": "4.17.23",
-        "webpack": "5.104.0"
+        "webpack": "5.104.1"
     }
 }
