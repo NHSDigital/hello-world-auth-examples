@@ -25,6 +25,10 @@ public class JwtHandler
         {
             _signingCredentials = FromPrivateKey(keyOrPfx, kid);
         }
+        else if (keyOrPfx.EndsWith(".pem"))
+        {
+            _signingCredentials = FromPemPrivateKey(keyOrPfx, kid);
+        }
         else
         {
             throw new Exception("Can not recognise the certificate/key extension");
@@ -33,13 +37,13 @@ public class JwtHandler
 
     public string GenerateJwt(int expInMinutes = 1)
     {
-        var now = DateTime.UtcNow; 
+        var now = DateTime.UtcNow;
         var token = new JwtSecurityToken(
             _clientId,
             _audience,
             new List<Claim>
             {
-                new("jti", Guid.NewGuid().ToString()),
+                new(JwtClaimTypes.JwtId, Guid.NewGuid().ToString()),
                 new(JwtClaimTypes.Subject, _clientId),
             },
             now,
@@ -67,10 +71,28 @@ public class JwtHandler
         privateKey = privateKey.Replace("-----BEGIN RSA PRIVATE KEY-----", "");
         privateKey = privateKey.Replace("-----END RSA PRIVATE KEY-----", "");
         var keyBytes = Convert.FromBase64String(privateKey);
-        
+
         var rsa = RSA.Create();
         rsa.ImportRSAPrivateKey(keyBytes, out _);
-        
+
+        var rsaSecurityKey = new RsaSecurityKey(rsa)
+        {
+            KeyId = kid
+        };
+
+        return new SigningCredentials(rsaSecurityKey, SecurityAlgorithms.RsaSha512)
+        {
+            CryptoProviderFactory = new CryptoProviderFactory { CacheSignatureProviders = false }
+        };
+    }
+
+    private SigningCredentials FromPemPrivateKey(string privteKeyPath, string kid)
+    {
+        var privateKey = File.ReadAllText(privteKeyPath);
+        var rsa = RSA.Create();
+
+        rsa.ImportFromPem(privateKey);
+
         var rsaSecurityKey = new RsaSecurityKey(rsa)
         {
             KeyId = kid
