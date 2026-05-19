@@ -7,13 +7,13 @@ updates:
   - package-ecosystem: "npm"
     directory: "/application-restricted-api-key-tutorials"
     schedule:
-      interval: "daily"
+      interval: "weekly"
     target-branch: "main"
-    labels: ["dependencies", "javascript", "api-key"]
+    labels: [ "dependencies", "javascript", "api-key" ]
     open-pull-requests-limit: 10
     ignore:
       - dependency-name: "*"
-        update-types: ["version-update:semver-major"]
+        update-types: [ "version-update:semver-major" ]
 
   # ---------------------------
   # NodeJS (application-restricted signed JWT tutorials)
@@ -21,13 +21,13 @@ updates:
   - package-ecosystem: "npm"
     directory: "/application-restricted-signed-jwt-tutorials"
     schedule:
-      interval: "daily"
+      interval: "weekly"
     target-branch: "main"
-    labels: ["dependencies", "javascript", "signed-jwt"]
+    labels: [ "dependencies", "javascript", "signed-jwt" ]
     open-pull-requests-limit: 10
     ignore:
       - dependency-name: "*"
-        update-types: ["version-update:semver-major"]
+        update-types: [ "version-update:semver-major" ]
 
   # ---------------------------
   # NodeJS (user-restricted combined auth tutorials)
@@ -35,13 +35,13 @@ updates:
   - package-ecosystem: "npm"
     directory: "/user-restricted-combined-auth-tutorials"
     schedule:
-      interval: "daily"
+      interval: "weekly"
     target-branch: "main"
-    labels: ["dependencies", "javascript", "combined-auth"]
+    labels: [ "dependencies", "javascript", "combined-auth" ]
     open-pull-requests-limit: 10
     ignore:
       - dependency-name: "*"
-        update-types: ["version-update:semver-major"]
+        update-types: [ "version-update:semver-major" ]
 
   # ---------------------------
   # NodeJS (user-restricted separate auth tutorials)
@@ -49,13 +49,13 @@ updates:
   - package-ecosystem: "npm"
     directory: "/user-restricted-separate-auth-tutorials"
     schedule:
-      interval: "daily"
+      interval: "weekly"
     target-branch: "main"
-    labels: ["dependencies", "javascript", "separate-auth"]
+    labels: [ "dependencies", "javascript", "separate-auth" ]
     open-pull-requests-limit: 10
     ignore:
       - dependency-name: "*"
-        update-types: ["version-update:semver-major"]
+        update-types: [ "version-update:semver-major" ]
 
   # ---------------------------
   # GitHub Actions workflows
@@ -63,6 +63,8 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "weekly"
     target-branch: "main"
-    labels: ["dependencies", "github-actions"]
+    labels: [ "dependencies", "github-actions" ]
+    cooldown:
+      default-days: 7
