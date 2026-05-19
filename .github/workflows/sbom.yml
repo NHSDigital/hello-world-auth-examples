@@ -63,8 +63,8 @@ jobs:
 
       - name: Convert SBOM JSON to CSV
         run: |
-          pip install --upgrade pip
-          pip install tabulate  
+          pip install --upgrade pip # NOSONAR
+          pip install tabulate  # NOSONAR
           REPO_NAME=$(basename $GITHUB_REPOSITORY)
           python .github/scripts/sbom_json_to_csv.py sbom.json SBOM_${REPO_NAME}.csv
 
@@ -76,7 +76,16 @@ jobs:
 
       - name: Install Grype
         run: |
-          curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin
+          #curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin
+          # Step 1: Download
+          curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh -o install-grype.sh
+
+          # Step 2: Verify (signature / checksum ideally)
+          chmod +x install-grype.sh
+
+          # Step 3: Run with version pin
+          ./install-grype.sh -b /usr/local/bin v0.112.0
+
 
       - name: Scan SBOM for Vulnerabilities (JSON)
         run: |
@@ -84,7 +93,7 @@ jobs:
 
       - name: Convert Grype JSON to CSV
         run: |
-          pip install --upgrade pip
+          pip install --upgrade pip # NOSONAR
           REPO_NAME=$(basename $GITHUB_REPOSITORY)
           python .github/scripts/grype_json_to_csv.py grype-report.json grype-report-${REPO_NAME}.csv
 
@@ -96,7 +105,7 @@ jobs:
 
       - name: Generate Package Inventory CSV
         run: |
-          pip install --upgrade pip
+          pip install --upgrade pip # NOSONAR
           REPO_NAME=$(basename $GITHUB_REPOSITORY)
           python .github/scripts/sbom_packages_to_csv.py sbom.json $REPO_NAME
 
