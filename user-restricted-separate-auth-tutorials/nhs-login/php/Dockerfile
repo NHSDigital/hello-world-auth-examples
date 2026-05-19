@@ -4,8 +4,9 @@ USER root
 RUN apt-get update -y && apt-get install -y libmcrypt-dev
 
 # RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | bash && \
-
-RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' -o setup-symfony.sh \
+RUN curl --proto '=https' --tlsv1.2 -sSfL \
+        'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' \
+        -o setup-symfony.sh \
     && chmod +x setup-symfony.sh \
     && ./setup-symfony.sh \
     && apt-get update \
