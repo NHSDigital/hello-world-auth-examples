@@ -76,9 +76,11 @@ jobs:
 
       - name: Install Grype
         run: |
-          #curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin
           # Step 1: Download
-          curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh -o install-grype.sh
+          curl --proto '=https' --tlsv1.2 --retry 3 --fail -sSL \
+            https://raw.githubusercontent.com/anchore/grype/main/install.sh \
+            -o install-grype.sh
+          
 
           # Step 2: Verify (signature / checksum ideally)
           chmod +x install-grype.sh
