@@ -20,7 +20,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-        "@babel/core": "^7.26.10",
+        "@babel/core": "^7.29.6",
         "@babel/preset-env": "^7.26.9",
         "@popperjs/core": "^2.11.8",
         "webpack": "^5.99.0",
