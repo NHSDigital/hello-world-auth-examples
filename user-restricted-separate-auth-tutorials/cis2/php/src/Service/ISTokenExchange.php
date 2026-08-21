@@ -7,7 +7,7 @@ class ISTokenExchange {
     private $subject_token;
     private $client_assertion;
     
-  function __construct($subject_token, $client_assertion)
+  public function __construct($subject_token, $client_assertion)
   {
     $this->subject_token = $subject_token;
     $this->client_assertion = $client_assertion;

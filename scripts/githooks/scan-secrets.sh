@@ -42,7 +42,7 @@ function main() {
 function get-cmd-to-run() {
 
   check=${check:-staged-changes}
-  case $check in
+  case "$check" in
     "whole-history")
       cmd="detect --source $dir --verbose --redact"
       ;;
@@ -52,9 +52,13 @@ function get-cmd-to-run() {
     "staged-changes")
       cmd="protect --source $dir --verbose --staged"
       ;;
+    *)
+      echo "ERROR: Invalid check value: '$check'" >&2
+      exit 1
+      ;;
   esac
   # Include base line file if it exists
-  if [ -f "$dir/scripts/config/.gitleaks-baseline.json" ]; then
+  if [[ -f "$dir/scripts/config/.gitleaks-baseline.json" ]]; then
     cmd="$cmd --baseline-path $dir/scripts/config/.gitleaks-baseline.json"
   fi
   # Include the config file
@@ -94,8 +98,8 @@ function run-gitleaks-in-docker() {
 # ==============================================================================
 
 function is-arg-true() {
-
-  if [[ "$1" =~ ^(true|yes|y|on|1|TRUE|YES|Y|ON)$ ]]; then
+  local value="$1"
+  if [[ "$value" =~ ^(true|yes|y|on|1|TRUE|YES|Y|ON)$ ]]; then
     return 0
   else
     return 1

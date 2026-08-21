@@ -8,7 +8,7 @@ class SeparateAuthHttpClient {
     private $jwt;
     private $tokenUrl;
 
-  function __construct($code, $jwt, $tokenUrl)
+  public function __construct($code, $jwt, $tokenUrl)
   {
     $this->code = $code;
     $this->jwt = $jwt;
