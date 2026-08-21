@@ -49,7 +49,7 @@ class JwtHandler
     return $jwt;
   }
 
-  function base64UrlEncode($data)
+  private function base64UrlEncode($data)
   {
     return \str_replace('=', '', \strtr(\base64_encode($data), '+/', '-_'));
   }

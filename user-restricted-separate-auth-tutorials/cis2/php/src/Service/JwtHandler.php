@@ -10,7 +10,7 @@ class JwtHandler
   private $privateKeyFile;
   private $alg;
 
-  function __construct($privateKeyFile, $audience, $client_id, $kid, $alg, $alg_encrypt)
+  public function __construct($privateKeyFile, $audience, $client_id, $kid, $alg, $alg_encrypt)
   {
     $this->audience = $audience;
     $this->client_id = $client_id;
@@ -47,7 +47,7 @@ class JwtHandler
     return $jwt;
   }
 
-  function base64UrlEncode($data)
+  private function base64UrlEncode($data)
   {
     return \str_replace('=', '', \strtr(\base64_encode($data), '+/', '-_'));
   }
