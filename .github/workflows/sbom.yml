@@ -1,11 +1,146 @@
-name: SBOM Scan
+name: SBOM Vulnerability Scanning
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Run SBOM check"
+        required: true
+        type: choice
+        options:
+          - yes
+          - no
+
+env:
+  SYFT_VERSION: "1.27.1"
+  SYFT_SHA256: "c2cb5867a238baf41adf15f7e01e28cbd886378859eed81e52c080ca0346eefe"
+  GRYPE_VERSION: "0.117.0"
+  GRYPE_SHA256: "38525dab1e06f162ebaa02f94d82d1f807076b011a44180cf2777edf1a7b9c26"
+  TF_VERSION: "1.12.2"
 
 jobs:
-  sbom:
-    uses: NHSDigital/api-management-utils/.github/workflows/shared-sbom-scan.yml@d3fdf3c23ad0777185a747a3a35e45cb5655ec2b #edge branch
-    
+  deploy:
+    name: Software Bill of Materials
+    runs-on: ubuntu-latest
+
+    permissions:
+      actions: read
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+
+      - name: Setup Python 3.13
+        uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c # v6.0.0
+        with:
+          python-version: "3.13"
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd
+
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@ae78205cfffec9e8d93fd2b3115c7e9d3166d4b6
+
+      - name: Set architecture variable
+        id: os-arch
+        run: |
+          case "${{ runner.arch }}" in
+            X64) ARCH="amd64" ;;
+            ARM64) ARCH="arm64" ;;
+          esac
+          echo "arch=${ARCH}" >> "$GITHUB_OUTPUT"
+
+      - name: Download and install Syft
+        run: |
+          DOWNLOAD_URL="https://github.com/anchore/syft/releases/download/v${{ env.SYFT_VERSION }}/syft_${{ env.SYFT_VERSION }}_linux_${{ steps.os-arch.outputs.arch }}.tar.gz"
+          echo $DOWNLOAD_URL
+          curl \
+            --proto '=https' \
+            --tlsv1.2 \
+            --location \
+            --fail \
+            --silent \
+            --show-error \
+            -o syft.tar.gz \
+            "${DOWNLOAD_URL}"
+          
+          echo "${{ env.SYFT_SHA256 }}  syft.tar.gz" | sha256sum -c -
+          
+          tar -xzf syft.tar.gz
+          chmod +x syft
+
+          # Add to PATH for subsequent steps
+          echo "$(pwd)" >> $GITHUB_PATH
+
+      - name: Create SBOM
+        run: bash scripts/create-sbom.sh terraform python tflint
+
+      - name: Convert SBOM JSON to CSV
+        run: |
+          python -m pip install --upgrade pip==25.2 --only-binary :all:
+          python -m pip install tabulate==0.10.0 --only-binary :all:
+
+          REPO_NAME=$(basename "$GITHUB_REPOSITORY")
+          python .github/scripts/sbom_json_to_csv.py \
+            sbom.json \
+            SBOM_${REPO_NAME}.csv
+
+      - name: Upload SBOM CSV as artifact
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: sbom-csv
+          path: SBOM_${{ github.event.repository.name }}.csv
+
+      - name: Install Grype
+        run: |
+          DOWNLOAD_URL="https://github.com/anchore/grype/releases/download/v${{ env.GRYPE_VERSION }}/grype_${{ env.GRYPE_VERSION }}_linux_${{ steps.os-arch.outputs.arch }}.tar.gz"
+          echo $DOWNLOAD_URL
+          curl \
+              --proto '=https' \
+              --tlsv1.2 \
+              --location \
+              --fail \
+              --silent \
+              --show-error \
+              -o grype.tar.gz \
+              "${DOWNLOAD_URL}"
+          
+          echo "${{ env.GRYPE_SHA256 }}  grype.tar.gz" | sha256sum -c -
+          
+          tar -xzf grype.tar.gz
+          
+          chmod +x grype   
+          
+          echo "$(pwd)" >> "$GITHUB_PATH"
+          ./grype version
+
+      - name: Scan SBOM for Vulnerabilities
+        run: |
+          grype sbom:sbom.json -o json > grype-report.json
+
+      - name: Convert Grype JSON to CSV
+        run: |
+          REPO_NAME=$(basename "$GITHUB_REPOSITORY")
+          python .github/scripts/grype_json_to_csv.py \
+            grype-report.json \
+            grype-report-${REPO_NAME}.csv
+
+      - name: Upload Vulnerability Report
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: grype-report
+          path: grype-report-${{ github.event.repository.name }}.csv
+
+      - name: Generate Package Inventory CSV
+        run: |
+          REPO_NAME=$(basename "$GITHUB_REPOSITORY")
+          python .github/scripts/sbom_packages_to_csv.py \
+            sbom.json \
+            "$REPO_NAME"
+
+      - name: Upload Package Inventory CSV
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: sbom-packages
+          path: sbom-packages-${{ github.event.repository.name }}.csv
