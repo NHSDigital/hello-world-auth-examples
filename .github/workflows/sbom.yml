@@ -1,15 +1,13 @@
 name: SBOM Vulnerability Scanning
 
 on:
-  workflow_dispatch:
-    inputs:
-      environment:
-        description: "Run SBOM check"
-        required: true
-        type: choice
-        options:
-          - yes
-          - no
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
 
 env:
   SYFT_VERSION: "1.27.1"
