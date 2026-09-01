@@ -1,14 +1,10 @@
-name: SBOM Scans
+name: SBOM Scan
 
 on:
   push:
     branches:
-      - main
-
-  pull_request:
-    branches:
-      - main
+      - master
 
 jobs:
   sbom:
-    uses: NHSDigital/api-management-utils/.github/workflows/shared-sbom-scan.yml@master
+    uses: NHSDigital/api-management-utils/.github/workflows/shared-sbom-scan.yml@d3fdf3c23ad0777185a747a3a35e45cb5655ec2b #edge branch
