@@ -6,10 +6,9 @@ on:
       - main
 
   pull_request:
-     branches:
-       - main
+    branches:
+      - main
 
 jobs:
   sbom:
-    uses: NHSDigital/api-management-utils/.github/workflows/shared-sbom-scan.yml@2bc015130bc25513a7d7ae5e356416f002579205 #edge branch
-    
+    uses: NHSDigital/api-management-utils/.github/workflows/shared-sbom-scan.yml@master
