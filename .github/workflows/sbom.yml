@@ -35,7 +35,7 @@ jobs:
           python-version: "3.13"
 
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd
+        uses: hashicorp/setup-terraform@dfe3c3f87815947d99a8997f908cb6525fc44e9e
 
       - name: Setup TFLint
         uses: terraform-linters/setup-tflint@ae78205cfffec9e8d93fd2b3115c7e9d3166d4b6
