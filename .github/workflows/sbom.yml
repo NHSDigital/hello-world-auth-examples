@@ -85,7 +85,7 @@ jobs:
             SBOM_${REPO_NAME}.csv
 
       - name: Upload SBOM CSV as artifact
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: sbom-csv
           path: SBOM_${{ github.event.repository.name }}.csv
@@ -125,7 +125,7 @@ jobs:
             grype-report-${REPO_NAME}.csv
 
       - name: Upload Vulnerability Report
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: grype-report
           path: grype-report-${{ github.event.repository.name }}.csv
@@ -138,7 +138,7 @@ jobs:
             "$REPO_NAME"
 
       - name: Upload Package Inventory CSV
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: sbom-packages
           path: sbom-packages-${{ github.event.repository.name }}.csv
