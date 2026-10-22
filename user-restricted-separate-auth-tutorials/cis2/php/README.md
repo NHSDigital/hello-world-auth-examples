@@ -9,7 +9,7 @@ To call a user-restricted API, the end user must be authenticated.
 NHS CIS2 is used to authenticate when the end user is a healthcare worker. With the separate authentication and authorisation pattern, authentication and authorisation are done separately. You might authenticate the user when they sign in but only get authorisation to call the API if and when you need it. You do authentication directly with NHS CIS2 and then separately do authorisation with our OAuth2.0 authorisation service
 
 ## Setting up your environment
-This example project was developed using Symfony 6.1.4 and PHP 8.1.9 so you need to have these installed.
+This example project was developed using Symfony 6.1.4 and PHP 8.5.12 so you need to have these installed.
 
 ## Checkout the GitHub Repository
 

@@ -9,7 +9,7 @@ To call a user-restricted API, the end user must be authenticated.
 NHS login is used to authenticate when the end user is a patient. With the combined authentication and authorisation pattern, authentication is done by NHS login but is coordinated behind our OAuth2.0 authorisation server. In exchange, you receive an access token which you need to include in the API request.
 
 ## Setting up your environment
-This example project was developed using Symfony 6.1.4 and PHP 8.1.9 so you need to have these installed.
+This example project was developed using Symfony 6.1.4 and PHP 8.5.12 so you need to have these installed.
 
 ## Checkout the GitHub Repository
 
