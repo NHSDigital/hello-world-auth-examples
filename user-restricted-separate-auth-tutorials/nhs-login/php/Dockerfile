@@ -1,4 +1,4 @@
-FROM php:8.1.11RC1-zts-buster
+FROM php:8.5.12-zts-bookworm
 USER root
 
 RUN apt-get update -y && apt-get install -y libmcrypt-dev

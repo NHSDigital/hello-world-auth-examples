@@ -9957,7 +9957,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=8.1",
+        "php": ">=8.5.12",
         "ext-ctype": "*",
         "ext-iconv": "*"
     },
