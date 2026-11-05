@@ -2,9 +2,8 @@ name: Update PHP packages
 
 on:
   push:
-  # Temporary: remove before merging to main
-  schedule:
-    - cron: "0 9 * * 1,3" #Monday and Wednesday at 9:00 AM UTC
+    branches:
+      - APM-6800-enable-automated-patches
   workflow_dispatch:
 
 permissions:
