@@ -1,9 +1,8 @@
-name: Update PHP packages
+name: Update Yarn packages
 
 on:
   push:
-    branches:
-      - APM-6800-enable-automated-patches
+    branches: [ APM-6800-enable-automated-patches ]
   workflow_dispatch:
 
 permissions:
@@ -12,34 +11,36 @@ permissions:
 
 jobs:
   update-packages:
-    name: Update Composer lockfile
+    name: Update Yarn lockfile
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - name: Install PHP
-        uses: shivammathur/setup-php@v2
+      - name: Install Node.js
+        uses: actions/setup-node@v7
         with:
-          php-version: "8.5"
-          tools: composer
+          node-version: "22"
 
-      - name: Update PHP packages
+      - name: Update Yarn packages
         working-directory: user-restricted-separate-auth-tutorials/nhs-login/php
-        run: composer update --no-interaction #NOSONAR
+        run: |
+          corepack enable
+          yarn install
+          yarn upgrade #NOSONAR
 
       - name: Create pull request
         uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 #v8.1.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           sign-commits: true
-          branch: APM-6800-update-php
+          branch: APM-6800-update-yarn
           base: main
           delete-branch: true
           add-paths: |
-            user-restricted-separate-auth-tutorials/nhs-login/php/composer.lock
-          commit-message: "chore: update PHP packages"
-          title: "chore: update PHP packages"
-          body: "Updates PHP dependencies in user-restricted-separate-auth-tutorials/nhs-login/php/composer.lock."
-          labels: dependencies, php, composer
+            user-restricted-separate-auth-tutorials/nhs-login/php/yarn.lock
+          commit-message: "chore: update Yarn packages"
+          title: "chore: update Yarn packages"
+          body: "Updates JavaScript dependencies in user-restricted-separate-auth-tutorials/nhs-login/php/yarn.lock."
+          labels: dependencies, javascript, yarn
