@@ -24,7 +24,7 @@
         "webpack-cli": "^6.0.1"
     },
     "resolutions": {
-        "lodash": "4.17.23",
+        "lodash": "4.18.1",
         "webpack": "5.104.1"
     }
 }
