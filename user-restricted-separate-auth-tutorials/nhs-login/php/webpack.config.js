@@ -1,8 +1,9 @@
-const Encore = require('@symfony/webpack-encore');
+const EncoreModule = require('@symfony/webpack-encore');
+const Encore = EncoreModule.default || EncoreModule;
 
-// Manually configure the runtime environment if not already configured yet by the "encore" command.
-// It's useful when you use tools that rely on webpack.config.js file.
-if (!Encore.isRuntimeEnvironmentConfigured()) {
+// Manually configure the runtime environment for tools that load webpack.config.js directly.
+// Encore v7 removed isRuntimeEnvironmentConfigured(), so support both old and new APIs.
+if (typeof Encore.isRuntimeEnvironmentConfigured !== 'function' || !Encore.isRuntimeEnvironmentConfigured()) {
     Encore.configureRuntimeEnvironment(process.env.NODE_ENV || 'dev');
 }
 
@@ -47,12 +48,11 @@ Encore
 
     .configureBabel((config) => {
         config.plugins.push('@babel/plugin-proposal-class-properties');
-    })
-
-    // enables @babel/preset-env polyfills
-    .configureBabelPresetEnv((config) => {
-        config.useBuiltIns = 'usage';
-        config.corejs = 3;
+        // Babel 8 removed preset-env useBuiltIns/corejs; this restores usage-based core-js polyfills.
+        config.plugins.push(['babel-plugin-polyfill-corejs3', {
+            method: 'usage-global',
+            version: '3.41',
+        }]);
     })
 
     // enables Sass/SCSS support
